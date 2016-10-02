@@ -1,0 +1,53 @@
+<div class="panel panel-default">
+<div class="panel-heading">
+  <i class="fa fa-user"></i>
+   Usuarios
+ </div>
+ <div class="panel-body">
+   <div class="row">
+      <div class ="col-md-12">
+        <div class="text-right">
+          <button type="button" uib-tooltip="Crear Usuario" ng-click="vm.openCreate()"  class="btn btn-primary">
+            Crear
+          </button>
+        </div>
+      </div>
+   </div>
+   <div class="row">
+     <div class="col-md-12">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+               <th>Nombre</th>
+               <th>Cedula</th>
+               <th>Rol</th>
+               <th>Dirección</th>
+               <th>Telefono</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="user in vm.listaUsuarios">
+                <td> {{user.name}}</td>
+                <td> {{user.cedula}}</td>
+                <td>{{user.role_name}}</td>
+                <td>{{user.direccion}}</td>
+                <td>{{user.telefono}}</td>
+                <td>
+                  <button type="button" uib-tooltip="Editar" class="btn btn-success">
+                      <i class="fa fa-pencil"></i>
+                  </button>
+                  <button type="button" uib-tooltip="Ver" class="btn btn-default">
+                      <i class="fa fa-eye"></i>
+                  </button>
+                  <button type="button" uib-tooltip="Eliminar" class="btn btn-danger">
+                      <i class="fa fa-trash-o"></i>
+                  </button>
+                </td>
+            </tr>
+          </tbody>
+        </table>
+     </div>
+   </div>
+ </div>
+
+</div>

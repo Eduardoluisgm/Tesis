@@ -1,0 +1,61 @@
+<div class="modal-header">
+    <Label>Crear Usuario</label>
+    <button type="button" ng-click="vm.cancel()" class="close"><span aria-hidden="true">&times;</span></button>
+</div>
+<form ng-submit="vm.save()">
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-6">
+        <label>Cedula:</label>
+        <input type="text" ng-model="vm.user.cedula" class="form-control"/>
+      </div>
+      <div class="col-md-6">
+        <label>Fecha de ingreso:</label>
+        <div class="input-group">
+          <input type="text" class="form-control" uib-datepicker-popup ng-model="vm.user.fecha_ingreso"
+          is-open="vm.openDate"
+          ng-required="true" close-text="Cerrar"/>
+          <span class="input-group-btn">
+              <button type="button" class="btn btn-success" ng-click="vm.open_fecha_ingreso()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <label>Nombre</label>
+        <input type="text" class="form-control" ng-model="vm.user.name"/>
+      </div>
+      <div class="col-md-6">
+        <label>Email</label>
+        <input type="email" class="form-control" ng-model="vm.user.email"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <label>Contraseña</label>
+        <input type="password" ng-model="vm.user.password" class="form-control" maxlength="8"/>
+      </div>
+      <div class="col-md-6">
+        <label>Confirmar Contraseña </label>
+        <input type="password" ng-model="vm.user.confirm_password" class="form-control" maxlength="8"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <label>telefono</label>
+        <input type="text" class="form-control" ng-model="vm.user.telefono"/>
+      </div>
+      <div class="col-md-6">
+        <label>Seleccione un Rol</label>
+        <select class="form-control" ng-model="vm.user.rol_id" ng-options="rol.id as rol.name for rol in vm.listaroles" required>
+          <option>{{rol.name}}</option>
+        </select> <!-- -->
+      </div>
+
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-primary">Guardar</button>
+  </div>
+</form>
