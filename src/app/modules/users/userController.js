@@ -4,11 +4,13 @@ angular.module('frontEndApp')
   .controller('usersController', usersController)
   .controller('UserCreateController', UserCreateController);
 
-  function usersController (user,$uibModal,$q,$log) {
+  function usersController (user,$uibModal,$q,$log,authUser) {
       var vm = this;
       vm.cargar = cargar;
       vm.openCreate = openCreate;
       vm.listaUsuarios = [];
+      vm.profile= authUser.profile();
+      console.log(vm.profile);
       cargar();
 
       /*Funcion que se ejecuta por primera vez*/
@@ -32,13 +34,14 @@ angular.module('frontEndApp')
   };
 
   /*Modal de crear Usuario*/
-  function UserCreateController ($uibModalInstance,$q,role) {
+  function UserCreateController ($uibModalInstance,$q,role, toastr,user) {
     var vm = this;
     vm.openDate = false; /*Verifica que el calendario este cerrado*/
     vm.listaroles= [];
+    vm.isloading = false;
     cargar();
     vm.user = {
-      'cedula':"23591017",
+      'cedula':"",
       'name':"",
       'email': "",
       'password':"",
@@ -46,9 +49,9 @@ angular.module('frontEndApp')
       'direccion':"",
       'telefono':"",
       'fecha_ingreso': new Date(),
-      'rol_id':1
+      'start_date': new Date(),
+      'role_id':2
     }
-
     function cargar () {
       var roles = role.query();
       $q.all([roles.$promise]).then(function(data){
@@ -56,18 +59,42 @@ angular.module('frontEndApp')
         console.log("roles", vm.listaroles);
       });
     }
-
     /*funcion que abre y cierra el caendario*/
     vm.open_fecha_ingreso = function() {
       vm.openDate = !vm.openDate;
     };
-
     /*Guarda el usuario*/
     vm.save = function () {
+      vm.isloading = true;
+      if (vm.user.password==vm.user.confirm_password) {
+        vm.user.fecha_ingreso = moment(vm.user.start_date).format('YYYY-MM-DD HH:mm');
+        user.save(vm.user,
+          function (data) {
+            toastr.success("Usuario registrado exitosamente");
+            vm.isloading = false;
+          },
+          function (err) {
+            if (err.status==409) {
+              toastr.info("Ya existe un usuario con esa cedula", "Información");
+            }
+            console.log("error",err);
+            vm.isloading = false;
+          });
+      } else {
+        vm.isloading = false;
+        toastr.warning('Las contraseñas no coinciden','Advertencia');
+      }
       console.log(vm.user);
     }
     /*Cierra la modal*/
     vm.cancel= function() {
       $uibModalInstance.dismiss('cancel');
+    }
+
+    /*Solo permite numeros*/
+    vm.solonumeros = function(event) {
+      if (event.keyCode >= 48 && event.keyCode <= 57 || event.keyCode == 46) {} else {
+        event.preventDefault();
+      }
     }
   }

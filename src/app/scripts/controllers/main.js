@@ -8,10 +8,13 @@
  * Controller of the frontEndApp
  */
 angular.module('frontEndApp')
-  .controller('MainCtrl', function () {
+  .controller('MainCtrl', function ($rootScope) {
+    console.log("index");
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
+
+    $rootScope.$broadcast('MenuProfile', {data: 'data'});
   });

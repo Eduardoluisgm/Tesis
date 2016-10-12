@@ -23,7 +23,8 @@ class User extends Authenticatable
         'cedula',
         'direccion',
         'role_id',
-        'fecha_ingreso'
+        'fecha_ingreso',
+        'telefono'
     ];
 
     /**

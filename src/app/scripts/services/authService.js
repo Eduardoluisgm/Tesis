@@ -20,21 +20,23 @@ angular.module('authService',[])
   };
 
   function authUser ($auth,sessionControl, toastr,$location) {
-    var cacheSession = function (cedula, userName) {
+    var cacheSession = function (cedula, userName, profile) {
       sessionControl.set('userIsLogin',true);
       sessionControl.set('cedula',cedula);
       sessionControl.set('nombre',userName);
+      sessionControl.set('profile',profile);
     };
 
     var uncacheSession = function () {
       sessionControl.unset('userIsLogin');
       sessionControl.unset('cedula');
       sessionControl.unset('nombre');
+      sessionControl.unset('profile');
     };
     var login = function (credentials) {
       $auth.login(credentials).then(
         function (response) {
-          cacheSession(response.data.user.cedula, response.data.user.name);
+          cacheSession(response.data.user.cedula, response.data.user.name, response.data.user);
           toastr.info('Estoy logueado');
           $location.path('/');
           console.log('bn',response);
@@ -52,6 +54,9 @@ angular.module('authService',[])
       },
       isLogin: function (){
         return sessionControl.get('userIsLogin') !==null;
+      },
+      profile: function () {
+        return sessionControl.get('nombre');
       }
     }
   };

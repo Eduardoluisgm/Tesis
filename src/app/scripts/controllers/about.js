@@ -8,11 +8,13 @@
  * Controller of the frontEndApp
  */
 angular.module('frontEndApp')
-  .controller('AboutCtrl', function () {
+  .controller('AboutCtrl', function ($rootScope) {
     console.log("aquiii");
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
+
+    
   });

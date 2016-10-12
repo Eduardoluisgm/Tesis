@@ -18,7 +18,7 @@ class CreateUserTable extends Migration
              $table->string('name');
              $table->string('email')->nullable();
              $table->string('password');
-             $table->date('fecha_ingreso')->nullable();
+             $table->dateTime('fecha_ingreso')->nullable();
              $table->string('direccion')->nullable();
              $table->string('telefono')->nullable();
              $table->integer('role_id')->unsigned();

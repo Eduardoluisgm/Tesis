@@ -10,7 +10,7 @@ use App\role;
 class roleController extends Controller
 {
     function All () {
-      $roles = role::all();
+      $roles = role::where('id','>',1)->get();
       return $roles;
     }
 }

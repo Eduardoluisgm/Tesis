@@ -21,7 +21,8 @@ angular
     'satellizer',
     'authService',
     'toastr',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'angular-ladda'
   ])
   .config(function ($routeProvider,$authProvider,ApiUrl) {
     console.log("url del api ", ApiUrl);
@@ -31,6 +32,11 @@ angular
         templateUrl: 'views/main.html',
         controller: 'MainCtrl',
         controllerAs: 'main'
+      })
+      .when('/index', {
+        templateUrl: 'index.html',
+        controller: 'indexController',
+        controllerAs: 'vm'
       })
       .when('/about', {
         templateUrl: 'views/about.html',

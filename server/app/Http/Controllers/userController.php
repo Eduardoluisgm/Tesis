@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Hash;
 use App\Http\Requests;
 use App\User;
 use App\role;
@@ -32,6 +32,20 @@ class userController extends Controller
       $user->load('role');
       $user['role_name']= $user['role']['name'];
       unset($user['role']);
+      return $user;
+    }
+
+    /*Guardar Usuario*/
+    function save (Request $request) {
+      $cedula = $request->input('cedula');
+      $user = User::find($cedula);
+      if ($user) {
+        abort(409,'Existe un Usuario con esa cedula');
+      }
+      $new = new User;
+      $new->fill($request->all());
+      $new->password= Hash::make($request->input('password'));
+      $new->save();
       return $user;
     }
 }
