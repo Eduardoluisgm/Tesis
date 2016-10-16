@@ -1,0 +1,13 @@
+[1012/190832:ERROR:process_reader_win.cc(142)] SuspendThread: Acceso denegado. (0x5)
+[1012/190832:ERROR:process_reader_win.cc(142)] SuspendThread: Acceso denegado. (0x5)
+[1012/190832:ERROR:process_reader_win.cc(142)] SuspendThread: Acceso denegado. (0x5)
+[1012/190832:ERROR:process_reader_win.cc(142)] SuspendThread: Acceso denegado. (0x5)
+[1012/190832:ERROR:process_reader_win.cc(142)] SuspendThread: Acceso denegado. (0x5)
+[1012/190832:ERROR:process_reader_win.cc(142)] SuspendThread: Acceso denegado. (0x5)
+[1012/190832:ERROR:process_reader_win.cc(142)] SuspendThread: Acceso denegado. (0x5)
+[1012/190832:ERROR:process_reader_win.cc(142)] SuspendThread: Acceso denegado. (0x5)
+[1012/190832:ERROR:process_reader_win.cc(142)] SuspendThread: Acceso denegado. (0x5)
+[1012/190832:ERROR:process_reader_win.cc(142)] SuspendThread: Acceso denegado. (0x5)
+[1012/190832:ERROR:process_reader_win.cc(142)] SuspendThread: Acceso denegado. (0x5)
+[1012/190832:ERROR:exception_snapshot_win.cc(87)] thread ID 7812 not found in process
+[1012/190832:WARNING:crash_report_exception_handler.cc(56)] ProcessSnapshotWin::Initialize failed

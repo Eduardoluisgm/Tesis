@@ -14,7 +14,7 @@ class userController extends Controller
     function AllUser (Request $request) {
         $page = $request->input('page');
         if ($page) {
-          $users = User::paginate(10);
+          $users = User::paginate(8);
         } else {
           $users = User::all();
         }
@@ -47,5 +47,11 @@ class userController extends Controller
       $new->password= Hash::make($request->input('password'));
       $new->save();
       return $user;
+    }
+
+    function delete ($cedula) {
+      $user = User::findOrFail($cedula);
+      $user->delete();
+      return "Eliminado";
     }
 }

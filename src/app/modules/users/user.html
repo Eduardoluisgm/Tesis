@@ -13,7 +13,7 @@
         </div>
       </div>
    </div>
-   <div class="row">
+   <div class="row table-large">
      <div class="col-md-12">
         <table class="table table-striped">
           <thead>
@@ -33,19 +33,40 @@
                 <td>{{user.direccion}}</td>
                 <td>{{user.telefono}}</td>
                 <td>
-                  <button type="button" uib-tooltip="Editar" class="btn btn-success">
+                  <button  ng-if="user.role_id!=1" type="button" uib-tooltip="Editar" class="btn btn-success">
                       <i class="fa fa-pencil"></i>
                   </button>
-                  <button type="button" uib-tooltip="Ver" class="btn btn-default">
+                  <button ng-click="vm.openInformation(user)"  ng-if="user.role_id!=1" type="button" uib-tooltip="Ver" class="btn btn-default">
                       <i class="fa fa-eye"></i>
                   </button>
-                  <button type="button" uib-tooltip="Eliminar" class="btn btn-danger">
+                  <button  ng-if="user.role_id!=1"
+                    type="button"
+                    uib-tooltip="Eliminar"
+                    class="btn btn-danger"
+                    mwl-confirm
+                    message="¿Esta seguro que desea eliminar el usuario {{user.name}}?"
+                    confirm-text="Si"
+                    cancel-text="No"
+                    placement="{{ placement }}"
+                    on-confirm="vm.DeleteUser(user.cedula)"
+                    on-cancel=""
+                    confirm-button-type="success"
+                    cancel-button-type="default">
                       <i class="fa fa-trash-o"></i>
                   </button>
                 </td>
             </tr>
           </tbody>
         </table>
+     </div>
+   </div>
+   <div class="row">
+     <div class="col-md-12">
+       <div class="pull-right">
+         <ul uib-pagination total-items="vm.pagination.total" ng-model="vm.pagination.current_page" max-size="5"
+         class="pagination-sm" ng-change="vm.changePage(vm.pagination.current_page)" boundary-links="true" force-ellipses="true" items-per-page="vm.pagination.per_page"
+         first-text="<<" last-text=">>" next-text=">" previous-text="<"></ul>
+       </div>
      </div>
    </div>
  </div>

@@ -3,3 +3,16 @@
   margin-left: 30%;
   margin-right: 35%;
 }
+
+.panel-login {
+  margin-top: 0px!important;
+  margin-left: 0px!important;
+}
+
+.table-large {
+  min-height: 450px;
+}
+
+.pull-right {
+  float: right;
+}

@@ -23,10 +23,11 @@ Route::group(['middleware' => 'cors'], function (){
     Route::get('user', 'userController@AllUser');
     Route::get('user/{cedula}', 'userController@get');
     Route::post('user', 'userController@save');
+    Route::delete('user/{cedula}', 'userController@delete');
 
     /*Roles*/
     Route::get('role','roleController@All');
-    
+
     /*Profile*/
     Route::get('profile', 'profileController@get');
 

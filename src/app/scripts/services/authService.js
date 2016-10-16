@@ -19,7 +19,7 @@ angular.module('authService',[])
     }
   };
 
-  function authUser ($auth,sessionControl, toastr,$location) {
+  function authUser ($auth,sessionControl, toastr,$location, $rootScope) {
     var cacheSession = function (cedula, userName, profile) {
       sessionControl.set('userIsLogin',true);
       sessionControl.set('cedula',cedula);
@@ -37,14 +37,14 @@ angular.module('authService',[])
       $auth.login(credentials).then(
         function (response) {
           cacheSession(response.data.user.cedula, response.data.user.name, response.data.user);
-          toastr.info('Estoy logueado');
+          toastr.info('Bienvenido');
+          $rootScope.$broadcast('MenuProfile');
           $location.path('/');
-          console.log('bn',response);
 
         }, function (err) {
           uncacheSession();
-          toastr.error('Credenciales invalidas');
-          console.log('erro',err);
+          toastr.error('Usuario no registrado');
+          $rootScope.$broadcast('errorLogin');
         }
       );
     };

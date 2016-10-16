@@ -22,7 +22,8 @@ angular
     'authService',
     'toastr',
     'ui.bootstrap',
-    'angular-ladda'
+    'angular-ladda',
+    'mwl.confirm'
   ])
   .config(function ($routeProvider,$authProvider,ApiUrl) {
     console.log("url del api ", ApiUrl);
@@ -32,6 +33,11 @@ angular
         templateUrl: 'views/main.html',
         controller: 'MainCtrl',
         controllerAs: 'main'
+      })
+      .when('/mano', {
+        templateUrl: 'modules/Main/main.html',
+        controller: 'mainController',
+        controllerAs: 'vm'
       })
       .when('/index', {
         templateUrl: 'index.html',

@@ -15,6 +15,4 @@ angular.module('frontEndApp')
       'AngularJS',
       'Karma'
     ];
-
-    $rootScope.$broadcast('MenuProfile', {data: 'data'});
   });
