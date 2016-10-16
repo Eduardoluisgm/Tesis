@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests;
 use App\User;
+use JWTAuth;
 use App\role;
 
 class userController extends Controller
@@ -46,7 +47,22 @@ class userController extends Controller
       $new->fill($request->all());
       $new->password= Hash::make($request->input('password'));
       $new->save();
-      return $user;
+      return $new;
+    }
+
+    function patch (Request $request, $oldcedula) {
+      $auth = JWTAuth::parseToken()->authenticate();
+      $user = User::find($request->input('cedula'));
+      $oldUser = User::findOrFail($oldcedula);
+      if ($user && $user->cedula != $oldUser->cedula) {
+        abort(409,'Existe un Usuario con esa cedula');
+      }
+        $oldUser->fill($request->all());
+        if ($request->input('password')) { /*Si cambia la contrase;a */
+          $oldUser->password= Hash::make($request->input('password'));
+        }
+        $oldUser->save();
+        return $oldUser;
     }
 
     function delete ($cedula) {

@@ -1,0 +1,39 @@
+<div ng-if="vm.status=='crear'">
+  <div class="modal-header">
+      <Label>Crear Cliente</label>
+      <button type="button" ng-click="vm.cancel()" class="close"><span aria-hidden="true">&times;</span></button>
+  </div>
+  <form ng-submit="vm.save()">
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-6">
+          <label>Cedula:</label>
+          <input type="text" ng-model="vm.client.cedula" class="form-control" minlength="5" maxlength="9" required ng-keypress="vm.solonumeros($event)"/>
+        </div>
+        <div class="col-md-6">
+          <label>Nombre</label>
+          <input type="text" class="form-control" minlength="3" maxlength="25" ng-model="vm.client.name" required/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <label>Apellido</label>
+          <input type="text" class="form-control" minlength="3" maxlength="25" ng-model="vm.client.apellido" required/>
+        </div>
+        <div class="col-md-6">
+          <label>Telefono</label>
+          <input type="text" class="form-control" ng-model="vm.client.telefono" maxlength="14" ng-keypress="vm.solonumeros($event)"/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <label>Dirección: </label>
+          <input type="text" class="form-control" minlength="3" maxlength="25" ng-model="vm.client.direccion"/>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button ladda="vm.isloading" type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+  </form>
+</div>

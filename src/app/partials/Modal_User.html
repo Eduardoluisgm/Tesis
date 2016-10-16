@@ -53,7 +53,12 @@
             <option>{{rol.name}}</option>
           </select> <!-- -->
         </div>
-
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <label>Dirección: </label>
+          <input type="text" class="form-control" minlength="3" maxlength="25" ng-model="vm.user.direccion"/>
+        </div>
       </div>
     </div>
     <div class="modal-footer">
@@ -150,11 +155,11 @@
       <div class="row">
         <div class="col-md-6">
           <label>Contraseña</label>
-          <input type="password" ng-model="vm.user.password" class="form-control" minlength="5" maxlength="14" required/>
+          <input type="password" ng-model="vm.user.password" class="form-control" minlength="5" maxlength="14"/>
         </div>
         <div class="col-md-6">
           <label>Confirmar Contraseña </label>
-          <input type="password" ng-model="vm.user.confirm_password" class="form-control" minlength="5" maxlength="14" required/>
+          <input type="password" ng-model="vm.user.confirm_password" class="form-control" minlength="5" maxlength="14"/>
         </div>
       </div>
       <div class="row">
@@ -168,11 +173,16 @@
             <option>{{rol.name}}</option>
           </select> <!-- -->
         </div>
-
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <label>Dirección: </label>
+          <input type="text" class="form-control" minlength="3" maxlength="25" ng-model="vm.user.direccion"/>
+        </div>
       </div>
     </div>
     <div class="modal-footer">
-      <button ladda="vm.isloading" type="submit" class="btn btn-primary">Guardar</button>
+      <button ladda="vm.isloading" type="submit" class="btn btn-primary">Actualizar</button>
     </div>
   </form>
 </div>

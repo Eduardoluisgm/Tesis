@@ -1,4 +1,73 @@
 <div class="panel panel-default">
-  CLIENTE {{vm.name}}
-  licoreria {{vm.caguita}}
+  <div class="panel-heading">
+    <i class="fa fa-user"></i>
+     Clientes
+  </div>
+   <div class="panel-body">
+     <div class="row">
+        <div class ="col-md-12">
+          <div class="text-right">
+            <button type="button" uib-tooltip="Crear Usuario" ng-click="vm.openCreate()"  class="btn btn-primary">
+              Crear
+            </button>
+          </div>
+        </div>
+     </div>
+     <div class="row table-large">
+       <div class="col-md-12">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                 <th>Cedula</th>
+                 <th>Nombre</th>
+                 <th>Apellido</th>
+                 <th>Dirección</th>
+                 <th>Telefono</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="client in vm.listaClientes">
+                  <td> {{client.cedula}}</td>
+                  <td> {{client.name}}</td>
+                  <td>{{client.apellido}}</td>
+                  <td>{{client.direccion}}</td>
+                  <td>{{client.telefono}}</td>
+                  <td>
+                    <button ng-click="vm.openEdit(user)"  type="button" uib-tooltip="Editar" class="btn btn-success">
+                        <i class="fa fa-pencil"></i>
+                    </button>
+                    <button ng-click="vm.openInformation(user)"  type="button" uib-tooltip="Ver" class="btn btn-default">
+                        <i class="fa fa-eye"></i>
+                    </button>
+                    <button
+                      type="button"
+                      uib-tooltip="Eliminar"
+                      class="btn btn-danger"
+                      mwl-confirm
+                      message="¿Esta seguro que desea eliminar el usuario {{user.name}}?"
+                      confirm-text="Si"
+                      cancel-text="No"
+                      placement="{{ placement }}"
+                      on-confirm="vm.DeleteUser(user.cedula)"
+                      on-cancel=""
+                      confirm-button-type="success"
+                      cancel-button-type="default">
+                        <i class="fa fa-trash-o"></i>
+                    </button>
+                  </td>
+              </tr>
+            </tbody>
+          </table>
+       </div>
+     </div>
+     <div class="row">
+       <div class="col-md-12">
+         <div class="pull-right">
+           <ul uib-pagination total-items="vm.pagination.total" ng-model="vm.pagination.current_page" max-size="5"
+           class="pagination-sm" ng-change="vm.changePage(vm.pagination.current_page)" boundary-links="true" force-ellipses="true" items-per-page="vm.pagination.per_page"
+           first-text="<<" last-text=">>" next-text=">" previous-text="<"></ul>
+         </div>
+       </div>
+     </div>
+   </div>
 </div>

@@ -19,10 +19,14 @@ Route::group(['middleware' => 'cors'], function (){
     /*Login*/
     Route::post('login','ApiAuthController@AuthUser');
 
+    Route::get('client', 'clientController@AllClient');
+    Route::post('client', 'clientController@save');
+
     /*User*/
     Route::get('user', 'userController@AllUser');
     Route::get('user/{cedula}', 'userController@get');
     Route::post('user', 'userController@save');
+    Route::patch('user/{oldcedula}', 'userController@patch');
     Route::delete('user/{cedula}', 'userController@delete');
 
     /*Roles*/

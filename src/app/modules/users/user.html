@@ -33,7 +33,7 @@
                 <td>{{user.direccion}}</td>
                 <td>{{user.telefono}}</td>
                 <td>
-                  <button  ng-if="user.role_id!=1" type="button" uib-tooltip="Editar" class="btn btn-success">
+                  <button ng-click="vm.openEdit(user)" ng-if="user.role_id!=1" type="button" uib-tooltip="Editar" class="btn btn-success">
                       <i class="fa fa-pencil"></i>
                   </button>
                   <button ng-click="vm.openInformation(user)"  ng-if="user.role_id!=1" type="button" uib-tooltip="Ver" class="btn btn-default">
