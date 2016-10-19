@@ -37,3 +37,43 @@
     </div>
   </form>
 </div>
+
+<!--Ver Usuario-->
+<div ng-if="vm.status=='ver'">
+  <div class="modal-header">
+      <Label>Información del Cliente</label>
+      <button type="button" ng-click="vm.cancel()" class="close"><span aria-hidden="true">&times;</span></button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-12">
+          <label>Nombre:</label> <label>{{vm.client.name}}</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+          <label>Cedula:</label> <label>{{vm.client.cedula}}</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+          <label>Dirección:</label> <label>{{vm.client.direccion}}</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+          <label>Telefono:</label> <label>{{vm.client.telefono}}</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+          <label>Fecha de Registro:</label> <label>{{vm.client.created_at}}</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+          <label>Ultima actualización:</label> <label>{{vm.client.updated_at}}</label>
+      </div>
+    </div>
+  </div>
+</div>

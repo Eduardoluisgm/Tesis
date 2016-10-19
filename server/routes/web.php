@@ -19,7 +19,9 @@ Route::group(['middleware' => 'cors'], function (){
     /*Login*/
     Route::post('login','ApiAuthController@AuthUser');
 
+    /*client*/
     Route::get('client', 'clientController@AllClient');
+    Route::get('client/{cedula}', 'clientController@get');
     Route::post('client', 'clientController@save');
 
     /*User*/

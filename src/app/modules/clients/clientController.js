@@ -2,12 +2,14 @@
 
 angular.module('frontEndApp')
   .controller('clientController', clientController)
+  .controller('ClientInformationController', ClientInformationController)
   .controller('ClientCreateController',ClientCreateController);
 
   function clientController (client,$q,$uibModal, $rootScope) {
       var vm = this;
       vm.changePage=changePage;
       vm.openCreate = openCreate;
+      vm.openInformation = openInformation;
       vm.listaClientes = [];
       vm.pagination = [];
 
@@ -45,11 +47,45 @@ angular.module('frontEndApp')
         });
       }
 
+      function openInformation (client) {
+        console.log("ver informacion ", client);
+        var modalInstance = $uibModal.open({
+          animation: true,
+          templateUrl: 'partials/Modal_Client.html', /*Llamo al template donde usare lamodal*/
+          controller: 'ClientInformationController', /*nombre del controlador de la modal*/
+          controllerAs: 'vm',
+          resolve: {
+            client_id: function () {
+              return client.cedula;
+            }
+          }
+        });
+      }
+
       $rootScope.$on('changeClient', function() {
         console.log("Cambiando usuario");
         changePage(vm.pagination.current_page);
       });
   };
+
+  function ClientInformationController ($uibModalInstance,$q, $rootScope, clientResource, client_id) {
+    var vm= this;
+    vm.status="ver";
+    vm.client= [];
+    console.log("client id "+ client_id);
+
+    clientResource.getFresh({
+      'cedula': client_id
+    }, function (data) {
+        vm.client = data;
+        console.log(vm.client);
+    }, function (err) {
+    });
+
+    vm.cancel= function() {
+      $uibModalInstance.dismiss('cancel');
+    }
+  }
 
   function ClientCreateController ($uibModalInstance,$q,client,toastr, $rootScope) {
     var vm = this;
@@ -90,7 +126,4 @@ angular.module('frontEndApp')
         event.preventDefault();
       }
     }
-
-
-
   }

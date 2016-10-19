@@ -31,4 +31,20 @@ class clientController extends Controller
     $new->save();
     return $new;
   }
+
+  function get ($cedula) {
+    $client = Client::findOrFail($cedula);
+    return $client;
+  }
+
+  function patch (Request $request, $oldcedula) {
+    $client = User::find($request->input('cedula'));
+    $oldClient = User::findOrFail($oldcedula);
+    if ($client && $client->cedula != $oldClient->cedula) {
+      abort(409,'Existe un Cliente con esa cedula');
+    }
+    $oldClient->fill($request->all());
+    $oldClient->save();
+    return $oldClient;
+  }
 }
