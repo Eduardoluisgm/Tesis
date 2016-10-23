@@ -48,6 +48,11 @@ angular.module('authService',[])
         }
       );
     };
+    var logout = function () {
+      console.log("estoy deslogeandome service");
+      uncacheSession();
+      $location.path('/login');
+    };
     return {
       loginApi: function (credentials) {
           login(credentials);
@@ -57,6 +62,9 @@ angular.module('authService',[])
       },
       profile: function () {
         return sessionControl.get('nombre');
+      },
+      logout: function () {
+        logout();
       }
     }
   };

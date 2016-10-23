@@ -32,6 +32,11 @@ Route::group(['middleware' => 'cors'], function (){
     Route::patch('user/{oldcedula}', 'userController@patch');
     Route::delete('user/{cedula}', 'userController@delete');
 
+    /*Provider*/
+    Route::get('provider', 'providerController@AllProviders');
+    Route::get('provider/{rif}', 'providerController@get');
+    Route::patch('provider/{oldrif}', 'providerController@patch');
+    Route::post('provider', 'providerController@save');
     /*Roles*/
     Route::get('role','roleController@All');
 

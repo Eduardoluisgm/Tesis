@@ -6,6 +6,8 @@ angular.module('frontEndApp')
   function MenuController ($rootScope, $scope, profile, authUser) {
       var vm = this;
       vm.showMenu = true;
+      vm.logout = logout;
+      vm.miscelaneoOpen=false; /*dropdow de miscelaneos*/
       vm.name = "Caguita";
       vm.profile = "";
       console.log("Menu Controller");
@@ -18,6 +20,11 @@ angular.module('frontEndApp')
             vm.profile=data;
           }, function (err) {
           });
+      }
+
+      /*Me estoy deslogueando*/
+      function logout() {
+        authUser.logout();
       }
 
       $rootScope.$on('MenuProfile', function() {

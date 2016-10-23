@@ -13,7 +13,16 @@ class CreateTableProviders extends Migration
      */
     public function up()
     {
-        //
+      Schema::create('provider', function (Blueprint $table) {
+          $table->string('rif');
+          $table->string('nombre');
+          $table->string('direccion')->nullable();
+          $table->string('telefono')->nullable();
+          $table->string('status')->default("1");
+          $table->string('nombre_vendedor')->nullable();
+          $table->primary('rif');
+          $table->timestamps();
+      });
     }
 
     /**
@@ -23,6 +32,6 @@ class CreateTableProviders extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('provider');
     }
 }
