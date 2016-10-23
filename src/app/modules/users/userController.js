@@ -181,6 +181,13 @@ angular.module('frontEndApp')
         event.preventDefault();
       }
     }
+
+    /*Evitar que la cedula comienze con cero*/
+    vm.changeCedula = function () {
+      if (vm.user.cedula) {
+        vm.user.cedula = parseInt(vm.user.cedula);
+      }
+    }
   }
 
   /*Modal de Informaci'on de Usuario*/
@@ -246,6 +253,20 @@ angular.module('frontEndApp')
         toastr.warning('Las contraseñas no coinciden','Advertencia');
       }
       console.log(vm.user);
+    }
+
+    /*Evitar que la cedula comienze con cero*/
+    vm.changeCedula = function () {
+      if (vm.user.cedula) {
+        vm.user.cedula = parseInt(vm.user.cedula);
+      }
+    }
+
+    /*Solo permite numeros*/
+    vm.solonumeros = function(event) {
+      if (event.keyCode >= 48 && event.keyCode <= 57 || event.keyCode == 46) {} else {
+        event.preventDefault();
+      }
     }
 
 

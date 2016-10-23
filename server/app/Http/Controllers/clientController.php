@@ -38,8 +38,8 @@ class clientController extends Controller
   }
 
   function patch (Request $request, $oldcedula) {
-    $client = User::find($request->input('cedula'));
-    $oldClient = User::findOrFail($oldcedula);
+    $client = Client::find($request->input('cedula'));
+    $oldClient = Client::findOrFail($oldcedula);
     if ($client && $client->cedula != $oldClient->cedula) {
       abort(409,'Existe un Cliente con esa cedula');
     }

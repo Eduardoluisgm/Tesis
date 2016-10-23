@@ -3,13 +3,16 @@
 angular.module('frontEndApp')
   .controller('clientController', clientController)
   .controller('ClientInformationController', ClientInformationController)
+  .controller('ClientEditController', ClientEditController)
   .controller('ClientCreateController',ClientCreateController);
 
-  function clientController (client,$q,$uibModal, $rootScope) {
+  function clientController (client,$q,$uibModal, $rootScope, clientEdit, toastr) {
       var vm = this;
       vm.changePage=changePage;
       vm.openCreate = openCreate;
+      vm.openEdit = openEdit;
       vm.openInformation = openInformation;
+      vm.changeStatus= changeStatus;
       vm.listaClientes = [];
       vm.pagination = [];
 
@@ -24,6 +27,22 @@ angular.module('frontEndApp')
             vm.pagination.total = data[0].total;
             vm.pagination.last_page = data[0].last_page;
         });
+      }
+
+      function changeStatus(cedula, status) {
+        if (status==1) {
+          status= "0";
+        } else {
+          status= "1";
+        }
+        clientEdit.patch({
+          'cedula':cedula,
+          'oldcedula':cedula,
+          'status':status
+        }, function (data) {
+            changePage(vm.pagination.current_page);
+            toastr.success("Cambio de estado exitoso", "Información");
+        }, function (err) {})
       }
 
       function changePage (number) {
@@ -62,13 +81,77 @@ angular.module('frontEndApp')
         });
       }
 
+      /*Abre la modal de editar usuario*/
+      function openEdit (cedula) {
+        console.log("ver informacion ", cedula);
+        var modalInstance = $uibModal.open({
+          animation: true,
+          templateUrl: 'partials/Modal_Client.html', /*Llamo al template donde usare lamodal*/
+          controller: 'ClientEditController', /*nombre del controlador de la modal*/
+          controllerAs: 'vm',
+          resolve: { /*asi se pasa un parametro**/
+            client_id: function () {
+              return cedula;
+            }
+          }
+        });
+      }
+
       $rootScope.$on('changeClient', function() {
         console.log("Cambiando usuario");
         changePage(vm.pagination.current_page);
       });
   };
 
-  function ClientInformationController ($uibModalInstance,$q, $rootScope, clientResource, client_id) {
+  /*Modal editar Usuario*/
+  function ClientEditController ($uibModalInstance,$q, $rootScope, client_id ,clientResource, clientEdit, toastr) {
+    var vm = this;
+    vm.status = "actualizar";
+    vm.isloading = false;
+    vm.client= [];
+    cargar();
+    function cargar() {
+      var cliente = clientResource.getFresh({'cedula':client_id});
+      $q.all([cliente.$promise]).then(function(data){
+        vm.client = data[0];
+        vm.client.oldcedula = vm.client.cedula;
+      });
+    }
+
+    vm.cancel= function() {
+      $uibModalInstance.dismiss('cancel');
+    }
+
+    vm.save = function () {
+      vm.isloading = true;
+        clientEdit.patch(vm.client,
+          function (data) {
+            vm.isloading = false;
+            toastr.success("Cliente actualizado correctamente", "Información");
+            $rootScope.$broadcast('changeClient');
+            $uibModalInstance.dismiss('cancel');
+          },
+          function (err) {
+            if (err.status==409) {
+              toastr.info("Ya existe un cliente con esa cedula", "Información");
+            }
+            vm.isloading = false;
+          })
+    }
+
+    vm.solonumeros = function(event) {
+      if (event.keyCode >= 48 && event.keyCode <= 57 || event.keyCode == 46) {} else {
+        event.preventDefault();
+      }
+    }
+    vm.changeCedula = function () {
+      if (vm.client.cedula) {
+        vm.client.cedula = parseInt(vm.client.cedula);
+      }
+    }
+  }
+
+  function ClientInformationController ($uibModalInstance,$q, $rootScope, clientResource, toastr, client_id) {
     var vm= this;
     vm.status="ver";
     vm.client= [];
@@ -105,7 +188,7 @@ angular.module('frontEndApp')
 
     vm.save = function () {
       vm.isloading = true;
-      console.log(vm.client);
+      vm.client.cedula = parseInt(vm.client.cedula);
       client.save(vm.client,
           function (data) {
             toastr.success("Usuario registrado exitosamente");
@@ -124,6 +207,13 @@ angular.module('frontEndApp')
     vm.solonumeros = function(event) {
       if (event.keyCode >= 48 && event.keyCode <= 57 || event.keyCode == 46) {} else {
         event.preventDefault();
+      }
+    }
+
+    /*Evitar que la cedula comienze con cero*/
+    vm.changeCedula = function () {
+      if (vm.client.cedula) {
+        vm.client.cedula = parseInt(vm.client.cedula);
       }
     }
   }

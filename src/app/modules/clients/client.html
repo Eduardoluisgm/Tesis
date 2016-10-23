@@ -36,7 +36,7 @@
                     <label ng-if="client.status==0" class="status-inactive">Inactivo</label>
                   </td>
                   <td>
-                    <button ng-click="vm.openEdit(user)"  type="button" uib-tooltip="Editar" class="btn btn-success">
+                    <button ng-click="vm.openEdit(client.cedula)"  type="button" uib-tooltip="Editar" class="btn btn-success">
                         <i class="fa fa-pencil"></i>
                     </button>
                     <button ng-click="vm.openInformation(client)"  type="button" uib-tooltip="Ver" class="btn btn-default">
@@ -45,17 +45,17 @@
                     <button
                       type="button"
                       uib-tooltip="Cambiar estatus"
-                      class="btn btn-danger"
+                      class="btn btn-primary"
                       mwl-confirm
                       message="¿Esta seguro que desea cambiar el estatus del cliente {{client.name}}?"
                       confirm-text="Si"
                       cancel-text="No"
                       placement="{{ placement }}"
-                      on-confirm="vm.DeleteUser(user.cedula)"
+                      on-confirm="vm.changeStatus(client.cedula, client.status)"
                       on-cancel=""
                       confirm-button-type="success"
                       cancel-button-type="default">
-                        <i class="fa fa-trash-o"></i>
+                        <i class="fa fa-refresh"></i>
                     </button>
                   </td>
               </tr>

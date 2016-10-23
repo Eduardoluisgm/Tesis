@@ -22,6 +22,7 @@ Route::group(['middleware' => 'cors'], function (){
     /*client*/
     Route::get('client', 'clientController@AllClient');
     Route::get('client/{cedula}', 'clientController@get');
+    Route::patch('client/{oldcedula}', 'clientController@patch');
     Route::post('client', 'clientController@save');
 
     /*User*/

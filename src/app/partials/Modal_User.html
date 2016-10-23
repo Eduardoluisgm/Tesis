@@ -8,7 +8,7 @@
       <div class="row">
         <div class="col-md-6">
           <label>Cedula:</label>
-          <input type="text" ng-model="vm.user.cedula" class="form-control" minlength="5" maxlength="9" required ng-keypress="vm.solonumeros($event)"/>
+          <input type="text" ng-model="vm.user.cedula" ng-change="vm.changeCedula()" class="form-control" minlength="5" maxlength="9" required ng-keypress="vm.solonumeros($event)"/>
         </div>
         <div class="col-md-6">
           <label>Fecha de ingreso:</label>
@@ -117,7 +117,7 @@
   </div>
 </div>
 
-
+<!--Editar Usuario-->
 <div ng-if="vm.status=='actualizar'">
   <div class="modal-header">
       <Label>Actualizar Usuario</label>
@@ -127,8 +127,8 @@
     <div class="modal-body">
       <div class="row">
         <div class="col-md-6">
-          <label>Cedula:</label>
-          <input type="text" ng-model="vm.user.cedula" class="form-control" minlength="5" maxlength="9" required ng-keypress="vm.solonumeros($event)"/>
+          <label>Cédula:</label>
+          <input type="text" ng-model="vm.user.cedula" ng-change="vm.changeCedula()" class="form-control" minlength="5" maxlength="9" required ng-keypress="vm.solonumeros($event)"/>
         </div>
         <div class="col-md-6">
           <label>Fecha de ingreso:</label>
