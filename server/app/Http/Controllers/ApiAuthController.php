@@ -22,6 +22,9 @@ class ApiAuthController extends Controller
       }
 
       $user = JWTAuth::toUser($token);
+      if ($user->status!="1") { /*Usuario Inactivo actualmente*/
+        return response()->json(['error'=>'Credenciales Invalidas'],500);
+      }
       return response()->json(compact('token','user'));
     }
 }

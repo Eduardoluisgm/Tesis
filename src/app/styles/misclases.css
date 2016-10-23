@@ -7,6 +7,14 @@
 .panel-login {
   margin-top: 0px!important;
   margin-left: 0px!important;
+  margin-bottom: 0px!important;
+  min-height: 700px;
+}
+
+.background-login {
+  background-image: url('images/beach.jpg');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
 
 .table-large {
