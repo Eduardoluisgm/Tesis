@@ -16,3 +16,17 @@
 .pull-right {
   float: right;
 }
+
+.status-active {
+  background-color: #5cb85c;
+  width: 100px;
+  color: white;
+  padding-left: 24px;
+}
+
+.status-inactive {
+  background-color: #c9302c;
+  width: 100px;
+  color: white;
+  padding-left: 21px;
+}

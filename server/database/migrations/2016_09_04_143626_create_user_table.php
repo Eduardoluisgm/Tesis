@@ -20,6 +20,7 @@ class CreateUserTable extends Migration
              $table->string('password');
              $table->dateTime('fecha_ingreso')->nullable();
              $table->string('direccion')->nullable();
+             $table->string('status')->default("1");
              $table->string('telefono')->nullable();
              $table->integer('role_id')->unsigned();
              $table->foreign('role_id')->references('id')->on('role');

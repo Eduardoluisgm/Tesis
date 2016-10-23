@@ -18,7 +18,8 @@ class UserTableSeeder extends Seeder
             'password'=>Hash::make('nomeacuerdo'),
             'role_id'=> '1',
             'direccion'=> 'San Juan',
-            'telefono'=> '04248849771'
+            'telefono'=> '04248849771',
+            'status' => '1'
           ]
         ];
 

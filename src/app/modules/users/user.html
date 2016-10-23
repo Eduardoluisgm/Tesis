@@ -18,11 +18,11 @@
         <table class="table table-striped">
           <thead>
             <tr>
-               <th>Cedula</th>
+               <th>Cédula</th>
                <th>Nombre</th>
                <th>Rol</th>
                <th>Dirección</th>
-               <th>Telefono</th>
+               <th>Estatus</th>
             </tr>
           </thead>
           <tbody>
@@ -31,28 +31,31 @@
                 <td> {{user.name}}</td>
                 <td>{{user.role_name}}</td>
                 <td>{{user.direccion}}</td>
-                <td>{{user.telefono}}</td>
                 <td>
-                  <button ng-click="vm.openEdit(user)" ng-if="user.role_id!=1" type="button" uib-tooltip="Editar" class="btn btn-success">
+                  <label ng-if="user.status==1" class="status-active">Activo</label>
+                  <label ng-if="user.status==0" class="status-inactive">Inactivo</label>
+                </td>
+                <td>
+                  <button ng-click="vm.openEdit(user.cedula)" ng-if="user.role_id!=1" type="button" uib-tooltip="Editar" class="btn btn-success">
                       <i class="fa fa-pencil"></i>
                   </button>
-                  <button ng-click="vm.openInformation(user)"  ng-if="user.role_id!=1" type="button" uib-tooltip="Ver" class="btn btn-default">
+                  <button ng-click="vm.openInformation(user.cedula)"  ng-if="user.role_id!=1" type="button" uib-tooltip="Ver" class="btn btn-default">
                       <i class="fa fa-eye"></i>
                   </button>
                   <button  ng-if="user.role_id!=1"
                     type="button"
-                    uib-tooltip="Eliminar"
-                    class="btn btn-danger"
+                    uib-tooltip="Cambiar estatus"
+                    class="btn btn-primary"
                     mwl-confirm
-                    message="¿Esta seguro que desea eliminar el usuario {{user.name}}?"
+                    message="¿Esta seguro que desea cambiar el estatus del usuario {{user.name}}?"
                     confirm-text="Si"
                     cancel-text="No"
                     placement="{{ placement }}"
-                    on-confirm="vm.DeleteUser(user.cedula)"
+                    on-confirm="vm.changeStatus(user.cedula, user.status)"
                     on-cancel=""
                     confirm-button-type="success"
                     cancel-button-type="default">
-                      <i class="fa fa-trash-o"></i>
+                      <i class="fa fa-refresh"></i>
                   </button>
                 </td>
             </tr>

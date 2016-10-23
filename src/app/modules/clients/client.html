@@ -22,7 +22,7 @@
                  <th>Nombre</th>
                  <th>Apellido</th>
                  <th>Dirección</th>
-                 <th>Telefono</th>
+                 <th>Estatus</th>
               </tr>
             </thead>
             <tbody>
@@ -31,7 +31,10 @@
                   <td> {{client.name}}</td>
                   <td>{{client.apellido}}</td>
                   <td>{{client.direccion}}</td>
-                  <td>{{client.telefono}}</td>
+                  <td>
+                    <label ng-if="client.status==1" class="status-active">Activo</label>
+                    <label ng-if="client.status==0" class="status-inactive">Inactivo</label>
+                  </td>
                   <td>
                     <button ng-click="vm.openEdit(user)"  type="button" uib-tooltip="Editar" class="btn btn-success">
                         <i class="fa fa-pencil"></i>
@@ -41,10 +44,10 @@
                     </button>
                     <button
                       type="button"
-                      uib-tooltip="Eliminar"
+                      uib-tooltip="Cambiar estatus"
                       class="btn btn-danger"
                       mwl-confirm
-                      message="¿Esta seguro que desea eliminar el usuario {{user.name}}?"
+                      message="¿Esta seguro que desea cambiar el estatus del cliente {{client.name}}?"
                       confirm-text="Si"
                       cancel-text="No"
                       placement="{{ placement }}"

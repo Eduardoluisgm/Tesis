@@ -19,6 +19,7 @@ class CreateClientTable extends Migration
           $table->string('apellido');
           $table->string('direccion')->nullable();
           $table->string('telefono')->nullable();
+          $table->string('status')->default("1");
           $table->primary('cedula');
           $table->timestamps();
       });

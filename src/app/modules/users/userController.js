@@ -6,7 +6,7 @@ angular.module('frontEndApp')
   .controller('UserEditController',UserEditController)
   .controller('UserCreateController', UserCreateController);
 
-  function usersController (user,$uibModal,$q,$log,authUser, $rootScope, userDeleted, toastr) {
+  function usersController (user,$uibModal,$q,$log,authUser, $rootScope, userDeleted, toastr, userUpdate) {
       var vm = this;
       vm.cargar = cargar;
       vm.openCreate = openCreate;
@@ -17,13 +17,15 @@ angular.module('frontEndApp')
       vm.profile= authUser.profile();
       console.log(vm.profile);
       vm.changePage = changePage;
-      vm.DeleteUser = DeleteUser;
-      cargar();
+      vm.changeStatus = changeStatus;
+      cargar(); /*lo primer que hace es ejecutar esta funcion*/
 
       /*Funcion que se ejecuta por primera vez*/
       function cargar () {
-        var users = user.get({page:1});
+        var users = user.getFresh({page:1});
+
         $q.all([users.$promise]).then(function(data){
+          console.log(data[0].data);
             vm.listaUsuarios = data[0].data;
             vm.pagination.current_page = data[0].current_page;
             vm.pagination.per_page = data[0].per_page;
@@ -34,7 +36,7 @@ angular.module('frontEndApp')
 
       /*Cambio de pagina*/
       function changePage (number) {
-        var users = user.get({page:number});
+        var users = user.getFresh({page:number});
         $q.all([users.$promise]).then(function(data){
             vm.listaUsuarios = data[0].data;
             vm.pagination.current_page = data[0].current_page;
@@ -44,12 +46,22 @@ angular.module('frontEndApp')
         });
       }
 
-      function DeleteUser(cedula) {
-          userDeleted.delete({'cedula':cedula},
-            function (data) {
-              toastr.success("Usuario Eliminado con exito");
+      function changeStatus(cedula, status) {
+        if (status==1) {
+          status= "0";
+        } else {
+          status= "1";
+        }
+
+        console.log("nuevo status "+ status);
+        userUpdate.patch({
+          'cedula': cedula,
+          'oldcedula': cedula,
+          'status': status
+          },function (data) {
+              toastr.success("Cambio de estado exitoso");
               changePage(vm.pagination.current_page);
-            }, function (err) {
+          },function (err) {
           });
       };
 
@@ -64,32 +76,32 @@ angular.module('frontEndApp')
       }
 
       /*Abre la modal de crear usuario*/
-      function openInformation (user) {
-        console.log("ver informacion ", user);
+      function openInformation (cedula) {
+        console.log("ver informacion ", cedula);
         var modalInstance = $uibModal.open({
           animation: true,
           templateUrl: 'partials/Modal_User.html', /*Llamo al template donde usare lamodal*/
           controller: 'UserInformationController', /*nombre del controlador de la modal*/
           controllerAs: 'vm',
           resolve: {
-            user: function () {
-              return user;
+            user_id: function () {
+              return cedula;
             }
           }
         });
       }
 
       /*Abre la modal de editar usuario*/
-      function openEdit (user) {
-        console.log("ver informacion ", user);
+      function openEdit (cedula) {
+        console.log("ver informacion ", cedula);
         var modalInstance = $uibModal.open({
           animation: true,
           templateUrl: 'partials/Modal_User.html', /*Llamo al template donde usare lamodal*/
           controller: 'UserEditController', /*nombre del controlador de la modal*/
           controllerAs: 'vm',
-          resolve: {
-            user: function () {
-              return user;
+          resolve: { /*asi se pasa un parametro**/
+            user_id: function () {
+              return cedula;
             }
           }
         });
@@ -172,25 +184,32 @@ angular.module('frontEndApp')
   }
 
   /*Modal de Informaci'on de Usuario*/
-  function UserInformationController ($uibModalInstance,$q, user) {
+  function UserInformationController ($uibModalInstance,$q, user_id, userGet) {
     var vm = this;
-    vm.user = user;
     vm.status= "ver";
-    console.log("ya en modal ", vm.user);
+    console.log("ya en modal ", user_id);
+
+    userGet.getFresh({'cedula': user_id},
+      function (data) {
+        vm.user=data;
+      },
+      function (err) {
+      });
 
     vm.cancel= function() {
       $uibModalInstance.dismiss('cancel');
     }
   }
 
-  function UserEditController ($uibModalInstance,$q, user, userGet,role,toastr,userUpdate, $rootScope) {
+  function UserEditController ($uibModalInstance,$q, user_id, userGet,role,toastr,userUpdate, $rootScope) {
     var vm = this;
     vm.status= "actualizar";
+    vm.openDate = false;
     vm.isloading = false;
     cargar();
 
     function cargar() {
-      var usuario = userGet.get({'cedula': user.cedula});
+      var usuario = userGet.get({'cedula': user_id});
       var roles = role.query();
       $q.all([usuario.$promise, roles.$promise]).then(function(data){
          vm.user = data[0];
@@ -200,6 +219,10 @@ angular.module('frontEndApp')
          console.log(data[0]);
       });
     }
+
+    vm.open_fecha_ingreso = function() {
+      vm.openDate = !vm.openDate;
+    };
 
     vm.save = function() {
       vm.isloading = true;

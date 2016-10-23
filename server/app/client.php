@@ -13,6 +13,7 @@ class client extends Model
       'name',
       'apellido',
       'direccion',
-      'telefono'
+      'telefono',
+      'status'
   ];
 }
