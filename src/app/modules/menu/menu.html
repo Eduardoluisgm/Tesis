@@ -20,7 +20,7 @@
             <a class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{vm.profile.name}} <b class="caret"></b></a>
             <ul class="dropdown-menu">
                 <li>
-                    <a><i class="fa fa-fw fa-user"></i> Perfil</a>
+                    <a ng-href="#/profile"><i class="fa fa-fw fa-user"></i> Perfil</a>
                 </li>
                 <li class="divider"></li>
                 <li>
@@ -33,7 +33,7 @@
     <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav side-nav">
             <li>
-                <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Inicio</a>
+                <a ng-href="#/"><i class="fa fa-fw fa-dashboard"></i> Inicio</a>
             </li>
             <li>
               <a ng-click="vm.miscelaneoOpen=!vm.miscelaneoOpen">
@@ -51,16 +51,16 @@
               </ul>
             </li>
             <li>
-                <a href="tables.html"><i class="fa fa-fw fa-table"></i> Proveedores</a>
+                <a><i class="fa fa-fw fa-table"></i> Proveedores</a>
             </li>
             <li>
-                <a href="forms.html"><i class="fa fa-fw fa-edit"></i> Productos</a>
+                <a><i class="fa fa-fw fa-edit"></i> Productos</a>
             </li>
             <li>
-                <a href="bootstrap-elements.html"><i class="fa fa-fw fa-desktop"></i> Reportes</a>
+                <a><i class="fa fa-fw fa-desktop"></i> Reportes</a>
             </li>
             <li>
-                <a ng-href="#/about"><i class="fa fa-fw fa-desktop"></i> About</a>
+                <a><i class="fa fa-fw fa-desktop"></i> About</a>
             </li>
         </ul>
     </div>

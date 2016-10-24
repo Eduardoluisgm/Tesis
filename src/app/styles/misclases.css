@@ -21,6 +21,12 @@
   min-height: 450px;
 }
 
+.profile-form {
+  margin-right: 21% !important;
+  margin-top: 20px;
+  min-height: 400px!important;
+}
+
 .pull-right {
   float: right;
 }
@@ -31,6 +37,7 @@
   color: white;
   padding-left: 24px;
 }
+
 
 .status-inactive {
   background-color: #c9302c;

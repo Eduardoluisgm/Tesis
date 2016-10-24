@@ -34,16 +34,6 @@ angular
         controller: 'MainCtrl',
         controllerAs: 'main'
       })
-      .when('/mano', {
-        templateUrl: 'modules/Main/main.html',
-        controller: 'mainController',
-        controllerAs: 'vm'
-      })
-      .when('/index', {
-        templateUrl: 'index.html',
-        controller: 'indexController',
-        controllerAs: 'vm'
-      })
       .when('/about', {
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl',
@@ -62,6 +52,11 @@ angular
       .when('/login', {
         templateUrl: 'modules/login/login.html',
         controller: 'loginController',
+        controllerAs: 'vm'
+      })
+      .when('/profile', {
+        templateUrl: 'modules/profile/profile.html',
+        controller: 'profileController',
         controllerAs: 'vm'
       })
       .otherwise({
