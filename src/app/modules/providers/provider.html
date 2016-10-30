@@ -20,22 +20,22 @@
               <tr>
                  <th>Rif      </th>
                  <th>Nombre   </th>
-                 <th>Nombre_vendedor</th>
+                 <th>Vendedor</th>
                  <th>Telefono </th>
                  <th>Dirección</th>
               </tr>
             </thead>
             <tbody>
+              <!--No te lo mostraba xq escribiste Provider con P mayuscula y lo declaraste en miniscula -->
               <tr ng-repeat="provider in vm.listaProveedores">
-                  <td> {{Provider.rif}}</td>
-                  <td> {{Provider.name}}</td>
-                  <td> {{Provider.nombre_vendedor}}</td>
-                  <td> {{Provider.telefono}}</td>
-                  <td> {{Provider.direccion}}</td>
+                  <td> {{provider.rif}}</td>
+                  <td> {{provider.nombre}}</td>
+                  <td> {{provider.nombre_vendedor}}</td>
+                  <td> {{provider.telefono}}</td>
+                  <td> {{provider.direccion}}</td>
                   <td>
-
-                    <label ng-if="client.status==1" class="status-active">Activo</label>
-                    <label ng-if="client.status==0" class="status-inactive">Inactivo</label>
+                    <label ng-if="provider.status==1" class="status-active">Activo</label>
+                    <label ng-if="provider.status==0" class="status-inactive">Inactivo</label>
                   </td>
                   <td>
                     <button ng-click="vm.openEdit(provider.rif)"  type="button" uib-tooltip="Editar" class="btn btn-success">

@@ -19,9 +19,10 @@ angular.module('frontEndApp')
       cargar();
 
       function cargar () {
-        var proveedores = provider.get({page:1});
+        var proveedores = provider.getFresh({page:1});
         $q.all([proveedores.$promise]).then(function(data){
             vm.listaProveedores = data[0].data;
+            console.log(data[0].data);
             vm.pagination.current_page = data[0].current_page;
             vm.pagination.per_page = data[0].per_page;
             vm.pagination.total = data[0].total;
@@ -47,8 +48,8 @@ angular.module('frontEndApp')
 
       function changePage (number) {
         var proveedores = provider.getFresh({page:number});
-        $q.all([proveeodres.$promise]).then(function(data){
-            vm.listaClientes = data[0].data;
+        $q.all([proveedores.$promise]).then(function(data){
+            vm.listaProveedores = data[0].data; /*aqui habias dejado lista clientes*/
             vm.pagination.current_page = data[0].current_page;
             vm.pagination.per_page = data[0].per_page;
             vm.pagination.total = data[0].total;
@@ -176,17 +177,20 @@ angular.module('frontEndApp')
     vm.isloading = false;
     vm.provider = {
       'rif':"",
-      'name':"",
+      'nombre':"",
       'nombre_vendedor':"",
       'direccion':"",
       'telefono':""
     }
+
+    /*En VM.provider estabas mandando a guardar name, y el campo se llama nombre y es requerido por eso el error*/
 
     vm.cancel= function() {
       $uibModalInstance.dismiss('cancel');
     }
 
     vm.save = function () {
+      console.log("estoy guardando");
       vm.isloading = true;
       vm.provider.rif = parseInt(vm.provider.rif);
       provider.save(vm.provider,
