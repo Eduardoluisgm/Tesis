@@ -128,7 +128,7 @@ angular.module('frontEndApp')
     vm.cancel= function() {
       $uibModalInstance.dismiss('cancel');
     }
-
+    ////
     vm.save = function () {
       vm.isloading = true;
       vm.ListType.forEach(function(data){
