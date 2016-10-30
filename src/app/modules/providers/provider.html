@@ -1,0 +1,78 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <i class="fa fa-user"></i>
+     Proveedores
+  </div>
+   <div class="panel-body">
+     <div class="row">
+        <div class ="col-md-12">
+          <div class="text-right">
+            <button type="button" uib-tooltip="Crear Usuario" ng-click="vm.openCreate()"  class="btn btn-primary">
+              Crear
+            </button>
+          </div>
+        </div>
+     </div>
+     <div class="row table-large">
+       <div class="col-md-12">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                 <th>Rif      </th>
+                 <th>Nombre   </th>
+                 <th>Nombre_vendedor</th>
+                 <th>Telefono </th>
+                 <th>Dirección</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="provider in vm.listaProveedores">
+                  <td> {{Provider.rif}}</td>
+                  <td> {{Provider.name}}</td>
+                  <td> {{Provider.nombre_vendedor}}</td>
+                  <td> {{Provider.telefono}}</td>
+                  <td> {{Provider.direccion}}</td>
+                  <td>
+
+                    <label ng-if="client.status==1" class="status-active">Activo</label>
+                    <label ng-if="client.status==0" class="status-inactive">Inactivo</label>
+                  </td>
+                  <td>
+                    <button ng-click="vm.openEdit(provider.rif)"  type="button" uib-tooltip="Editar" class="btn btn-success">
+                        <i class="fa fa-pencil"></i>
+                    </button>
+                    <button ng-click="vm.openInformation(provider)"  type="button" uib-tooltip="Ver" class="btn btn-default">
+                        <i class="fa fa-eye"></i>
+                    </button>
+                    <button
+                      type="button"
+                      uib-tooltip="Cambiar estatus"
+                      class="btn btn-primary"
+                      mwl-confirm
+                      message="¿Esta seguro que desea cambiar el estatus del cliente {{provider.name}}?"
+                      confirm-text="Si"
+                      cancel-text="No"
+                      placement="{{ placement }}"
+                      on-confirm="vm.changeStatus(provider.cedula, provider.status)"
+                      on-cancel=""
+                      confirm-button-type="success"
+                      cancel-button-type="default">
+                        <i class="fa fa-refresh"></i>
+                    </button>
+                  </td>
+              </tr>
+            </tbody>
+          </table>
+       </div>
+     </div>
+     <div class="row">
+       <div class="col-md-12">
+         <div class="pull-right">
+           <ul uib-pagination total-items="vm.pagination.total" ng-model="vm.pagination.current_page" max-size="5"
+           class="pagination-sm" ng-change="vm.changePage(vm.pagination.current_page)" boundary-links="true" force-ellipses="true" items-per-page="vm.pagination.per_page"
+           first-text="<<" last-text=">>" next-text=">" previous-text="<"></ul>
+         </div>
+       </div>
+     </div>
+   </div>
+</div>
