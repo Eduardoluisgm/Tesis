@@ -5,51 +5,76 @@
   </div>
   <div class="panel panel-info profile-form">
       <div class="panel-heading">
-        <h3 class="panel-title">{{vm.profile.name}}</h3>
+        <h3 class="panel-title">{{vm.name}}</h3>
       </div>
       <div class="panel-body">
         <div class="row">
           <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="styles/icon/yeoman.png" class="img-circle img-responsive"> </div>
           <div class=" col-md-9 col-lg-9 ">
-            <table class="table table-user-information">
-              <tbody>
-                <tr>
-                  <td>Department:</td>
-                  <td>Programming</td>
-                </tr>
-                <tr>
-                  <td>Hire date:</td>
-                  <td>06/23/2013</td>
-                </tr>
-                <tr>
-                  <td>Date of Birth</td>
-                  <td>01/24/1988</td>
-                </tr>
-
-                   <tr>
-                       <tr>
-                  <td>Gender</td>
-                  <td>Female</td>
-                </tr>
+            <form ng-submit="vm.saveProfile()">
+              <table class="table table-user-information">
+                <tbody>
                   <tr>
-                  <td>Home Address</td>
-                  <td>Kathmandu,Nepal</td>
-                </tr>
-                <tr>
-                  <td>Email</td>
-                  <td><a href="mailto:info@support.com">info@support.com</a></td>
-                </tr>
-                  <td>Phone Number</td>
-                  <td>123-4567-890(Landline)<br><br>555-4567-890(Mobile)
-                  </td>
+                    <td>Cédula:</td>
+                    <td>
+                      <input type="text" ng-model="vm.profile.cedula" ng-change="vm.changeCedula()" class="form-control" minlength="5" maxlength="9" required ng-keypress="vm.solonumeros($event)"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Nombre:</td>
+                    <td>
+                      <input type="text" class="form-control" minlength="3" maxlength="25" ng-model="vm.profile.name" required/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Email:</td>
+                    <td>
+                      <input type="email" class="form-control" maxlength="25" ng-model="vm.profile.email"/>
+                    </td>
+                  </tr>
 
-                </tr>
+                  <tr>
+                    <tr>
+                      <td>Dirección:</td>
+                      <td>
+                        <input type="text" class="form-control" minlength="3" maxlength="25" ng-model="vm.profile.direccion"/>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Telefono:</td>
+                      <td>
+                        <input type="text" class="form-control" ng-model="vm.profile.telefono" maxlength="14" ng-keypress="vm.solonumeros($event)"/>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Contraseña:</td>
+                      <td>
+                        <input type="password" ng-model="vm.profile.password" class="form-control" minlength="5" maxlength="14"/>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Confirmar Contraseña:</td>
+                      <td>
+                        <input type="password" ng-model="vm.profile.confirm_password" class="form-control" minlength="5" maxlength="14"/>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Fecha de ingreso</td>
+                      <td><label>{{vm.profile.fecha_ingreso}}</label></td>
+                    </tr>
+                    <td>Rol:</td>
+                    <td>
+                      <label ng-if="vm.profile.role_id=='1'">Super-Admin</label>
+                      <label ng-if="vm.profile.role_id=='2'">Administrador</label>
+                      <label ng-if="vm.profile.role_id=='3'">Vendedor</label>
+                    </td>
+                  </tr>
 
-              </tbody>
-            </table>
+                </tbody>
+              </table>
 
-            <a href="#" class="btn btn-primary">My Sales Performance</a>
-            <a href="#" class="btn btn-primary">Team Sales Performance</a>
+              <button ladda="vm.isloading" type="submit" class="btn btn-primary pull-right">Actualizar</button>
+            </form>
           </div>
         </div>
       </div>

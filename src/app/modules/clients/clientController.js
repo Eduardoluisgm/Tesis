@@ -115,8 +115,15 @@ angular.module('frontEndApp')
       $q.all([cliente.$promise]).then(function(data){
         vm.client = data[0];
         vm.client.oldcedula = vm.client.cedula;
+        vm.client.cedula = vm.client.cedula.slice(2);
       });
     }
+    vm.ListType = [
+      {'sigla':"V", 'name' : 'Venezolano'},
+      {'sigla':"J", 'name' : 'Jurídico'},
+      {'sigla':"E", 'name' : 'Extranjero'},
+      {'sigla':'G', 'name' : 'Gubernamental'}
+    ]
 
     vm.cancel= function() {
       $uibModalInstance.dismiss('cancel');
@@ -124,6 +131,11 @@ angular.module('frontEndApp')
 
     vm.save = function () {
       vm.isloading = true;
+      vm.ListType.forEach(function(data){
+          if (data.name==vm.client.tipo) {
+            vm.client.cedula = data.sigla +"-"+vm.client.cedula;
+          }
+      });
         clientEdit.patch(vm.client,
           function (data) {
             vm.isloading = false;
@@ -133,8 +145,10 @@ angular.module('frontEndApp')
           },
           function (err) {
             if (err.status==409) {
-              toastr.info("Ya existe un cliente con esa cedula", "Información");
+              toastr.info("Ya existe un cliente con ese identificador", "Información");
             }
+            console.log("estoy comentiendo un error");
+            vm.client.cedula =  vm.client.cedula.slice(2);
             vm.isloading = false;
           })
     }
@@ -179,8 +193,15 @@ angular.module('frontEndApp')
       'name':"",
       'apellido':"",
       'direccion':"",
-      'telefono':""
-    }
+      'telefono':"",
+      'tipo': "Venezolano"
+    };
+    vm.ListType = [
+      {'sigla':"V", 'name' : 'Venezolano'},
+      {'sigla':"J", 'name' : 'Jurídico'},
+      {'sigla':"E", 'name' : 'Extranjero'},
+      {'sigla':'G', 'name' : 'Gubernamental'}
+    ]
 
     vm.cancel= function() {
       $uibModalInstance.dismiss('cancel');
@@ -188,7 +209,11 @@ angular.module('frontEndApp')
 
     vm.save = function () {
       vm.isloading = true;
-      vm.client.cedula = parseInt(vm.client.cedula);
+      vm.ListType.forEach(function(data){
+          if (data.name==vm.client.tipo) {
+            vm.client.cedula = data.sigla +"-"+vm.client.cedula;
+          }
+      });
       client.save(vm.client,
           function (data) {
             toastr.success("Usuario registrado exitosamente");

@@ -17,6 +17,7 @@ class CreateClientTable extends Migration
           $table->string('cedula');
           $table->string('name');
           $table->string('apellido');
+          $table->string('tipo');
           $table->string('direccion')->nullable();
           $table->string('telefono')->nullable();
           $table->string('status')->default("1");

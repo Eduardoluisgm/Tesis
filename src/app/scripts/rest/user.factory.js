@@ -16,8 +16,8 @@
     function userGet (cachedResource, ApiUrl) {
       return cachedResource(ApiUrl+'/user/:cedula',{cedula: '@cedula'});
     }
-    function profile ($resource, ApiUrl) {
-      return $resource(ApiUrl+'/profile');
+    function profile (cachedResource, ApiUrl) {
+      return cachedResource(ApiUrl+'/profile');
     }
     function userUpdate (cachedResource, ApiUrl) {
       return cachedResource(ApiUrl+'/user/:oldcedula',{oldcedula: '@oldcedula'});

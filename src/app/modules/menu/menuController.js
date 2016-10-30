@@ -10,17 +10,22 @@ angular.module('frontEndApp')
       vm.miscelaneoOpen=false; /*dropdow de miscelaneos*/
       vm.name = "Caguita";
       vm.profile = "";
-      console.log("Menu Controller");
 
+      getProfile();
 
-      /*Si estoy Logeado*/
-      if (authUser.isLogin()) {
-        profile.get(
-          function(data) {
-            vm.profile=data;
-          }, function (err) {
-          });
+      function getProfile() {
+        if (authUser.isLogin()) {
+          profile.getFresh(
+            function(data) {
+              vm.profile=data;
+            }, function (err) {
+            });
+        }
       }
+      /*Si estoy Logeado*/
+
+
+
 
       /*Me estoy deslogueando*/
       function logout() {
@@ -39,6 +44,10 @@ angular.module('frontEndApp')
 
       $rootScope.$on('HideMenu', function() {
           vm.showMenu = false;
+      });
+
+      $rootScope.$on('UpdateProfile', function() {
+          getProfile();
       });
 
 

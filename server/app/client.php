@@ -15,6 +15,7 @@ class Client extends Model
       'apellido',
       'direccion',
       'telefono',
-      'status'
+      'status',
+      'tipo'
   ];
 }

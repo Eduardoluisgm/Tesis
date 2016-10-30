@@ -7,8 +7,17 @@
     <div class="modal-body">
       <div class="row">
         <div class="col-md-6">
-          <label>Cedula:</label>
-          <input type="text" ng-model="vm.client.cedula" ng-change="vm.changeCedula()" class="form-control" minlength="5" maxlength="9" required ng-keypress="vm.solonumeros($event)"/>
+          <label>Cédula o Rif:</label>
+          <div class="row">
+              <div class=col-md-4>
+                <select class="form-control" ng-model="vm.client.tipo" ng-options="type.name as type.sigla for type in vm.ListType" required>
+                  <option>type.sigla</option>
+                </select>
+              </div>
+              <div class ="col-md-9" style="margin-left: -25px;">
+                <input type="text" ng-model="vm.client.cedula" ng-change="vm.changeCedula()" class="form-control" minlength="5" maxlength="9" required ng-keypress="vm.solonumeros($event)"/>
+              </div>
+          </div>
         </div>
         <div class="col-md-6">
           <label>Nombre</label>
@@ -88,8 +97,17 @@
     <div class="modal-body">
       <div class="row">
         <div class="col-md-6">
-          <label>Cédula:</label>
-          <input type="text" ng-model="vm.client.cedula" ng-change="vm.changeCedula()" class="form-control" minlength="5" maxlength="9" required ng-keypress="vm.solonumeros($event)"/>
+          <label>Cédula o Rif:</label>
+          <div class="row">
+              <div class=col-md-4>
+                <select class="form-control" ng-model="vm.client.tipo" ng-options="type.name as type.sigla for type in vm.ListType" required>
+                  <option>type.sigla</option>
+                </select>
+              </div>
+              <div class ="col-md-9" style="margin-left: -25px;">
+                <input type="text" ng-model="vm.client.cedula" ng-change="vm.changeCedula()" class="form-control" minlength="5" maxlength="9" required ng-keypress="vm.solonumeros($event)"/>
+              </div>
+          </div>
         </div>
         <div class="col-md-6">
           <label>Nombre</label>

@@ -20,7 +20,7 @@
               <tr>
                  <th>Cedula</th>
                  <th>Nombre</th>
-                 <th>Apellido</th>
+                 <th>Tipo</th>
                  <th>Dirección</th>
                  <th>Estatus</th>
               </tr>
@@ -29,7 +29,7 @@
               <tr ng-repeat="client in vm.listaClientes">
                   <td> {{client.cedula}}</td>
                   <td> {{client.name}}</td>
-                  <td>{{client.apellido}}</td>
+                  <td>{{client.tipo}}</td>
                   <td>{{client.direccion}}</td>
                   <td>
                     <label ng-if="client.status==1" class="status-active">Activo</label>
