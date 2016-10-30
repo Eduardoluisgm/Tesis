@@ -59,6 +59,11 @@ angular
         controller: 'profileController',
         controllerAs: 'vm'
       })
+      .when('/provider', {
+        templateUrl: 'modules/providers/provider.html',
+        controller: 'providerController',
+        controllerAs: 'vm'
+      })
       .otherwise({
         redirectTo: '/'
       });
