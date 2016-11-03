@@ -7,7 +7,7 @@
      <div class="row">
         <div class ="col-md-12">
           <div class="text-right">
-            <button type="button" uib-tooltip="Crear Usuario" ng-click="vm.openCreate()"  class="btn btn-primary">
+            <button type="button" uib-tooltip="Crear Proveedor" ng-click="vm.openCreate()"  class="btn btn-primary">
               Crear
             </button>
           </div>
@@ -53,7 +53,7 @@
                       confirm-text="Si"
                       cancel-text="No"
                       placement="{{ placement }}"
-                      on-confirm="vm.changeStatus(provider.cedula, provider.status)"
+                      on-confirm="vm.changeStatus(provider.rif, provider.status)"
                       on-cancel=""
                       confirm-button-type="success"
                       cancel-button-type="default">
