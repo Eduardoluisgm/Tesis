@@ -1,0 +1,61 @@
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <i class="fa fa-user"></i>
+     Productos
+  </div>
+   <div class="panel-body">
+     <div class="row">
+        <div class ="col-md-12">
+          <div class="text-right">
+            <button type="button" uib-tooltip="Crear Producto" ng-click="vm.openCreate()"  class="btn btn-primary">
+              Crear
+            </button>
+          </div>
+        </div>
+     </div>
+     <div class="row table-large">
+       <div class="col-md-12">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                 <th>Codigo     </th>
+                 <th>Nombre   </th>
+                 <th>Precio_costo</th>
+                 <th>Precio_venta</th>
+                 <th>stock</th>
+              
+              </tr>
+            </thead>
+            <tbody>
+              <!--No te lo mostraba xq escribiste Provider con P mayuscula y lo declaraste en miniscula -->
+                  <tr ng-repeat="product in vm.listaProductos">
+                  <td> {{product.codigo}}</td>
+                  <td> {{product.name}}</td>
+                  <td> {{product.precio_costo}}</td>
+                  <td> {{product.precio_venta}}</td>
+                  <td> {{product.stock}}</td>
+                  <td>
+                    <button ng-click="vm.openEdit(product.codigo)"  type="button" uib-tooltip="Editar" class="btn btn-success">
+                        <i class="fa fa-pencil"></i>
+                    </button>
+                    <button ng-click="vm.openInformation(product)"  type="button" uib-tooltip="Ver" class="btn btn-default">
+                        <i class="fa fa-eye"></i>
+                    </button>
+                    </td>
+                  </tr>  
+            </tbody>
+          </table>
+       </div>
+     </div>
+     <div class="row">
+       <div class="col-md-12">
+         <div class="pull-right">
+           <ul uib-pagination total-items="vm.pagination.total" ng-model="vm.pagination.current_page" max-size="5"
+           class="pagination-sm" ng-change="vm.changePage(vm.pagination.current_page)" boundary-links="true" force-ellipses="true" items-per-page="vm.pagination.per_page"
+           first-text="<<" last-text=">>" next-text=">" previous-text="<"></ul>
+         </div>
+       </div>
+     </div>
+   </div>
+</div>
