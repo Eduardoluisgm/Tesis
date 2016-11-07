@@ -64,6 +64,11 @@ angular
         controller: 'providerController',
         controllerAs: 'vm'
       })
+      .when('/product', {
+        templateUrl: 'modules/products/product.html',
+        controller: 'productController',
+        controllerAs: 'vm'
+      })
       .otherwise({
         redirectTo: '/'
       });
