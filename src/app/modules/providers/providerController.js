@@ -155,10 +155,10 @@ angular.module('frontEndApp')
   function ProviderInformationController ($uibModalInstance,$q, $rootScope, providerResource, toastr, provider_id) {
     var vm= this;
     vm.status="ver";
-    vm.client= [];
+    vm.provider= [];
     console.log("provider id "+ provider_id);
 
-    clientResource.getFresh({
+    providerResource.getFresh({
       'rif': provider_id
     }, function (data) {
         vm.provider = data;

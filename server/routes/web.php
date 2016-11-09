@@ -37,6 +37,13 @@ Route::group(['middleware' => 'cors'], function (){
     Route::get('provider/{rif}', 'providerController@get');
     Route::patch('provider/{oldrif}', 'providerController@patch');
     Route::post('provider', 'providerController@save');
+
+    /*Product*/
+    Route::get('product', 'productController@AllProducts');
+    Route::get('product/{codigo}', 'productController@get');
+    Route::patch('product/{oldcodigo}', 'productController@patch');
+    Route::post('product', 'productController@save');
+
     /*Roles*/
     Route::get('role','roleController@All');
 
