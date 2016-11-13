@@ -1,6 +1,79 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-    <i class="fa fa-user"></i>
+    <i class="fa fa-shopping-cart"></i>
      Vender
+   </div>
+   <div class="panel-body">
+     <div class="row">
+       <div class="col-md-9 border-right1  up15"  style="min-height: 400px">
+          <div class="row back-cadetblue border-bottom1">   <!-- cliente-->
+              <h4 class="right20">
+                <i class="fa fa-user font25"></i>
+                 Cliente: {{vm.client.nombre}}
+                <i ng-if="vm.client.isLoad==true" class="fa fa-check green font25" aria-hidden="true"></i>
+              </h4>
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-5">
+                      <label>Cédula o Rif:</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                      <div class=col-md-2>
+                        <select class="form-control" ng-disabled="vm.client.isLoad==true" ng-model="vm.client.tipo" ng-options="type.name as type.sigla for type in vm.ListType" required>
+                          <option>type.sigla</option>
+                        </select>
+                      </div>
+                      <div class ="col-md-3" style="margin-left: -25px;">
+                        <input type="text" ng-readonly="vm.client.isLoad==true" ng-model="vm.client.id" ng-change="vm.changeCedula()" class="form-control" minlength="5" maxlength="9" required ng-keypress="vm.solonumeros($event)"/>
+                      </div>
+                      <div class="col-md-1" style="margin-left: -25px;">
+                        <button ladda="vm.client.loading" ng-click="vm.searchClient()" ng-disabled="vm.client.isLoad==true"  type="button" uib-tooltip="Buscar" class="btn btn-default">
+                            <i class="fa fa-search"></i>
+                        </button>
+                      </div>
+                      <div class="col-md-1" style="margin-left: -25px;">
+                        <button
+                          type="button"
+                          uib-tooltip="Cambiar cliente"
+                          class="btn btn-primary"
+                          mwl-confirm
+                          message="¿Esta seguro que desea cambiar de cliente?"
+                          confirm-text="Si"
+                          cancel-text="No"
+                          placement="{{ placement }}"
+                          on-confirm="vm.changeClient()"
+                          on-cancel=""
+                          ng-disabled="vm.client.isLoad==false"
+                          confirm-button-type="success"
+                          cancel-button-type="default">
+                            <i class="fa fa-refresh"></i>
+                        </button>
+                      </div>
+                  </div>
+                </div>
+          </div>
+          <div class="row"> <!--Factura-->
+            <h4 class="right20">
+              <i class="fa fa-cart-plus font25"></i>
+               Factura
+            </h4>
+            <div class="col-md-12">
+
+            </div>
+          </div>
+       </div>
+       <!--Pago-->
+       <div class="col-md-3 up15 back-cadetblue">
+         <div class="row border-bottom1" style="min-height: 114px;">
+           <div class="col-md-12">
+             <h4>
+               <i class="fa fa-money font25 green"></i>
+                Pagos
+             </h4>
+           </div>
+         </div>
+       </div>
+     </div>
    </div>
 </div>

@@ -60,9 +60,16 @@ angular.module('frontEndApp')
       function openCreate () {
         var modalInstance = $uibModal.open({
           animation: true,
-          templateUrl: 'partials/Modal_Client.html', /*Llamo al template donde usare lamodal*/
-          controller: 'ClientCreateController', /*nombre del controlador de la modal*/
-          controllerAs: 'vm' /*Importante colocar esto*/
+          templateUrl: 'partials/Modal_Client.html',
+          controller: 'ClientCreateController',
+          controllerAs: 'vm',
+          resolve: {
+            origin: function () {
+              return {
+                'origin':'client'
+              };
+            }
+          }
         });
       }
 
@@ -184,8 +191,9 @@ angular.module('frontEndApp')
     }
   }
 
-  function ClientCreateController ($uibModalInstance,$q,client,toastr, $rootScope) {
+  function ClientCreateController ($uibModalInstance,$q,client,toastr, $rootScope, origin) {
     var vm = this;
+    console.log(origin);
     vm.status="crear";
     vm.isloading = false;
     vm.client = {
@@ -203,6 +211,12 @@ angular.module('frontEndApp')
       {'sigla':'G', 'name' : 'Gubernamental'}
     ]
 
+    if (origin.origin=="sell") {
+      console.log("vengo de  vender");
+      vm.client.cedula = origin.cedula,
+      vm.client.tipo = origin.tipo
+    }
+
     vm.cancel= function() {
       $uibModalInstance.dismiss('cancel');
     }
@@ -217,7 +231,16 @@ angular.module('frontEndApp')
       client.save(vm.client,
           function (data) {
             toastr.success("Usuario registrado exitosamente");
-            $rootScope.$broadcast('changeClient');
+            if (origin.origin=="client") {
+              console.log("estoy guardando desde el cliente");
+              $rootScope.$broadcast('changeClient');
+            };
+            if (origin.origin=="sell") {
+              console.log(data);
+              console.log("estoy guardando desde el vender");
+              $rootScope.$broadcast('Sell_create_client', {'data':data});
+            };
+
             $uibModalInstance.dismiss('cancel');
             vm.isloading = false;
           }, function (err)  {

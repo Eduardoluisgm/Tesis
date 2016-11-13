@@ -45,3 +45,49 @@
   color: white;
   padding-left: 21px;
 }
+
+.right20 {
+    margin-left: 20px ! important
+}
+
+.font25 {
+  font-size: 25px !important;
+}
+
+.font40 {
+  font-size: 40px !important;
+}
+
+.font30 {
+  font-size: 30px !important;
+}
+
+/*UP*/
+.up10 {
+  margin-top: -10px;
+}
+
+.up15 {
+  margin-top: -15px;
+}
+.up20 {
+  margin-top: -20px;
+}
+
+.border-bottom1 {
+  border-bottom: 2px solid gray;
+  padding-bottom: 8px;
+}
+
+.border-right1 {
+  border-right: 2px solid gray;
+}
+
+/*Backgroud*/
+.back-cadetblue {
+  background-color: cadetblue !important;
+}
+
+.green {
+  color: green;
+}
