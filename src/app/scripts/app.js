@@ -69,6 +69,11 @@ angular
         controller: 'productController',
         controllerAs: 'vm'
       })
+      .when('/sell', {
+        templateUrl: 'modules/sell/sell.html',
+        controller: 'sellController',
+        controllerAs: 'vm'
+      })
       .otherwise({
         redirectTo: '/'
       });
