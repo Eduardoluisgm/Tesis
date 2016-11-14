@@ -24,6 +24,8 @@ angular.module('frontEndApp')
         'loading': false
       };
 
+      vm.detalles_factura = [];
+
       function changeClient () {
         vm.client.isLoad = false;
         vm.client.nombre = "";

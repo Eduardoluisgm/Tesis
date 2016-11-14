@@ -1,8 +1,8 @@
 <div class="panel panel-default">
-  <div class="panel-heading">
+<!--  <div class="panel-heading">
     <i class="fa fa-shopping-cart"></i>
      Vender
-   </div>
+   </div> -->
    <div class="panel-body">
      <div class="row">
        <div class="col-md-9 border-right1  up15"  style="min-height: 400px">
@@ -59,7 +59,36 @@
                Factura
             </h4>
             <div class="col-md-12">
-
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                     <th>Codigo</th>
+                     <th>Nombre</th>
+                     <th>Cantidad</th>
+                     <th>SubTotal</th>
+                     <th>Total</th>
+                     <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td></td>
+                    <td style="max-width:30px"><input type="text" ng-model="vm.client.id" class="form-control up5" maxlength="9"/></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td> </td>
+                  </tr>
+                  <tr ng-repeat="detail in vm.detalles_factura">
+                    <td>Codigo</td>
+                    <td>Nombre</td>
+                    <td>Cantidad</td>
+                    <td>SubTotal</td>
+                    <td>Total</td>
+                    <td> </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
        </div>
