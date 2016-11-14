@@ -25,6 +25,9 @@ Route::group(['middleware' => 'cors'], function (){
     Route::patch('client/{oldcedula}', 'clientController@patch');
     Route::post('client', 'clientController@save');
 
+    /*Facturas de venta*/
+    Route::get('fact_vent', 'fact_ventController@AllSale');
+
     /*User*/
     Route::get('user', 'userController@AllUser');
     Route::get('user/{cedula}', 'userController@get');
@@ -40,6 +43,7 @@ Route::group(['middleware' => 'cors'], function (){
 
     /*Product*/
     Route::get('product', 'productController@AllProducts');
+    Route::get('product_search', 'productController@SearchProduct');
     Route::get('product/{codigo}', 'productController@get');
     Route::patch('product/{oldcodigo}', 'productController@patch');
     Route::post('product', 'productController@save');

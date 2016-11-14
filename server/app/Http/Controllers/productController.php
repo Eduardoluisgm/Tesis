@@ -35,6 +35,15 @@ class productController extends Controller
       return $new;
     }
 
+    /*Buscar un producto especifico*/
+    function SearchProduct(Request $request){
+      $name = $request->input('name');
+      $products = Product::where('nombre', 'Like', '%' . $name . '%')
+          ->orWhere('codigo', 'Like', '%' . $name . '%')
+          ->take(10)->get();
+      return $products;
+    }
+
     function patch (Request $request, $oldcodigo) {
       $product = Product::find($request->input('codigo'));
       $oldProduct = Product::findOrFail($oldcodigo);
