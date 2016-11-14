@@ -122,3 +122,45 @@
     </div>
   </form>
 </div>
+
+<!--echo por eduardo no borrar -->
+<div ng-if="vm.status=='buscar'">
+  <div class="modal-header">
+      <Label>Elegir un Producto</label>
+      <button type="button" ng-click="vm.cancel()" class="close"><span aria-hidden="true">&times;</span></button>
+  </div>
+  <div class="modal-body" style="min-height:350px;">
+    <div class="row">
+      <div class="col-md-12 text-center" style="font-size:60px" ng-if="vm.isloading==true">
+        <i class="fa fa-spinner fa-spin"></i>
+      </div>
+      <div class="col-md-12" ng-if="vm.isloading==false">
+        <table ng-if="vm.products_number>0" class="table table-striped">
+          <thead>
+            <tr>
+               <th>Codigo</th>
+               <th>Nombre</th>
+               <th>Precio</th>
+               <th>Stock</th>
+               <th></th
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="producto in vm.listaProductos">
+              <td>{{producto.codigo}}</td>
+              <td>{{producto.nombre}}</td>
+              <td>{{producto.precio_venta}}</td>
+              <td>{{producto.stock}}</td>
+              <td>
+                <button ng-click="vm.AddProduct(producto)"  type="button" uib-tooltip="Agregar" class="btn btn-success">
+                  <i class="fa fa-plus"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <h2 ng-if="vm.products_number<1">No hay productos con esa descripción</h2>
+      </div>
+    </div>
+  </div>
+</div>

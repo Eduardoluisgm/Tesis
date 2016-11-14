@@ -23,7 +23,8 @@ angular
     'toastr',
     'ui.bootstrap',
     'angular-ladda',
-    'mwl.confirm'
+    'mwl.confirm',
+    'ng-currency'
   ])
   .config(function ($routeProvider,$authProvider,ApiUrl) {
     console.log("url del api ", ApiUrl);

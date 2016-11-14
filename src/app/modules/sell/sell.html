@@ -5,7 +5,7 @@
    </div> -->
    <div class="panel-body">
      <div class="row">
-       <div class="col-md-9 border-right1  up15"  style="min-height: 400px">
+       <div class="col-md-9 border-right1  up15"  style="min-height: 520px">
           <div class="row back-cadetblue border-bottom1">   <!-- cliente-->
               <h4 class="right20">
                 <i class="fa fa-user font25"></i>
@@ -54,10 +54,18 @@
                 </div>
           </div>
           <div class="row"> <!--Factura-->
-            <h4 class="right20">
-              <i class="fa fa-cart-plus font25"></i>
-               Factura
-            </h4>
+            <div class="row">
+              <div class="col-md-2">
+                <h4 class="right20">
+                  <i class="fa fa-cart-plus font25"></i>
+                   Factura
+                 </h4>
+              </div>
+              <div class="col-md-3" style="margin-left:-15px; max-width: 210px;">
+                <input type="text" ng-model="vm.product_search" ng-keypress="vm.search_product($event)" class="form-control down10" maxlength="9"/>
+              </div>
+            </div>
+
             <div class="col-md-12">
               <table class="table table-striped">
                 <thead>
@@ -65,27 +73,35 @@
                      <th>Codigo</th>
                      <th>Nombre</th>
                      <th>Cantidad</th>
+                     <th>Precio unitario</th>
                      <th>SubTotal</th>
-                     <th>Total</th>
                      <th></th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td></td>
-                    <td style="max-width:30px"><input type="text" ng-model="vm.client.id" class="form-control up5" maxlength="9"/></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td> </td>
-                  </tr>
-                  <tr ng-repeat="detail in vm.detalles_factura">
-                    <td>Codigo</td>
-                    <td>Nombre</td>
-                    <td>Cantidad</td>
-                    <td>SubTotal</td>
-                    <td>Total</td>
-                    <td> </td>
+                  <tr ng-repeat="detalle in vm.detalles_factura">
+                    <td>{{detalle.codigo}}</td>
+                    <td>{{detalle.nombre}}</td>
+                    <td>{{detalle.cantidad}}</td>
+                    <td>{{detalle.precio_venta | currency:"Bs "}}</td>
+                    <td>{{detalle.cantidad*detalle.precio_venta | currency:"Bs "}}</td>
+                    <td>
+                      <button
+                        type="button"
+                        uib-tooltip="Quitar producto"
+                        class="btn btn-danger up5"
+                        mwl-confirm
+                        message="¿Desea descartar el producto?"
+                        confirm-text="Si"
+                        cancel-text="No"
+                        placement="{{ placement }}"
+                        on-confirm="vm.deleteDetail(detalle.codigo)"
+                        on-cancel=""
+                        confirm-button-type="danger"
+                        cancel-button-type="default">
+                          <i class="fa fa-trash-o"></i>
+                      </button>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -93,14 +109,79 @@
           </div>
        </div>
        <!--Pago-->
-       <div class="col-md-3 up15 back-cadetblue">
-         <div class="row border-bottom1" style="min-height: 114px;">
+       <div class="col-md-3 up15">
+         <div class="row border-bottom1 back-cadetblue" style="min-height: 114px;">
            <div class="col-md-12">
              <h4>
                <i class="fa fa-money font25 green"></i>
                 Pagos
              </h4>
+             <div class="row">
+                 <div class=col-md-6>
+                   <label>Tipo de pago</label>
+                 </div>
+             </div>
+             <div class="row">
+                 <div class=col-md-6>
+                   <select class="form-control" ng-model="vm.tipos_pago.tipo" ng-options="type.id as type.name for type in vm.tipos_pago.lista" required>
+                     <option>type.name</option>
+                   </select>
+                 </div>
+                 <div class=col-md-6>
+                   <button ng-click="vm.open_add_pago()"  type="button" uib-tooltip="Agregar pago" class="btn btn-success">
+                       <i class="fa fa-plus"></i>
+                   </button>
+                 </div>
+             </div>
            </div>
+         </div>
+         <div class="row">
+           <div class="col-md-12 down5">
+             <h4>Lista de pagos</h4>
+             <table class="table table-striped">
+               <thead>
+                 <tr>
+                    <th>Tipo</th>
+                    <th>Monto</th>
+                    <th></th
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr ng-repeat="producto in vm.listaProductos">
+                   <td>{{producto.codigo}}</td>
+                   <td>{{producto.nombre}}</td>
+                   <td>{{producto.precio_venta}}</td>
+                   <td>{{producto.stock}}</td>
+                   <td>
+                     <button ng-click="vm.AddProduct(producto)"  type="button" uib-tooltip="Agregar" class="btn btn-success">
+                       <i class="fa fa-plus"></i>
+                     </button>
+                   </td>
+                 </tr>
+               </tbody>
+             </table>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+   <div class="panel-footer back-cadetblue border-top1" style="min-height: 80px; margin-top: -16px;">
+     <div class="row">
+       <div class="col-md-3">
+         <div class="row up10">
+           <div class="col-md-12">
+             <h4>Total: {{vm.factura.total | currency:"Bs "}}</h4>
+           </div>
+           <div class="col-md-12">
+             <h4>Pagado: {{vm.factura.cancelado | currency:"Bs "}}</h4>
+           </div>
+         </div>
+       </div>
+       <div class="col-md-9">
+         <div class="pull-right down5">
+           <button ng-click="vm.GuardarFactura()"  type="button" uib-tooltip="Facturar" class="btn btn-default btn-sell">
+               <i class="fa fa-floppy-o font25"></i>
+           </button>
          </div>
        </div>
      </div>
