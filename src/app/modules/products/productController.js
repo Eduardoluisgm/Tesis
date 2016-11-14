@@ -177,7 +177,7 @@ angular.module('frontEndApp')
     vm.isloading = false;
     vm.product = {
       'codigo':"",
-      'nombre':"",
+      'name':"",
       'precio_costo':"",
       'precio_venta':"",
       'stock':""
