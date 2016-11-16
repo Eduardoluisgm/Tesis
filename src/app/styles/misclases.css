@@ -66,6 +66,8 @@
 .up5 {
   margin-top: -5px;
 }
+
+
 .up10 {
   margin-top: -10px;
 }
@@ -77,9 +79,21 @@
   margin-top: -20px;
 }
 
+.down5 {
+  margin-top: 5px;
+}
+
+.down10 {
+  margin-top: 10px;
+}
+
 .border-bottom1 {
   border-bottom: 2px solid gray;
   padding-bottom: 8px;
+}
+
+.border-top1 {
+  border-top: 2px solid gray !important;
 }
 
 .border-right1 {
@@ -93,4 +107,9 @@
 
 .green {
   color: green;
+}
+
+.btn-sell {
+  width: 50px !important;
+  height: 40px !important;
 }

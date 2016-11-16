@@ -1,0 +1,66 @@
+<div ng-if="vm.status=='pagar'">
+  <div class="modal-header">
+      <Label>Agregar pago</label>
+      <button type="button" ng-click="vm.cancel()" class="close"><span aria-hidden="true">&times;</span></button>
+  </div>
+  <div class="modal-body" style="min-height:350px;">
+    <div class="row">
+      <div class="col-md-3">
+        <label>Metodo de pago: </label>
+      </div>
+      <div class="col-md-3">
+        <label>Monto a cancelar</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <select class="form-control" ng-model="vm.ListType.tipo" ng-options="type.id as type.name for type in vm.ListType.lista" required>
+          <option>type.name</option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        <input class="form-control" type="text" ng-model="vm.pago" ng-currency currency-symbol="Bs " ng-keypress="vm.solonumeros($event)"/>
+      </div>
+      <div class="col-md-3">
+        <button ng-click="vm.add_pago()"  type="button" uib-tooltip="Agregar pago" class="btn btn-success">
+            <i class="fa fa-money"></i>
+        </button>
+      </div>
+    </div>
+    <div class="row" style="overflow-y: scroll; min-height:250px; max-height: 250px; overflow-x: hidden">
+      <div class="col-md-1"></div>
+      <div class="col-md-10">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+               <th>Tipo</th>
+               <th>Monto</th>
+               <th></th
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="pago in vm.listapagos">
+              <td>{{pago.tipo}}</td>
+              <td>{{pago.monto | currency:"Bs "}}</td>
+              <td>
+                <button ng-click="vm.AddProduct(producto)"  type="button" uib-tooltip="Agregar" class="btn btn-success">
+                  <i class="fa fa-plus"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <h4>Cancelado: {{vm.cancelado | currency:"Bs "}}</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <h4>Total: {{vm.total | currency:"Bs "}} </h4>
+      </div>
+    </div>
+  </div>
+</div>
