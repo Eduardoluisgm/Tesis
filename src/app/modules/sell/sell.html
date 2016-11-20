@@ -85,7 +85,7 @@
                     <tr ng-repeat="detalle in vm.detalles_factura">
                       <td>{{detalle.codigo}}</td>
                       <td>{{detalle.nombre}}</td>
-                      <td>{{detalle.cantidad}}</td>
+                      <td><input type="number" ng-mouseleave="vm.validarStock(detalle,'leave')" ng-change="vm.validarStock(detalle,'change')" ng-keypress="vm.solonumeros($event)" ng-model="detalle.cantidad" name="quantity" min="1" max="{{detalle.stock}}"></td>
                       <td>{{detalle.precio_venta | currency:"Bs "}}</td>
                       <td>{{detalle.cantidad*detalle.precio_venta | currency:"Bs "}}</td>
                       <td>

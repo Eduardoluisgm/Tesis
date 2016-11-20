@@ -108,6 +108,9 @@ angular.module('frontEndApp')
           }
         })
 
+        vm.save.detalles = JSON.stringify(vm.detalles_factura);
+        vm.save.pagos = JSON.stringify(vm.listapagos);
+
         factura_venta.save(vm.save,
           function (data) {
             console.log(data);
@@ -115,6 +118,7 @@ angular.module('frontEndApp')
             vm.factura.isloading = false;
           },
           function (err) {
+            toastr.error("Error del servidor");
             console.log(err);
             vm.factura.isloading = false;
           });
@@ -254,6 +258,22 @@ angular.module('frontEndApp')
         }
       }
 
+      /*Verifica que no se pase del stock*/
+      vm.validarStock = function (detalle, evento) {
+        console.log("cantidad "+ detalle.cantidad);
+        if (evento == 'leave') {
+          if (detalle.cantidad==null) {
+            detalle.cantidad=1;
+          }
+        } else {
+          if (typeof(detalle.cantidad)=='undefined') {
+            detalle.cantidad = parseInt(detalle.stock);
+            toastr.warning("El stock del producto es de: " +detalle.stock,"Advertencia");
+          }
+        }
+        countTotal();
+      }
+
       /*Buscar productos*/
       vm.search_product = function (event) {
         if (event.keyCode == 13) {
@@ -276,7 +296,11 @@ angular.module('frontEndApp')
         vm.detalles_factura.forEach(function (detalle){
             if (detalle.codigo==data.codigo) {
               bandera = true;
-              detalle.cantidad ++;
+              if (detalle.cantidad < detalle.stock) {
+                detalle.cantidad ++;
+              } else {
+                toastr.warning("El stock del producto es de: " +detalle.stock,"Advertencia");
+              }
             }
         });
         if (!bandera) {

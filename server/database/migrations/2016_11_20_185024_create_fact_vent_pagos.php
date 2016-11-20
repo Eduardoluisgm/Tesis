@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFactVentDetalles extends Migration
+class CreateFactVentPagos extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,13 @@ class CreateFactVentDetalles extends Migration
      */
     public function up()
     {
-      Schema::create('fact_vent_detalles', function (Blueprint $table) {
+      Schema::create('fact_vent_pagos', function (Blueprint $table) {
           $table->increments('id');
-          $table->decimal('precio_compra', 15, 2)->default(0);
-          $table->decimal('precio_venta', 15, 2)->default(0);
-          $table->integer('cant')->nullable();
-          $table->decimal('monto_total', 15, 2)->default(0);
+          $table->string('tipo');
+          $table->decimal('monto', 15, 2)->default(0);
           $table->string('status')->default("1");
           $table->integer('factura_id')->unsigned();
-          $table->string('producto_id');
           $table->foreign('factura_id')->references('id')->on('fact_vent')->onDelete('cascade')->onUpdate('cascade');
-          $table->foreign('producto_id')->references('codigo')->on('product')->onDelete('cascade')->onUpdate('cascade');
           $table->timestamps();
       });
     }
@@ -35,6 +31,6 @@ class CreateFactVentDetalles extends Migration
      */
     public function down()
     {
-        Schema::drop('fact_vent_detalles');
+        Schema::drop('fact_vent_pagos');
     }
 }

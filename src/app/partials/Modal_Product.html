@@ -152,7 +152,7 @@
               <td>{{producto.precio_venta}}</td>
               <td>{{producto.stock}}</td>
               <td>
-                <button ng-click="vm.AddProduct(producto)"  type="button" uib-tooltip="Agregar" class="btn btn-success">
+                <button ng-click="vm.AddProduct(producto)" ng-disabled="producto.stock<1"  type="button" uib-tooltip="Agregar" class="btn btn-success">
                   <i class="fa fa-plus"></i>
                 </button>
               </td>
