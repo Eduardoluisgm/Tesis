@@ -10,6 +10,8 @@ class fact_vent extends Model
   protected $fillable = [
       'monto_total',
       'monto_cancelado',
-      'status'
+      'status',
+      'client_id',
+      'fecha_pago'
   ];
 }

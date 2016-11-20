@@ -43,8 +43,20 @@
               <td>{{pago.tipo}}</td>
               <td>{{pago.monto | currency:"Bs "}}</td>
               <td>
-                <button ng-click="vm.AddProduct(producto)"  type="button" uib-tooltip="Agregar" class="btn btn-success">
-                  <i class="fa fa-plus"></i>
+                <button
+                  type="button"
+                  uib-tooltip="Quitar pago"
+                  class="btn btn-danger up5"
+                  mwl-confirm
+                  message="¿Desea descartar el pago?"
+                  confirm-text="Si"
+                  cancel-text="No"
+                  placement="{{ placement }}"
+                  on-confirm="vm.deletePago(pago)"
+                  on-cancel=""
+                  confirm-button-type="danger"
+                  cancel-button-type="default">
+                    <i class="fa fa-trash-o"></i>
                 </button>
               </td>
             </tr>
@@ -62,5 +74,8 @@
         <h4>Total: {{vm.total | currency:"Bs "}} </h4>
       </div>
     </div>
+  </div>
+  <div class="modal-footer">
+    <button ladda="vm.isloading" type="button" ng-click="vm.save()" class="btn btn-primary">Guardar</button>
   </div>
 </div>

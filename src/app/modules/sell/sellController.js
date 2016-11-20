@@ -4,7 +4,7 @@ angular.module('frontEndApp')
   .controller('sellController', sellController)
   .controller('sellAddPayController', sellAddPayController);
 
-  function sellController ($log, authUser,$rootScope, $uibModal, toastr, clientResource) {
+  function sellController ($log, authUser,$rootScope, $uibModal, toastr,factura_venta, clientResource) {
       var vm = this;
       vm.searchClient = searchClient;
       vm.changeClient = changeClient;
@@ -12,6 +12,9 @@ angular.module('frontEndApp')
       vm.countTotal = countTotal;
       vm.open_add_pago = open_add_pago;
       vm.open_create_client = open_create_client;
+      vm.backSell = backSell;
+      vm.pagar = pagar;
+      vm.facturar = facturar;
       vm.product_search = ""; /*Producto que se va a buscar*/
       vm.ListType = [
         {'sigla':"V", 'name' : 'Venezolano'},
@@ -20,10 +23,18 @@ angular.module('frontEndApp')
         {'sigla':'G', 'name' : 'Gubernamental'}
       ]
 
+      /*esto es para activar o desactivar los botones de abajo*/
+      vm.btn = {
+        'pagar': false,
+        'facturar': false
+      }
+
+      /*Lista de pagos*/
       vm.tipos_pago = {
         'lista': [{'id':"1", 'name' : 'Contado'},{'id':"2", 'name' : 'Credito'}],
         'tipo': "1"
       }
+      /*info del cliente*/
       vm.client = {
         'id': '23591017',
         'nombre': '',
@@ -33,19 +44,92 @@ angular.module('frontEndApp')
         'loading': false
       };
 
+      /*Monto que se muestra abajo total y cancelado*/
       vm.factura = {
         'total': 0,
-        'cancelado': 0
+        'cancelado': 0,
+        'isloadin': false
       };
 
+      /**/
+      vm.listapagos = [];
+
+      /*productos a facturar*/
       vm.detalles_factura = [];
 
+      function backSell () {
+        vm.btn.pagar = false;
+        vm.btn.facturar = false;
+      }
+
+      /*empezar a agregar los pagos*/
+      function pagar () {
+        console.log("cantidad de productos "+ Object.keys(vm.detalles_factura).length);
+        if (!vm.client.isLoad) {
+          toastr.info('Debe agregar un cliente', 'Información');
+          return;
+        } else if(Object.keys(vm.detalles_factura).length<1) {
+          toastr.info('Debe seleccionar algun producto', 'Información');
+          return;
+        }
+
+        vm.btn.pagar = true;
+        vm.btn.facturar = true;
+      }
+
+      function facturar () {
+        vm.factura.isloading = true;
+        vm.save = {
+          'monto_total': vm.factura.total,
+          'monto_cancelado': vm.factura.cancelado,
+          'client_id': vm.client.id,
+          'status': vm.tipos_pago.tipo,
+        }
+
+        if (vm.tipos_pago.tipo =="1") { /*Pagando de contado*/
+            if (vm.factura.total>vm.factura.cancelado) {
+              toastr.info("Debe pagar la totalidad de la factura", "Información");
+              vm.factura.isloading = false;
+              return;
+            }
+          vm.save.fecha_pago= moment().format('YYYY-MM-DD HH:mm')
+        }
+        if (vm.tipos_pago.tipo =="2") {
+            if (vm.factura.total== vm.factura.cancelado) {
+              toastr.info("Seleccione pago de contado", "Información");
+              vm.factura.isloading = false;
+              return;
+            }
+        }
+
+        vm.ListType.forEach(function (data){
+          if (data.name==vm.client.tipo) {
+            vm.save.client_id = data.sigla+"-"+vm.client.id;
+          }
+        })
+
+        factura_venta.save(vm.save,
+          function (data) {
+            console.log(data);
+            toastr.success("Factura guardada con exito");
+            vm.factura.isloading = false;
+          },
+          function (err) {
+            console.log(err);
+            vm.factura.isloading = false;
+          });
+        console.log("facturando", vm.save);
+      }
+
+      /*borra el cliente que esta actualmente*/
       function changeClient () {
         vm.client.isLoad = false;
         vm.client.nombre = "";
         vm.client.cedula = "";
         console.log("cambiando el cliente");
       }
+
+      /*Busca el cliente*/
       function searchClient () {
         if (vm.client.id) {
           vm.client.loading = true;
@@ -66,7 +150,7 @@ angular.module('frontEndApp')
               }
               vm.client.loading = false;
             }, function (err) {
-                if (err.status=404) {
+                if (err.status=404) { /*Si el cliente no existe abre la modal para crearlo*/
                   open_create_client ();
                 }
               vm.client.loading = false;
@@ -74,6 +158,7 @@ angular.module('frontEndApp')
         }
       }
 
+      /*abre la modal de buscar productos*/
       function open_search_product () {
         console.log("Buscando producto "+ vm.product_search);
         if (!vm.product_search) {
@@ -97,11 +182,16 @@ angular.module('frontEndApp')
         });
       }
 
+      /*Calcula el total pagado y total a facturar*/
       function countTotal() {
         vm.factura.total = 0;
+        vm.factura.cancelado = 0;
         vm.detalles_factura.forEach(function(detalle){
            vm.factura.total = vm.factura.total + (detalle.cantidad*detalle.precio_venta);
         })
+        vm.listapagos.forEach(function (pago){
+          vm.factura.cancelado = vm.factura.cancelado + pago.monto;
+        });
       }
 
       function open_add_pago() {
@@ -116,7 +206,8 @@ angular.module('frontEndApp')
               return {
                 'origin':'sell',
                 'total': vm.factura.total,
-                'cancelado': vm.factura.cancelado
+                'cancelado': vm.factura.cancelado,
+                'listapagos': vm.listapagos
               };
             }
           }
@@ -202,15 +293,27 @@ angular.module('frontEndApp')
 
         countTotal();
       });
+
+      $rootScope.$on('Sell_add_pay', function(event, data) {
+        vm.listapagos = data;
+        countTotal();
+      });
   };
 
-  function sellAddPayController ($uibModalInstance,$q, origin) {
+  function sellAddPayController ($uibModalInstance,$q, origin, toastr, $rootScope) {
     var vm =this;
     vm.status= "pagar";
+    vm.isloading = false;
     vm.pago = 0;
-    vm.total = origin.total;
-    vm.cancelado = origin.cancelado;
-    vm.listapagos = [];
+    if (origin.origin=="sell") {
+      console.log("vengo de factura venta");
+      vm.total = origin.total;
+      vm.cancelado = origin.cancelado;
+      vm.listapagos = angular.copy(origin.listapagos);
+      console.log(origin);
+    }
+
+
     vm.ListType = {
       'lista': [{'id':"Efectivo", 'name' : 'Efectivo'},{'id':"Debito", 'name' : 'Debito'},{'id':"Credito", 'name' : 'Credito'}],
       'tipo': "Efectivo"
@@ -222,7 +325,15 @@ angular.module('frontEndApp')
           'tipo': vm.ListType.tipo,
           'monto': vm.pago
         })
+        vm.calcular();
       }
+    }
+
+    vm.calcular = function(){
+      vm.cancelado = 0;
+      vm.listapagos.forEach(function (pago){
+        vm.cancelado = vm.cancelado + pago.monto;
+      });
     }
 
     vm.cancel= function() {
@@ -232,5 +343,30 @@ angular.module('frontEndApp')
       if (event.keyCode >= 48 && event.keyCode <= 57 || event.keyCode == 46) {} else {
         event.preventDefault();
       }
+    }
+
+    vm.save = function () {
+      vm.isloading = true;
+      if (vm.cancelado>vm.total) {
+        toastr.info ('El monto cancelado no debe exceder el monto total');
+        vm.isloading = false;
+        return;
+      }
+      $rootScope.$broadcast('Sell_add_pay', vm.listapagos);
+      $uibModalInstance.dismiss('cancel');
+      vm.isloading = false;
+    }
+
+    vm.deletePago = function (pago) {
+      var count = 0;
+      pago.tipo = "";
+      pago.monto ="";
+      vm.listapagos.forEach(function (detalle){
+        if (detalle.tipo=="") {
+          vm.listapagos.splice(count,1);
+        }
+        count++;
+      });
+      vm.calcular();
     }
   }
