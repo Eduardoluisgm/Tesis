@@ -9,6 +9,7 @@ use App\fact_vent;
 use App\fact_vent_detalles;
 use App\fact_vent_pagos;
 use App\Product;
+use PDF;
 
 class fact_ventController extends Controller
 {
@@ -21,6 +22,12 @@ class fact_ventController extends Controller
       $sale = fact_vent::all();
     }
     return $sale;
+  }
+
+
+  function FacturaPdf() {
+    $pdf = PDF::loadView('invoice');
+    return $pdf->download('welcome.pdf');
   }
 
   /*guarda la factura de venta*/
