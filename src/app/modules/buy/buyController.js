@@ -276,8 +276,7 @@ angular.module('frontEndApp')
         vm.provider.isLoad = true;
         vm.provider.nombre = data.data.data.nombre;
       //  vm.provider.tipo = data.data.data.tipo;
-      //  vm.provider.id = data.data.data.cedula.slice(2);
-        vm.provider.id = data.data.data.rif;
+        vm.provider.id = data.data.data.rif.slice(2);
         console.log("proveedor ", vm.provider);
     });
 

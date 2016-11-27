@@ -15,6 +15,7 @@ class Provider extends Model
       'direccion',
       'telefono',
       'status',
-      'nombre_vendedor'
+      'nombre_vendedor',
+      'tipo'
   ];
 }

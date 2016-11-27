@@ -117,12 +117,15 @@ angular.module('frontEndApp')
     vm.provider= [];
     cargar();
     function cargar() {
-      var proveedor = providerResource.getFresh({'rif':provider_id});
-      $q.all([provider.$promise]).then(function(data){
-        vm.provider = data[0];
-        vm.provider.oldrif = vm.provider.rif;
-        vm.provider.rif = vm.provider.rif.slice(2);
-      });
+      console.log("rif que estoy pidiendo "+ provider_id);
+      providerResource.getFresh({'rif':provider_id},
+        function (data) {
+          vm.provider = data;
+          vm.provider.oldrif = vm.provider.rif;
+          vm.provider.rif = vm.provider.rif.slice(2);
+        }, function (err) {
+        }
+      );
     }
     vm.ListType = [
       {'sigla':"V", 'nombre' : 'Venezolano'},
@@ -210,6 +213,10 @@ angular.module('frontEndApp')
       {'sigla':'G', 'nombre' : 'Gubernamental'}
     ]
 
+    if (origin.origin=="buy") {
+      vm.provider.rif = origin.rif;
+    }
+
 
     vm.cancel= function() {
       $uibModalInstance.dismiss('cancel');
@@ -229,6 +236,9 @@ angular.module('frontEndApp')
               console.log("estoy guardando desde el proveedor");
               $rootScope.$broadcast('changeProvider');
             };
+            if (origin.origin=="buy") {
+              $rootScope.$broadcast('Buy_create_provider', {'data':data});
+            }
 
 
             $uibModalInstance.dismiss('cancel');
