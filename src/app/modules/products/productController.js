@@ -243,8 +243,12 @@ angular.module('frontEndApp')
 
     vm.AddProduct = function (producto) {
       console.log(origin.origin);
-      if (origin.origin =="sell") {
+      if (origin.origin =="sell") { /*Factura venta*/
         $rootScope.$broadcast('Sell_add_product', producto);
+        $uibModalInstance.dismiss('cancel');
+      }
+      if (origin.origin =="buy") { /*Factura compra*/
+        $rootScope.$broadcast('Buy_add_product', producto);
         $uibModalInstance.dismiss('cancel');
       }
     }

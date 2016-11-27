@@ -21,6 +21,10 @@
   min-height: 450px;
 }
 
+.width70 {
+  max-width: 70px !important;
+}
+
 .profile-form {
   margin-right: 21% !important;
   margin-top: 5px;

@@ -14,4 +14,13 @@ class fact_vent extends Model
       'client_id',
       'fecha_pago'
   ];
+
+
+  public function detalles() {
+    return $this->hasMany('App\fact_vent_detalles', 'factura_id');
+  }
+
+  public function pagos() {
+    return $this->hasMany('App\fact_vent_pagos', 'factura_id');
+  }
 }

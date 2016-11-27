@@ -4,7 +4,7 @@ angular.module('frontEndApp')
   .controller('sellController', sellController)
   .controller('sellAddPayController', sellAddPayController);
 
-  function sellController ($log, authUser,$rootScope, $uibModal, toastr,factura_venta, clientResource) {
+  function sellController ($log, authUser,$http,$rootScope, $uibModal, toastr,factura_venta, clientResource, ApiUrl) {
       var vm = this;
       vm.searchClient = searchClient;
       vm.changeClient = changeClient;
@@ -48,7 +48,7 @@ angular.module('frontEndApp')
       vm.factura = {
         'total': 0,
         'cancelado': 0,
-        'isloadin': false
+        'isloading': false
       };
 
       /**/
@@ -72,9 +72,28 @@ angular.module('frontEndApp')
           toastr.info('Debe seleccionar algun producto', 'Información');
           return;
         }
-
         vm.btn.pagar = true;
         vm.btn.facturar = true;
+      }
+
+      /*resetar la pantalla despes de facturar*/
+      function limpiar() {
+        vm.factura.total = 0,
+        vm.factura.cancelado = 0,
+        vm.tipos_pago.tipo =="1" /*de contado*/
+        vm.detalles_factura=[]; /*borra los detalles de la factura*/
+        vm.listapagos=[]; /*borra los pagos realizados*/
+        vm.product_search="";
+        vm.client = {
+          'id': '',
+          'nombre': '',
+          'tipo': 'Venezolano',
+          'isLoad': false,
+          'cedula': '',
+          'loading': false
+        };
+        vm.btn.pagar = false;
+        vm.btn.facturar = false;
       }
 
       function facturar () {
@@ -116,6 +135,8 @@ angular.module('frontEndApp')
             console.log(data);
             toastr.success("Factura guardada con exito");
             vm.factura.isloading = false;
+            Facturapdf(data.data.id);
+            limpiar();
           },
           function (err) {
             toastr.error("Error del servidor");
@@ -124,6 +145,29 @@ angular.module('frontEndApp')
           });
         console.log("facturando", vm.save);
       }
+
+      function Facturapdf(factura_id) {
+        /*ProjectPDF.get({id: vm.project.id});*/
+        console.log("id de la factura "+ factura_id);
+        $http({
+          url: ApiUrl + '/factura_venta/'+factura_id+'/pdf',
+          method: 'GET',
+          responseType: 'arraybuffer'
+        }).success(function(data) {
+          var file = new Blob([data], {
+            type: 'application/pdf'
+          });
+          var fileURL = URL.createObjectURL(file);
+          /*window.open(fileURL,'download_window');*/
+          var link = document.createElement('a');
+          link.download = 'Factura '+factura_id;
+          link.target = '_blank';
+          link.href = fileURL;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+      });
+    }
 
       /*borra el cliente que esta actualmente*/
       function changeClient () {
@@ -249,7 +293,6 @@ angular.module('frontEndApp')
         });
         vm.detalles_factura.splice(position, 1);
         countTotal();
-        console.log(codigo);
       }
       /*Solo numeros*/
       vm.solonumeros = function(event) {
@@ -337,6 +380,14 @@ angular.module('frontEndApp')
       console.log(origin);
     }
 
+    if (origin.origin=="buy") {
+      console.log("vengo de factura compra");
+      vm.total = origin.total;
+      vm.cancelado = origin.cancelado;
+      vm.listapagos = angular.copy(origin.listapagos);
+      console.log(origin);
+    }
+
 
     vm.ListType = {
       'lista': [{'id':"Efectivo", 'name' : 'Efectivo'},{'id':"Debito", 'name' : 'Debito'},{'id':"Credito", 'name' : 'Credito'}],
@@ -376,7 +427,13 @@ angular.module('frontEndApp')
         vm.isloading = false;
         return;
       }
-      $rootScope.$broadcast('Sell_add_pay', vm.listapagos);
+      if (origin.origin=="sell") {
+        $rootScope.$broadcast('Sell_add_pay', vm.listapagos);
+      }
+      if (origin.origin=="buy") {
+        $rootScope.$broadcast('Buy_add_pay', vm.listapagos);
+      }
+
       $uibModalInstance.dismiss('cancel');
       vm.isloading = false;
     }

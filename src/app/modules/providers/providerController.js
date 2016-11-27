@@ -63,7 +63,14 @@ angular.module('frontEndApp')
           animation: true,
           templateUrl: 'partials/Modal_Provider.html', /*Llamo al template donde usare lamodal*/
           controller: 'ProviderCreateController', /*nombre del controlador de la modal*/
-          controllerAs: 'vm' /*Importante colocar esto*/
+          controllerAs: 'vm', /*Importante colocar esto*/
+          resolve: {
+            origin: function () {
+              return {
+                'origin':'provider'
+              };
+            }
+          }
         });
       }
 
@@ -171,8 +178,9 @@ angular.module('frontEndApp')
     }
   }
 
-  function ProviderCreateController ($uibModalInstance,$q,provider,toastr, $rootScope) {
+  function ProviderCreateController ($uibModalInstance,$q,provider,toastr, $rootScope, origin) {
     var vm = this;
+    console.log(origin);
     vm.status="crear";
     vm.isloading = false;
     vm.provider = {
@@ -183,7 +191,9 @@ angular.module('frontEndApp')
       'telefono':""
     }
 
-    /*En VM.provider estabas mandando a guardar name, y el campo se llama nombre y es requerido por eso el error*/
+    if (origin.origin=="buy") {
+      vm.provider.rif = origin.rif;
+    }
 
     vm.cancel= function() {
       $uibModalInstance.dismiss('cancel');
@@ -196,7 +206,14 @@ angular.module('frontEndApp')
       provider.save(vm.provider,
           function (data) {
             toastr.success("Proveedor registrado exitosamente");
-            $rootScope.$broadcast('changeProvider');
+            if (origin.origin=="provider") {
+              $rootScope.$broadcast('changeProvider');
+            }
+
+            if (origin.origin=="buy") {
+              $rootScope.$broadcast('Buy_create_provider', {'data':data});
+            }
+
             $uibModalInstance.dismiss('cancel');
             vm.isloading = false;
           }, function (err)  {

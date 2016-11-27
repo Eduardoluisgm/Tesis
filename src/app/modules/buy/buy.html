@@ -9,8 +9,8 @@
           <div class="row back-cadetblue border-bottom1">   <!-- cliente-->
               <h4 class="right20">
                 <i class="fa fa-user font25"></i>
-                 Cliente: {{vm.client.nombre}}
-                <i ng-if="vm.client.isLoad==true" class="fa fa-check green font25" aria-hidden="true"></i>
+                 Proveedor: {{vm.provider.nombre}}
+                <i ng-if="vm.provider.isLoad==true" class="fa fa-check green font25" aria-hidden="true"></i>
               </h4>
                 <div class="col-md-12">
                   <div class="row">
@@ -21,31 +21,31 @@
                   <div class="row">
                     <fieldset ng-disabled="vm.btn.pagar==true">
                       <div class=col-md-2>
-                        <select class="form-control" ng-disabled="vm.client.isLoad==true" ng-model="vm.client.tipo" ng-options="type.name as type.sigla for type in vm.ListType" required>
+                        <select class="form-control" ng-disabled="vm.provider.isLoad==true" ng-model="vm.provider.tipo" ng-options="type.name as type.sigla for type in vm.ListType" required>
                           <option>type.sigla</option>
                         </select>
                       </div>
                       <div class ="col-md-3" style="margin-left: -25px;">
-                        <input type="text" ng-readonly="vm.client.isLoad==true" ng-model="vm.client.id" ng-change="vm.changeCedula()" class="form-control" minlength="5" maxlength="9" required ng-keypress="vm.solonumeros($event)"/>
+                        <input type="text" ng-readonly="vm.provider.isLoad==true" ng-model="vm.provider.id" ng-change="vm.changeCedula()" class="form-control" minlength="5" maxlength="9" required ng-keypress="vm.solonumeros($event)"/>
                       </div>
                       <div class="col-md-1" style="margin-left: -25px;">
-                        <button ladda="vm.client.loading" ng-click="vm.searchClient()" ng-disabled="vm.client.isLoad==true"  type="button" uib-tooltip="Buscar" class="btn btn-default">
+                        <button ladda="vm.provider.loading" ng-click="vm.searchProvider()" ng-disabled="vm.provider.isLoad==true"  type="button" uib-tooltip="Buscar" class="btn btn-default">
                             <i class="fa fa-search"></i>
                         </button>
                       </div>
                       <div class="col-md-1" style="margin-left: -25px;">
                         <button
                           type="button"
-                          uib-tooltip="Cambiar cliente"
+                          uib-tooltip="Cambiar proveedor"
                           class="btn btn-primary"
                           mwl-confirm
-                          message="¿Esta seguro que desea cambiar de cliente?"
+                          message="¿Esta seguro que desea cambiar de proveedor?"
                           confirm-text="Si"
                           cancel-text="No"
                           placement="{{ placement }}"
-                          on-confirm="vm.changeClient()"
+                          on-confirm="vm.changeProvider()"
                           on-cancel=""
-                          ng-disabled="vm.client.isLoad==false"
+                          ng-disabled="vm.provider.isLoad==false"
                           confirm-button-type="success"
                           cancel-button-type="default">
                             <i class="fa fa-refresh"></i>
@@ -85,7 +85,7 @@
                     <tr ng-repeat="detalle in vm.detalles_factura">
                       <td>{{detalle.codigo}}</td>
                       <td>{{detalle.nombre}}</td>
-                      <td><input type="number" ng-mouseleave="vm.validarStock(detalle,'leave')" ng-change="vm.validarStock(detalle,'change')" ng-keypress="vm.solonumeros($event)" ng-model="detalle.cantidad" name="quantity" min="1" max="{{detalle.stock}}"></td>
+                      <td><input class="width70" type="number" ng-mouseleave="vm.validarStock(detalle,'leave')" ng-change="vm.validarStock(detalle,'change')" ng-keypress="vm.solonumeros($event)" ng-model="detalle.cantidad" name="quantity" min="1" max="100000"></td>
                       <td>{{detalle.precio_venta | currency:"Bs "}}</td>
                       <td>{{detalle.cantidad*detalle.precio_venta | currency:"Bs "}}</td>
                       <td>
@@ -136,7 +136,7 @@
                    <button ng-click="vm.open_add_pago()"  type="button" uib-tooltip="Agregar pago" class="btn btn-success">
                        <i class="fa fa-plus"></i>
                    </button>
-                   <button  type="button" uib-tooltip="Cambiar factura" type="button" class="btn btn-primary" ng-click="vm.backSell()">
+                   <button  type="button" uib-tooltip="Cambiar factura" type="button" class="btn btn-primary" ng-click="vm.backBuy()">
                     <i class="fa fa-arrow-left"></i>
                    </button>
                  </div>
