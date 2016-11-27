@@ -4,6 +4,7 @@ angular.module('frontEndApp')
   .controller('productController', productController)
   .controller('ProductInformationController', ProductInformationController)
   .controller('ProductEditController', ProductEditController)
+  .controller('ProductSearchController', ProductSearchController)
   .controller('ProductCreateController',ProductCreateController);
 
   function productController (product,$q,$uibModal, $rootScope, productEdit, toastr) {
