@@ -3,7 +3,7 @@
 angular.module('frontEndApp')
   .controller('buyController', buyController);
 
-  function buyController ($log, authUser,$rootScope, providerResource, toastr, $uibModal) {
+  function buyController ($log, authUser,$rootScope, providerResource, toastr, $uibModal, factura_compra) {
     var vm = this;
     vm.searchProvider = searchProvider;
     vm.changeProvider = changeProvider;
@@ -58,13 +58,13 @@ angular.module('frontEndApp')
       console.log("buscando proveedor");
       if (vm.provider.id) {
         vm.provider.loading = true;
-        /*vm.ListType.forEach(function(data){
+        vm.ListType.forEach(function(data){
             if (data.name==vm.provider.tipo) {
               vm.provider.cedula = data.sigla +"-"+vm.provider.id;
             }
-        });*/
-        console.log("estoy pidiendo "+ vm.provider.id);
-        providerResource.getFresh({'rif': vm.provider.id},
+        });
+        console.log("estoy pidiendo "+ vm.provider.cedula);
+        providerResource.getFresh({'rif': vm.provider.cedula},
           function (data) {
             if (data.status=="1") { /*Esta activo el cliente*/
               vm.provider.isLoad = true;
@@ -81,6 +81,26 @@ angular.module('frontEndApp')
             vm.provider.loading = false;
           });
       }
+    }
+
+    /*resetar la pantalla despes de facturar*/
+    function limpiar() {
+      vm.factura.total = 0,
+      vm.factura.cancelado = 0,
+      vm.tipos_pago.tipo =="1" /*de contado*/
+      vm.detalles_factura=[]; /*borra los detalles de la factura*/
+      vm.listapagos=[]; /*borra los pagos realizados*/
+      vm.product_search="";
+      vm.provider = {
+        'id': '',
+        'nombre': '',
+        'tipo': 'Venezolano',
+        'isLoad': false,
+        'cedula': '',
+        'loading': false
+      };
+      vm.btn.pagar = false;
+      vm.btn.facturar = false;
     }
 
     /*borra el cliente que esta actualmente*/
@@ -219,13 +239,25 @@ angular.module('frontEndApp')
       }
 
       vm.ListType.forEach(function (data){
-        if (data.name==vm.client.tipo) {
-          vm.save.client_id = data.sigla+"-"+vm.client.id;
+        if (data.name==vm.provider.tipo) {
+          vm.save.provider_id = data.sigla+"-"+vm.provider.id;
         }
       })
 
       vm.save.detalles = JSON.stringify(vm.detalles_factura);
       vm.save.pagos = JSON.stringify(vm.listapagos);
+
+      factura_compra.save(vm.save,
+        function (data) {
+          toastr.success("Factura guardada con exito");
+          limpiar();
+          vm.factura.isloading = false;
+        }, function (err) {
+          toastr.error("Error del servidor");
+          vm.factura.isloading = false;
+        }
+      )
+
 
   /*    factura_venta.save(vm.save,
         function (data) {

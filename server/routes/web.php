@@ -30,6 +30,9 @@ Route::group(['middleware' => 'cors'], function (){
     Route::get('factura_venta/{id}/pdf', 'fact_ventController@FacturaPdf');
     Route::post('factura_venta', 'fact_ventController@GuardarFactura');
 
+    /*Facturas de compra*/
+    Route::post('factura_compra', 'fact_compController@GuardarFactura');
+
     /*User*/
     Route::get('user', 'userController@AllUser');
     Route::get('user/{cedula}', 'userController@get');
@@ -55,5 +58,4 @@ Route::group(['middleware' => 'cors'], function (){
 
     /*Profile*/
     Route::get('profile', 'profileController@get');
-
 });
