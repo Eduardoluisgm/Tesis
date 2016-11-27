@@ -4,7 +4,6 @@ angular.module('frontEndApp')
   .controller('productController', productController)
   .controller('ProductInformationController', ProductInformationController)
   .controller('ProductEditController', ProductEditController)
-  .controller('ProductSearchController', ProductSearchController)
   .controller('ProductCreateController',ProductCreateController);
 
   function productController (product,$q,$uibModal, $rootScope, productEdit, toastr) {
@@ -184,7 +183,7 @@ angular.module('frontEndApp')
       'stock':""
     }
 
-
+    
 
     vm.cancel= function() {
       $uibModalInstance.dismiss('cancel');
@@ -220,37 +219,5 @@ angular.module('frontEndApp')
       if (vm.product.codigo) {
         vm.product.codigo = parseInt(vm.product.codigo);
       }
-    }
-  }
-
-  /*echo por eduardo para buscar productos*/
-  function ProductSearchController ($uibModalInstance,$q,$rootScope, origin, productSearch) {
-    var vm = this;
-    vm.status= "buscar";
-    vm.isloading = true;
-    vm.products_number = 0;
-    vm.listaProductos = [];
-
-    productSearch.queryFresh({
-      'name':origin.name
-    }, function (data) {
-      vm.listaProductos = data;
-      vm.products_number = Object.keys(vm.listaProductos).length;
-      vm.isloading = false;
-    }, function (err) {
-      vm.isloading = false;
-    });
-
-    vm.AddProduct = function (producto) {
-      console.log(origin.origin);
-      if (origin.origin =="sell") {
-        $rootScope.$broadcast('Sell_add_product', producto);
-        $uibModalInstance.dismiss('cancel');
-      }
-    }
-
-
-    vm.cancel= function() {
-      $uibModalInstance.dismiss('cancel');
     }
   }
