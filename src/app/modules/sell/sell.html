@@ -19,6 +19,7 @@
                     </div>
                   </div>
                   <div class="row">
+                    <fieldset ng-disabled="vm.btn.pagar==true">
                       <div class=col-md-2>
                         <select class="form-control" ng-disabled="vm.client.isLoad==true" ng-model="vm.client.tipo" ng-options="type.name as type.sigla for type in vm.ListType" required>
                           <option>type.sigla</option>
@@ -50,62 +51,65 @@
                             <i class="fa fa-refresh"></i>
                         </button>
                       </div>
+                    </fieldset>
                   </div>
                 </div>
           </div>
           <div class="row"> <!--Factura-->
-            <div class="row">
-              <div class="col-md-2">
-                <h4 class="right20">
-                  <i class="fa fa-cart-plus font25"></i>
-                   Factura
-                 </h4>
+            <fieldset ng-disabled="vm.btn.pagar==true">
+              <div class="row">
+                <div class="col-md-2">
+                  <h4 class="right20">
+                    <i class="fa fa-cart-plus font25"></i>
+                     Factura
+                   </h4>
+                </div>
+                <div class="col-md-3" style="margin-left:-15px; max-width: 210px;">
+                  <input type="text" ng-model="vm.product_search" ng-keypress="vm.search_product($event)" class="form-control down10" maxlength="9"/>
+                </div>
               </div>
-              <div class="col-md-3" style="margin-left:-15px; max-width: 210px;">
-                <input type="text" ng-model="vm.product_search" ng-keypress="vm.search_product($event)" class="form-control down10" maxlength="9"/>
-              </div>
-            </div>
 
-            <div class="col-md-12">
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                     <th>Codigo</th>
-                     <th>Nombre</th>
-                     <th>Cantidad</th>
-                     <th>Precio unitario</th>
-                     <th>SubTotal</th>
-                     <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr ng-repeat="detalle in vm.detalles_factura">
-                    <td>{{detalle.codigo}}</td>
-                    <td>{{detalle.nombre}}</td>
-                    <td>{{detalle.cantidad}}</td>
-                    <td>{{detalle.precio_venta | currency:"Bs "}}</td>
-                    <td>{{detalle.cantidad*detalle.precio_venta | currency:"Bs "}}</td>
-                    <td>
-                      <button
-                        type="button"
-                        uib-tooltip="Quitar producto"
-                        class="btn btn-danger up5"
-                        mwl-confirm
-                        message="¿Desea descartar el producto?"
-                        confirm-text="Si"
-                        cancel-text="No"
-                        placement="{{ placement }}"
-                        on-confirm="vm.deleteDetail(detalle.codigo)"
-                        on-cancel=""
-                        confirm-button-type="danger"
-                        cancel-button-type="default">
-                          <i class="fa fa-trash-o"></i>
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+              <div class="col-md-12">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                       <th>Codigo</th>
+                       <th>Nombre</th>
+                       <th>Cantidad</th>
+                       <th>Precio unitario</th>
+                       <th>SubTotal</th>
+                       <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="detalle in vm.detalles_factura">
+                      <td>{{detalle.codigo}}</td>
+                      <td>{{detalle.nombre}}</td>
+                      <td><input type="number" ng-mouseleave="vm.validarStock(detalle,'leave')" ng-change="vm.validarStock(detalle,'change')" ng-keypress="vm.solonumeros($event)" ng-model="detalle.cantidad" name="quantity" min="1" max="{{detalle.stock}}"></td>
+                      <td>{{detalle.precio_venta | currency:"Bs "}}</td>
+                      <td>{{detalle.cantidad*detalle.precio_venta | currency:"Bs "}}</td>
+                      <td>
+                        <button
+                          type="button"
+                          uib-tooltip="Quitar producto"
+                          class="btn btn-danger up5"
+                          mwl-confirm
+                          message="¿Desea descartar el producto?"
+                          confirm-text="Si"
+                          cancel-text="No"
+                          placement="{{ placement }}"
+                          on-confirm="vm.deleteDetail(detalle.codigo)"
+                          on-cancel=""
+                          confirm-button-type="danger"
+                          cancel-button-type="default">
+                            <i class="fa fa-trash-o"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </fieldset>
           </div>
        </div>
        <!--Pago-->
@@ -122,6 +126,7 @@
                  </div>
              </div>
              <div class="row">
+               <fieldset ng-disabled="vm.btn.pagar==false">
                  <div class=col-md-6>
                    <select class="form-control" ng-model="vm.tipos_pago.tipo" ng-options="type.id as type.name for type in vm.tipos_pago.lista" required>
                      <option>type.name</option>
@@ -131,7 +136,11 @@
                    <button ng-click="vm.open_add_pago()"  type="button" uib-tooltip="Agregar pago" class="btn btn-success">
                        <i class="fa fa-plus"></i>
                    </button>
+                   <button  type="button" uib-tooltip="Cambiar factura" type="button" class="btn btn-primary" ng-click="vm.backSell()">
+                    <i class="fa fa-fast-backward"></i>
+                   </button>
                  </div>
+               </fieldset>
              </div>
            </div>
          </div>
@@ -147,16 +156,9 @@
                  </tr>
                </thead>
                <tbody>
-                 <tr ng-repeat="producto in vm.listaProductos">
-                   <td>{{producto.codigo}}</td>
-                   <td>{{producto.nombre}}</td>
-                   <td>{{producto.precio_venta}}</td>
-                   <td>{{producto.stock}}</td>
-                   <td>
-                     <button ng-click="vm.AddProduct(producto)"  type="button" uib-tooltip="Agregar" class="btn btn-success">
-                       <i class="fa fa-plus"></i>
-                     </button>
-                   </td>
+                 <tr ng-repeat="pago in vm.listapagos">
+                   <td>{{pago.tipo}}</td>
+                   <td>{{pago.monto | currency:"Bs "}}</td>
                  </tr>
                </tbody>
              </table>
@@ -178,11 +180,14 @@
          </div>
        </div>
        <div class="col-md-9">
-         <div class="pull-right down5">
-           <button ng-click="vm.GuardarFactura()"  type="button" uib-tooltip="Facturar" class="btn btn-default btn-sell">
-               <i class="fa fa-floppy-o font25"></i>
-           </button>
-         </div>
+           <div class="pull-right down5">
+             <button ng-disabled="vm.btn.pagar==true" ng-click="vm.pagar()"  type="button" uib-tooltip="Pagar" class="btn btn-default btn-sell">
+                 <i class="fa fa-money font25 green"></i>
+             </button>
+             <button ng-click="vm.facturar()" ladda="vm.factura.isloading" ng-disabled="vm.btn.facturar==false"  type="button" uib-tooltip="Facturar" class="btn btn-default btn-sell">
+                 <i class="fa fa-floppy-o font25"></i>
+             </button>
+           </div>
        </div>
      </div>
    </div>
