@@ -3,7 +3,7 @@
       <Label>Crear Cliente</label>
       <button type="button" ng-click="vm.cancel()" class="close"><span aria-hidden="true">&times;</span></button>
   </div>
-  <form ng-submit="vm.save()">
+<form ng-submit="vm.save()">
     <div class="modal-body">
       <div class="row">
         <div class="col-md-6">
@@ -100,7 +100,7 @@
           <label>Cédula o Rif:</label>
           <div class="row">
               <div class=col-md-4>
-                <select class="form-control" ng-model="vm.client.tipo" ng-options="type.name as type.sigla for type in vm.ListType" required>
+                <select class="form-control" ng-model="vm.client.tipo" ng-options="type.nombre as type.sigla for type in vm.ListType" required>
                   <option>type.sigla</option>
                 </select>
               </div>

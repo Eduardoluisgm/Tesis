@@ -4,7 +4,6 @@ angular.module('frontEndApp')
   .controller('productController', productController)
   .controller('ProductInformationController', ProductInformationController)
   .controller('ProductEditController', ProductEditController)
-  .controller('ProductSearchController', ProductSearchController)
   .controller('ProductCreateController',ProductCreateController);
 
   function productController (product,$q,$uibModal, $rootScope, productEdit, toastr) {
@@ -178,7 +177,7 @@ angular.module('frontEndApp')
     vm.isloading = false;
     vm.product = {
       'codigo':"",
-      'nombre':"",
+      'name':"",
       'precio_costo':"",
       'precio_venta':"",
       'stock':""
