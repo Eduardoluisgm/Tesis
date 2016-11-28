@@ -69,4 +69,16 @@ class fact_ventController extends Controller
     }
     return $factura_venta;
   }
+
+  /*Cuentas por cobrar*/
+  function Cuenta_cobrar (Request $request) {
+    $page = $request->input('page');
+    if ($page) {
+      $factura = fact_vent::where('status','=',"2")->paginate(8);
+    } else {
+      $factura = fact_vent::where('status','=',"2")->get();
+    }
+    $factura->load('cliente');
+    return $factura;
+  }
 }

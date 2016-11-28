@@ -40,6 +40,7 @@ module.exports = function(config) {
       'bower_components/angular-ladda/dist/angular-ladda.min.js',
       'bower_components/angular-bootstrap-confirm/dist/angular-bootstrap-confirm.js',
       'bower_components/ng-currency/dist/ng-currency.js',
+      'bower_components/angular-moment/angular-moment.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

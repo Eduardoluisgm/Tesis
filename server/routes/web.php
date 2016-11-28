@@ -30,6 +30,9 @@ Route::group(['middleware' => 'cors'], function (){
     Route::get('factura_venta/{id}/pdf', 'fact_ventController@FacturaPdf');
     Route::post('factura_venta', 'fact_ventController@GuardarFactura');
 
+    /*Cuentas por cobrar*/
+    Route::get('cuenta_cobrar', 'fact_ventController@Cuenta_cobrar');
+
     /*Facturas de compra*/
     Route::post('factura_compra', 'fact_compController@GuardarFactura');
 
