@@ -29,6 +29,7 @@ class fact_ventController extends Controller
     $factura = fact_vent::findOrFail($id);
     $factura->load('detalles');
     $factura->load('pagos');
+    return $factura;
     $pdf = PDF::loadView('invoice', compact('factura'));
     return $pdf->download('welcome.pdf');
   }
