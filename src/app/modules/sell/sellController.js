@@ -105,6 +105,12 @@ angular.module('frontEndApp')
           'status': vm.tipos_pago.tipo,
         }
 
+        if (vm.factura.total<vm.factura.cancelado) {
+          toastr.info("No puede cancelar mas del monto total", "Información");
+          vm.factura.isloading = false;
+          return;
+        }
+
         if (vm.tipos_pago.tipo =="1") { /*Pagando de contado*/
             if (vm.factura.total>vm.factura.cancelado) {
               toastr.info("Debe pagar la totalidad de la factura", "Información");

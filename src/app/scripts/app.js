@@ -12,6 +12,7 @@ angular
   .module('frontEndApp', [
     'ngAnimate',
     'ngAria',
+    'angularMoment',
     'ngCookies',
     'ngMessages',
     'ngResource',
@@ -80,11 +81,17 @@ angular
         controller: 'buyController',
         controllerAs: 'vm'
       })
+      .when('/receivable', {
+        templateUrl: 'modules/receivable/receivable.html',
+        controller: 'receivableController',
+        controllerAs: 'vm'
+      })
       .otherwise({
         redirectTo: '/'
       });
   })
-  .run(function($rootScope,$location,authUser,toastr){
+  .run(function($rootScope,$location,authUser,toastr, moment){
+     moment.locale('es');
      var rutasPrivadas= ['/','/about','/client','/user'];
       $rootScope.$on('$routeChangeStart', function() {
           if(($.inArray($location.path(),rutasPrivadas)!==-1) && !authUser.isLogin()) {

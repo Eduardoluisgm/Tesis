@@ -16,6 +16,10 @@ class fact_vent extends Model
   ];
 
 
+  public function cliente() {
+    return $this->hasOne('App\client','cedula', 'client_id');
+  }
+
   public function detalles() {
     return $this->hasMany('App\fact_vent_detalles', 'factura_id');
   }
