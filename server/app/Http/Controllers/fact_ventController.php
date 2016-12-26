@@ -30,7 +30,7 @@ class fact_ventController extends Controller
     $factura->load('detalles');
     $factura->load('pagos');
     $factura->load('cliente');
-   //return $factura;
+  // return $factura;
     $pdf = PDF::loadView('invoice', compact('factura'));
     return $pdf->download('welcome.pdf');
   }
@@ -47,6 +47,7 @@ class fact_ventController extends Controller
         foreach ($detalles as $detalle) {
           $factura_detalle = new fact_vent_detalles;
           $factura_detalle->factura_id = $factura_venta->id;
+          $factura_detalle->nombre = $detalle->nombre;
           $factura_detalle->producto_id = $detalle->codigo;
           $factura_detalle->precio_compra = $detalle->precio_costo;
           $factura_detalle->precio_venta = $detalle->precio_venta;
