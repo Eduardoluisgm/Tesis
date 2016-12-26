@@ -20,16 +20,14 @@ CONTRIBUYENTE FORMAL </h4>
 
 <div id="project">
 <?php
-echo '<div><span>CEDULA</span>'.$factura['client_id'].'</div>
-      <div><span>CLIENTE</span>'.$factura['client_id'].'</div>';
+echo '<div><span>FACTURA</span>'.$factura['id'].'</div>
+      <div><span>CLIENTE</span>'.$factura['cliente']['name'].'</div>
+      <div><span>CEDULA</span>'.$factura['cliente']['cedula'].'</div>
+      <div><span>DIRECCION</span>'.$factura['cliente']['direccion'].'</div>';
 ?>
 
-  <!--  <div><span>CEDULA</span>655655656</div>
-        <div><span>CLIENTE</span>ANDERSON</div>
-        <div><span>DIRECCION:</span>EL GUAMACHE</div>
-        <div><span>VENDEDOR</span>01</div>
-        <div><span>FECHA</span>01 DE DICIEMBRE DEL 2016</div> -->
-      
+
+
 </div>
 </header>
       <table>
@@ -42,25 +40,29 @@ echo '<div><span>CEDULA</span>'.$factura['client_id'].'</div>
             <th>TOTAL</th>
           </tr>
         </thead>
-        <tbody>
+
+<?php
+ 
+ foreach ($factura->detalles as $factura->detalle) {
+    echo '<tbody>
           <tr>
-            <td class="service">01</td>
-            <td class="desc">CACIQUE AÑEJO</td>
-            <td class="unit">5,000.00</td>
-            <td class="qty">12</td>
-            <td class="total">60,000.00</td>
+          <td class="service">'.$factura->detalle['id'].'</td>
+          <td class="desc">'.$factura->detalle['id'].'</td>
+          <td class="unit">'.$factura->detalle['precio_venta'].'</td>
+          <td class="qty">'.$factura->detalle['cant'].'</td>
+          <td class="total">'.$factura->detalle['monto_total'].'</td>
           </tr>
-          <tr>
-            <td class="service">02</td>
-            <td class="desc">HIELO</td>
-            <td class="unit">1,300.00</td>
-            <td class="qty">2</td>
-            <td class="total">2,600.00</td>
-          </tr>
-          
-          <tr>
+          </tbody>';
+       
+  
+}
+?>
+
+<!--aki debo meter el foreach pro de manera que recorra la tabla columna por columna-->
+<?php
+     echo '<tr>
             <td colspan="4">SUBTOTAL</td>
-            <td class="total">62,600.00</td>
+            <td class="total">'.$factura['monto_total'].'</td>
           </tr>
           <tr>
             <td colspan="4">Descuento%</td>
@@ -68,9 +70,8 @@ echo '<div><span>CEDULA</span>'.$factura['client_id'].'</div>
           </tr>
           <tr>
             <td colspan="4" class="grand total">MONTO TOTAL</td>
-            <td class="grand total">62,600.00</td>
-          </tr>
-        </tbody>
+            <td class="grand total">'.$factura['monto_total'].'</td>';
+?>
       </table>
       <div id="notices">
         <div>NOTICIA:</div>
