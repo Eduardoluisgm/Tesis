@@ -14,4 +14,8 @@ class fact_comp extends Model
       'provider_id',
       'fecha_pago'
   ];
+
+  public function proveedor() {
+    return $this->hasOne('App\provider','rif', 'provider_id');
+  }
 }

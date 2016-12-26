@@ -59,4 +59,39 @@ class fact_compController extends Controller
       }
       return $factura_compra;
     }
+
+    /*Trae todas las cuentas por pagar status = 2*/
+    function Cuenta_pagar(Request $request) {
+      $page = $request->input('page');
+      if ($page) {
+        $factura = fact_comp::where('status','=',"2")->paginate(8);
+      } else {
+        $factura = fact_comp::where('status','=',"2")->get();
+      }
+      $factura->load('proveedor');
+      return $factura;
+    }
+
+
+    /*Agregar pagos a una factura de compra que tenia cuenta pendiente*/
+    function AddPagos ($id, Request $request) {
+      $pagos = json_decode($request->input('pagos'));
+      /*recorro los pagos y voy guardando*/
+      foreach ($pagos as $pago) {
+        $factura_pago = new fact_comp_pagos;
+        $factura_pago->factura_id = $id;
+        $factura_pago->tipo = $pago->tipo;
+        $factura_pago->monto = $pago->monto;
+        $factura_pago->save();
+      }
+
+      $SumaPago = fact_comp_pagos::where('factura_id','=',$id)->sum("monto"); /*Sumo la cantidad de pagos*/
+      $factura = fact_comp::find($id); /*pido la factura*/
+      $factura->monto_cancelado = $SumaPago;
+      if ($factura->monto_total<=$factura->monto_cancelado) { /*Si ya pague la factura*/
+        $factura->status = 1;
+      }
+      $factura->save();
+      return "Guardado";
+    }
 }

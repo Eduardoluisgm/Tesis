@@ -47,7 +47,6 @@ class fact_ventController extends Controller
         foreach ($detalles as $detalle) {
           $factura_detalle = new fact_vent_detalles;
           $factura_detalle->factura_id = $factura_venta->id;
-          $factura_detalle->nombre = $detalle->nombre;
           $factura_detalle->producto_id = $detalle->codigo;
           $factura_detalle->precio_compra = $detalle->precio_costo;
           $factura_detalle->precio_venta = $detalle->precio_venta;
@@ -73,6 +72,28 @@ class fact_ventController extends Controller
     return $factura_venta;
   }
 
+  /*Agregar pagos a una factura de venta que tenia cuenta pendiente*/
+  function AddPagos ($id, Request $request) {
+    $pagos = json_decode($request->input('pagos'));
+    /*recorro los pagos y voy guardando*/
+    foreach ($pagos as $pago) {
+      $factura_pago = new fact_vent_pagos;
+      $factura_pago->factura_id = $id;
+      $factura_pago->tipo = $pago->tipo;
+      $factura_pago->monto = $pago->monto;
+      $factura_pago->save();
+    }
+
+    $SumaPago = fact_vent_pagos::where('factura_id','=',$id)->sum("monto"); /*Sumo la cantidad de pagos*/
+    $factura = fact_vent::find($id); /*pido la factura*/
+    $factura->monto_cancelado = $SumaPago;
+    if ($factura->monto_total<=$factura->monto_cancelado) { /*Si ya pague la factura*/
+      $factura->status = 1;
+    }
+    $factura->save();
+    return "Guardado";
+  }
+
   /*Cuentas por cobrar*/
   function Cuenta_cobrar (Request $request) {
     $page = $request->input('page');
@@ -83,5 +104,11 @@ class fact_ventController extends Controller
     }
     $factura->load('cliente');
     return $factura;
+  }
+
+  /*Obtiene los pagos realizados a una factura*/
+  function Factura_Pagos ($id) {
+    $pagos = fact_vent_pagos::where('factura_id','=',$id)->get();
+    return $pagos;
   }
 }

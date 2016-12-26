@@ -86,6 +86,11 @@ angular
         controller: 'receivableController',
         controllerAs: 'vm'
       })
+      .when('/payable', {
+        templateUrl: 'modules/payable/payable.html',
+        controller: 'payableController',
+        controllerAs: 'vm'
+      })
       .otherwise({
         redirectTo: '/'
       });

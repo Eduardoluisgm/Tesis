@@ -28,13 +28,19 @@ Route::group(['middleware' => 'cors'], function (){
     /*Facturas de venta*/
     Route::get('factura_venta', 'fact_ventController@AllSale');
     Route::get('factura_venta/{id}/pdf', 'fact_ventController@FacturaPdf');
+    Route::get('factura_venta/{id}/pagos', 'fact_ventController@Factura_Pagos');
+    Route::post('factura_venta/{id}/pagos', 'fact_ventController@AddPagos');
     Route::post('factura_venta', 'fact_ventController@GuardarFactura');
 
     /*Cuentas por cobrar*/
     Route::get('cuenta_cobrar', 'fact_ventController@Cuenta_cobrar');
 
+    /*Cuentas por Pagar*/
+    Route::get('cuenta_pagar', 'fact_compController@Cuenta_pagar');
+
     /*Facturas de compra*/
     Route::post('factura_compra', 'fact_compController@GuardarFactura');
+    Route::post('factura_compra/{id}/pagos', 'fact_compController@AddPagos');
 
     /*User*/
     Route::get('user', 'userController@AllUser');

@@ -1,7 +1,7 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <i class="fa fa-user"></i>
-     Cuentas por cobrar
+     Cuentas por pagar
   </div>
    <div class="panel-body">
      <div class="row">
@@ -12,7 +12,7 @@
             <thead>
               <tr>
                  <th>Factura</th>
-                 <th>Cliente</th>
+                 <th>Proveedor</th>
                  <th>Identificador</th>
                  <th>Total</th>
                  <th>Cancelado</th>
@@ -23,13 +23,13 @@
               <!--No te lo mostraba xq escribiste Provider con P mayuscula y lo declaraste en miniscula -->
               <tr ng-repeat="cuenta in vm.listaCuentas">
                   <td> {{cuenta.id}}</td>
-                  <td> {{cuenta.cliente.name}}</td>
-                  <td> {{cuenta.cliente.cedula}}</td>
+                  <td> {{cuenta.proveedor.nombre}}</td>
+                  <td> {{cuenta.proveedor.rif}}</td>
                   <td> {{cuenta.monto_total | currency:"Bs "}}</td>
                   <td> {{cuenta.monto_cancelado | currency:"Bs "}}</td>
                   <td> {{cuenta.created_at}}</td>
                   <td>
-                    <button ng-click="vm.openCobrar(cuenta)"  type="button" uib-tooltip="Realizar Pagos" class="btn btn-success">
+                    <button ng-click="vm.openPagar(cuenta)"  type="button" uib-tooltip="Realizar Pagos" class="btn btn-success">
                         <i class="fa fa-money"></i>
                     </button>
                     <button ng-click="vm.Facturapdf(cuenta.id)"  type="button" uib-tooltip="Descargar Factura" class="btn btn-default">
