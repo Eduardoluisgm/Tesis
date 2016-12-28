@@ -8,6 +8,7 @@ use App\fact_comp_detalles;
 use App\fact_comp_pagos;
 use App\Product;
 use App\provider_product;
+use PDF;
 
 class fact_compController extends Controller
 {
@@ -70,6 +71,19 @@ class fact_compController extends Controller
       }
       $factura->load('proveedor');
       return $factura;
+    }
+
+    /*pdf de la factura de compra*/
+    function FacturaPdf($id) {
+      $factura = fact_comp::findOrFail($id);
+      $factura->load('proveedor');
+      $factura->load('detalles');
+      $factura->load('pagos');
+      foreach ($factura->detalles as $detalle) {
+        $detalle->load('producto');
+      }
+      $pdf = PDF::loadView('pdfCompra', compact('factura'));
+      return $pdf->download('welcome.pdf');
     }
 
 

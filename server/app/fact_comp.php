@@ -18,4 +18,12 @@ class fact_comp extends Model
   public function proveedor() {
     return $this->hasOne('App\provider','rif', 'provider_id');
   }
+
+  public function detalles() {
+    return $this->hasMany('App\fact_comp_detalles', 'factura_id');
+  }
+
+  public function pagos() {
+    return $this->hasMany('App\fact_comp_pagos', 'factura_id');
+  }
 }

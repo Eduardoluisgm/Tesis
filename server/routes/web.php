@@ -39,6 +39,7 @@ Route::group(['middleware' => 'cors'], function (){
     Route::get('cuenta_pagar', 'fact_compController@Cuenta_pagar');
 
     /*Facturas de compra*/
+    Route::get('factura_compra/{id}/pdf', 'fact_compController@FacturaPdf');
     Route::post('factura_compra', 'fact_compController@GuardarFactura');
     Route::post('factura_compra/{id}/pagos', 'fact_compController@AddPagos');
 

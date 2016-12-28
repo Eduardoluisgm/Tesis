@@ -25,12 +25,15 @@ class fact_ventController extends Controller
   }
 
 
+  /*pdf de la factura de venta*/
   function FacturaPdf($id) {
     $factura = fact_vent::findOrFail($id);
     $factura->load('detalles');
     $factura->load('pagos');
     $factura->load('cliente');
-  // return $factura;
+    foreach ($factura->detalles as $detalle) {
+      $detalle->load('producto');
+    }
     $pdf = PDF::loadView('invoice', compact('factura'));
     return $pdf->download('welcome.pdf');
   }

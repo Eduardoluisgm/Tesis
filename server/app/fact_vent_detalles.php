@@ -16,4 +16,8 @@ class fact_vent_detalles extends Model
       'factura_id',
       'status'
   ];
+
+  public function producto() {
+    return $this->hasOne('App\product','codigo', 'producto_id');
+  }
 }
