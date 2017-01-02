@@ -13,6 +13,27 @@ use PDF;
 class fact_compController extends Controller
 {
 
+    /*todas las facturas de compra*/
+    function all(Request $request) {
+      $page = $request->input('page');
+      $search = $request->input('search');
+      if ($page) {
+        if ($search) { ///cuando se esta filtrando
+          $factura = fact_comp::where('id', 'Like', '%' . $search . '%')
+              ->orWhere('provider_id', 'Like', '%' . $search . '%')
+              ->orderBy('created_at','desc')
+              ->paginate(8);
+        } else {
+          $factura = fact_comp::orderBy('created_at','desc')->paginate(8);
+        }
+      } else {
+        $factura = fact_comp::all();
+      }
+      $factura->load('proveedor');
+      return $factura;
+    }
+
+    /*Guarda las facturas de compra*/
     function GuardarFactura (Request $request) {
       $detalles = json_decode($request->input('detalles'));
       $pagos = json_decode($request->input('pagos'));
@@ -64,8 +85,18 @@ class fact_compController extends Controller
     /*Trae todas las cuentas por pagar status = 2*/
     function Cuenta_pagar(Request $request) {
       $page = $request->input('page');
+      $search = $request->input('search');
       if ($page) {
-        $factura = fact_comp::where('status','=',"2")->paginate(8);
+        if ($search) {
+          $factura = fact_comp:: where('status','=',"2")
+              ->where('id', 'Like', '%' . $search . '%')
+              ->orWhere('provider_id', 'Like', '%' . $search . '%')
+              ->where('status','=',"2")
+              ->orderBy('created_at','desc')
+              ->paginate(8);
+        } else {
+          $factura = fact_comp::where('status','=',"2")->orderBy('created_at','desc')->paginate(8);
+        }
       } else {
         $factura = fact_comp::where('status','=',"2")->get();
       }

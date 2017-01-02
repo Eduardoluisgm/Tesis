@@ -10,8 +10,18 @@ class providerController extends Controller
 {
     function AllProviders (Request $request) {
       $page = $request->input('page');
+      $search = $request->input('search');
       if ($page) {
-        $Providers = Provider::paginate(8);
+        if ($search) {
+          $Providers = Provider::where('rif', 'Like', '%' . $search . '%')
+              ->orWhere('nombre', 'Like', '%' . $search . '%')
+              ->orWhere('nombre_vendedor', 'Like', '%' . $search . '%')
+              ->orWhere('direccion', 'Like', '%' . $search . '%')
+              ->orWhere('tipo', 'Like', '%' . $search . '%')
+              ->paginate(8);
+        } else {
+          $Providers = Provider::paginate(8);
+        }
       } else {
         $Providers = Provider::all();
       }

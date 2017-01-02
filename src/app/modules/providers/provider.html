@@ -5,13 +5,24 @@
   </div>
    <div class="panel-body">
      <div class="row">
-        <div class ="col-md-12">
-          <div class="text-right">
-            <button type="button" uib-tooltip="Crear Proveedor" ng-click="vm.openCreate()"  class="btn btn-primary">
-              Crear
-            </button>
-          </div>
-        </div>
+       <div class ="col-md-3">
+         <input type="text" ng-model="vm.Buscar.actual" class="form-control" maxlength="15" placeholder="Buscar"/>
+       </div>
+       <div class="col-md-2">
+         <button ng-click="vm.search()"  type="button" uib-tooltip="Buscar" class="btn btn-default">
+             <i class="fa fa-search"></i>
+         </button>
+         <button type="button" ng-if="vm.Buscar.buscando==true" ng-click="vm.reload()" uib-tooltip="Ver todos" class="btn btn-primary">
+             <i class="fa fa-refresh"></i>
+         </button>
+       </div>
+       <div class ="col-md-7">
+         <div class="text-right">
+           <button type="button" uib-tooltip="Crear Proveedor" ng-click="vm.openCreate()"  class="btn btn-primary">
+             Crear
+           </button>
+         </div>
+       </div>
      </div>
      <div class="row table-large">
        <div class="col-md-12">
@@ -24,6 +35,7 @@
                  <th>Vendedor</th>
                  <th>Telefono </th>
                  <th>Dirección</th>
+                 <th>Estatus </th>
               </tr>
             </thead>
             <tbody>

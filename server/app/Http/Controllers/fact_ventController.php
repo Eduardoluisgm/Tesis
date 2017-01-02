@@ -16,11 +16,20 @@ class fact_ventController extends Controller
   /*Todas las facturas de venta*/
   function AllSale (Request $request) {
     $page = $request->input('page');
+    $search = $request->input('search');
     if ($page) {
-      $sale = fact_vent::paginate(8);
+      if ($search) {
+        $sale = fact_vent::where('id', 'Like', '%' . $search . '%')
+            ->orWhere('client_id', 'Like', '%' . $search . '%')
+            ->orderBy('created_at','desc')
+            ->paginate(8);
+      } else {
+        $sale = fact_vent::orderBy('created_at','desc')->paginate(8);
+      }
     } else {
       $sale = fact_vent::all();
     }
+    $sale->load('cliente');
     return $sale;
   }
 
@@ -100,8 +109,18 @@ class fact_ventController extends Controller
   /*Cuentas por cobrar*/
   function Cuenta_cobrar (Request $request) {
     $page = $request->input('page');
+    $search = $request->input('search');
     if ($page) {
-      $factura = fact_vent::where('status','=',"2")->paginate(8);
+      if ($search) {
+        $factura = fact_vent::where('status','=',"2")
+            ->where('id', 'Like', '%' . $search . '%')
+            ->orWhere('client_id', 'Like', '%' . $search . '%')
+            ->where('status','=',"2")
+            ->orderBy('created_at','desc')
+            ->paginate(8);
+      } else {
+        $factura = fact_vent::where('status','=',"2")->orderBy('created_at','desc')->paginate(8);
+      }
     } else {
       $factura = fact_vent::where('status','=',"2")->get();
     }

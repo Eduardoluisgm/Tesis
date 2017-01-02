@@ -15,15 +15,22 @@ angular.module('frontEndApp')
       vm.listaUsuarios = [];
       vm.pagination = [];
       vm.profile= authUser.profile();
-      console.log(vm.profile);
       vm.changePage = changePage;
       vm.changeStatus = changeStatus;
-      cargar(); /*lo primer que hace es ejecutar esta funcion*/
+      vm.reload = reload;
+      vm.search = search;
+      vm.status = "Normal";
+      vm.Buscar = {
+        'busqueda':"",
+        'actual':"",
+        'buscando': false
+      };
+      cargar();
 
       /*Funcion que se ejecuta por primera vez*/
       function cargar () {
         var users = user.getFresh({page:1});
-
+        console.log("Estoy cargando");
         $q.all([users.$promise]).then(function(data){
           console.log(data[0].data);
             vm.listaUsuarios = data[0].data;
@@ -34,16 +41,52 @@ angular.module('frontEndApp')
         });
       }
 
+
+      /*funcion para buscar*/
+      function search () {
+        if (vm.Buscar.actual) {
+          vm.Buscar.busqueda = vm.Buscar.actual;
+          vm.status = "Busqueda";
+          changePage(1);
+        }
+        console.log(vm.Buscar);
+      }
+
+      /*recarga todo al principio*/
+      function reload () {
+        vm.Buscar.busqueda = "";
+        vm.status = "Normal";
+        changePage(1);
+      }
+
       /*Cambio de pagina*/
       function changePage (number) {
-        var users = user.getFresh({page:number});
-        $q.all([users.$promise]).then(function(data){
-            vm.listaUsuarios = data[0].data;
-            vm.pagination.current_page = data[0].current_page;
-            vm.pagination.per_page = data[0].per_page;
-            vm.pagination.total = data[0].total;
-            vm.pagination.last_page = data[0].last_page;
-        });
+        if (vm.status=="Normal") {
+          var users = user.getFresh({page:number});
+          $q.all([users.$promise]).then(function(data){
+              vm.listaUsuarios = data[0].data;
+              vm.pagination.current_page = data[0].current_page;
+              vm.pagination.per_page = data[0].per_page;
+              vm.pagination.total = data[0].total;
+              vm.pagination.last_page = data[0].last_page;
+              vm.status = "Normal";
+              vm.Buscar.buscando=false;
+          });
+        }
+
+        if (vm.status=="Busqueda") {
+          var users = user.getFresh({page:number, 'search': vm.Buscar.busqueda});
+          $q.all([users.$promise]).then(function(data){
+              vm.listaUsuarios = data[0].data;
+              vm.pagination.current_page = data[0].current_page;
+              vm.pagination.per_page = data[0].per_page;
+              vm.pagination.total = data[0].total;
+              vm.pagination.last_page = data[0].last_page;
+              vm.status = "Busqueda";
+              vm.Buscar.buscando=true;
+          });
+        }
+
       }
 
       function changeStatus(cedula, status) {

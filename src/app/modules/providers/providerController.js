@@ -15,6 +15,14 @@ angular.module('frontEndApp')
       vm.changeStatus= changeStatus;
       vm.listaProveedores = [];
       vm.pagination = [];
+      vm.reload = reload;
+      vm.search = search;
+      vm.status = "Normal";
+      vm.Buscar = {
+        'busqueda':"",
+        'actual':"",
+        'buscando': false
+      }
       cargar();
 
       function cargar () {
@@ -44,15 +52,49 @@ angular.module('frontEndApp')
         }, function (err) {})
       }
 
+
+      /*funcion para buscar*/
+      function search () {
+        if (vm.Buscar.actual) {
+          vm.Buscar.busqueda = vm.Buscar.actual;
+          vm.status = "Busqueda";
+          changePage(1);
+        }
+        console.log(vm.Buscar);
+      }
+
+      /*recarga todo al principio*/
+      function reload () {
+        vm.Buscar.busqueda = "";
+        vm.status = "Normal";
+        changePage(1);
+      }
+
       function changePage (number) {
-        var proveedores = provider.getFresh({page:number});
-        $q.all([proveedores.$promise]).then(function(data){
-            vm.listaProveedores = data[0].data;
-            vm.pagination.current_page = data[0].current_page;
-            vm.pagination.per_page = data[0].per_page;
-            vm.pagination.total = data[0].total;
-            vm.pagination.last_page = data[0].last_page;
-        });
+        if (vm.status=="Normal") {
+          var proveedores = provider.getFresh({page:number});
+          $q.all([proveedores.$promise]).then(function(data){
+              vm.listaProveedores = data[0].data;
+              vm.pagination.current_page = data[0].current_page;
+              vm.pagination.per_page = data[0].per_page;
+              vm.pagination.total = data[0].total;
+              vm.pagination.last_page = data[0].last_page;
+              vm.status = "Normal";
+              vm.Buscar.buscando=false;
+          });
+        }
+        if (vm.status=="Busqueda") {
+          var proveedores = provider.getFresh({page:number,'search': vm.Buscar.busqueda});
+          $q.all([proveedores.$promise]).then(function(data){
+              vm.listaProveedores = data[0].data;
+              vm.pagination.current_page = data[0].current_page;
+              vm.pagination.per_page = data[0].per_page;
+              vm.pagination.total = data[0].total;
+              vm.pagination.last_page = data[0].last_page;
+              vm.status = "Busqueda";
+              vm.Buscar.buscando=true;
+          });
+        }
       }
 
       /*Abre la modal de crear usuario*/

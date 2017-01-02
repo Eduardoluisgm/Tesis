@@ -91,6 +91,16 @@ angular
         controller: 'payableController',
         controllerAs: 'vm'
       })
+      .when('/facturaVenta', {
+        templateUrl: 'modules/facturaVenta/facturaVenta.html',
+        controller: 'facturaVentaController',
+        controllerAs: 'vm'
+      })
+      .when('/facturaCompra', {
+        templateUrl: 'modules/facturaCompra/facturaCompra.html',
+        controller: 'facturaCompraController',
+        controllerAs: 'vm'
+      })
       .otherwise({
         redirectTo: '/'
       });

@@ -11,6 +11,14 @@ angular.module('frontEndApp')
     vm.openCobrar = openCobrar;
     vm.Facturapdf =  Facturapdf;
     vm.changePage = changePage;
+    vm.reload = reload;
+    vm.search = search;
+    vm.status = "Normal";
+    vm.Buscar = {
+      'busqueda':"",
+      'actual':"",
+      'buscando': false
+    }
     cargar();
 
 
@@ -23,21 +31,54 @@ angular.module('frontEndApp')
           vm.pagination.per_page = data[0].per_page;
           vm.pagination.total = data[0].total;
           vm.pagination.last_page = data[0].last_page;
+          vm.status = "Normal";
       });
     }
 
-    function changePage (number) {
-      console.log("cambiando pagina: " + number);
-      var cuenta = cuenta_cobrar.getFresh({'page':number});
-      $q.all([cuenta.$promise]).then(function(data){
-          console.log(data[0].data);
-          vm.listaCuentas = data[0].data;
-          vm.pagination.current_page = data[0].current_page;
-          vm.pagination.per_page = data[0].per_page;
-          vm.pagination.total = data[0].total;
-          vm.pagination.last_page = data[0].last_page;
-      });
+    /*funcion para buscar*/
+    function search () {
+      if (vm.Buscar.actual) {
+        vm.Buscar.busqueda = vm.Buscar.actual;
+        vm.status = "Busqueda";
+        changePage(1);
+      }
+      console.log(vm.Buscar);
     }
+
+    /*recarga todo al principio*/
+    function reload () {
+      vm.Buscar.busqueda = "";
+      vm.status = "Normal";
+      changePage(1);
+    }
+
+    function changePage (number) {
+      if (vm.status=="Normal") {
+        var cuenta = cuenta_cobrar.getFresh({'page':number});
+        $q.all([cuenta.$promise]).then(function(data){
+            console.log(data[0].data);
+            vm.listaCuentas = data[0].data;
+            vm.pagination.current_page = data[0].current_page;
+            vm.pagination.per_page = data[0].per_page;
+            vm.pagination.total = data[0].total;
+            vm.pagination.last_page = data[0].last_page;
+            vm.status = "Normal";
+            vm.Buscar.buscando=false;
+        });
+      }
+      if (vm.status=="Busqueda") {
+        var cuenta = cuenta_cobrar.getFresh({'page':number, 'search': vm.Buscar.busqueda});
+        $q.all([cuenta.$promise]).then(function(data){
+            vm.listaCuentas = data[0].data;
+            vm.pagination.current_page = data[0].current_page;
+            vm.pagination.per_page = data[0].per_page;
+            vm.pagination.total = data[0].total;
+            vm.pagination.last_page = data[0].last_page;
+            vm.status = "Busqueda";
+            vm.Buscar.buscando=true;
+        });
+      }
+     }
 
     /*Abre la modal para cobrar*/
     function openCobrar (Factura) {

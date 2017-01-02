@@ -10,8 +10,15 @@ class productController extends Controller
 {
     function AllProducts (Request $request) {
       $page = $request->input('page');
+      $search = $request->input('search');
       if ($page) {
-        $Products = Product::paginate(8);
+        if ($search) {
+          $Products = Product::where('codigo', 'Like', '%' . $search . '%')
+              ->orWhere('nombre', 'Like', '%' . $search . '%')
+              ->paginate(8);
+        } else {
+          $Products = Product::paginate(8);
+        }
       } else {
         $Products = Product::all();
       }

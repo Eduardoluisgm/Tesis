@@ -11,8 +11,18 @@ class clientController extends Controller
 {
   function AllClient (Request $request) {
       $page = $request->input('page');
+      $search = $request->input('search');
       if ($page) {
-        $clients = Client::paginate(8);
+        if ($search) {
+          $clients = Client::where('cedula', 'Like', '%' . $search . '%')
+              ->orWhere('name', 'Like', '%' . $search . '%')
+              ->orWhere('apellido', 'Like', '%' . $search . '%')
+              ->orWhere('direccion', 'Like', '%' . $search . '%')
+              ->orWhere('tipo', 'Like', '%' . $search . '%')
+              ->paginate(8);
+        } else {
+          $clients = Client::paginate(8);
+        }
       } else {
         $clients = Client::all();
       }

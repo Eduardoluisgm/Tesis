@@ -14,8 +14,17 @@ class userController extends Controller
     /*Trae todos los usuarios paginados de 10 en 10 y le cargo los roles que tiene cada usuario*/
     function AllUser (Request $request) {
         $page = $request->input('page');
+        $search = $request->input('search');
         if ($page) {
-          $users = User::paginate(8);
+          if ($search) {
+            $users = User::where('cedula', 'Like', '%' . $search . '%')
+              ->orWhere('name', 'Like', '%' . $search . '%')
+              ->orWhere('direccion', 'Like', '%' . $search . '%')
+              ->orWhere('email', 'Like', '%' . $search . '%')
+              ->paginate(8);
+          } else {
+            $users = User::paginate(8);
+          }
         } else {
           $users = User::all();
         }
