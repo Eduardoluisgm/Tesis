@@ -16,9 +16,11 @@ class CreateTableProducts extends Migration
       Schema::create('product', function (Blueprint $table) {
           $table->string('codigo');
           $table->string('nombre');
-          $table->string('precio_costo')->nullable();
-          $table->string('precio_venta')->nullable();
-          $table->string('stock')->nullable();
+          $table->string('descripcion')->nullable();
+          $table->decimal('precio_costo', 15, 2)->default(0);
+          $table->decimal('precio_venta', 15, 2)->default(0);
+          $table->string('status')->default("1");
+          $table->integer('stock')->default(0);
           $table->primary('codigo');
           $table->timestamps();
       });

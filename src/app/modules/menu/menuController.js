@@ -11,13 +11,18 @@ angular.module('frontEndApp')
       vm.name = "Caguita";
       vm.profile = "";
 
+
       getProfile();
 
       function getProfile() {
+        vm.rol = localStorage.getItem('role_id');
         if (authUser.isLogin()) {
           profile.getFresh(
             function(data) {
               vm.profile=data;
+              vm.rol = vm.profile.role_id;
+              localStorage.setItem('role_id', vm.rol);
+              console.log("rol del perfil: ", vm.rol);
             }, function (err) {
             });
         }
@@ -33,13 +38,18 @@ angular.module('frontEndApp')
       }
 
       $rootScope.$on('MenuProfile', function() {
-        console.log("cargando menu y show menu");
         profile.get(
           function(data) {
             vm.profile=data;
           }, function (err) {
           });
           vm.showMenu = true;
+      });
+
+
+      $rootScope.$on('GetRol', function () {
+        vm.rol = localStorage.getItem('role_id');
+        console.log ("rol para el menu "+ vm.rol);
       });
 
       $rootScope.$on('HideMenu', function() {

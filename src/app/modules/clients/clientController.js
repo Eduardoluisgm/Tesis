@@ -161,6 +161,12 @@ angular.module('frontEndApp')
     vm.status = "actualizar";
     vm.isloading = false;
     vm.client= [];
+    vm.ListType = [
+      {'sigla':"V", 'nombre' : 'Venezolano'},
+      {'sigla':"J", 'nombre' : 'Jurídico'},
+      {'sigla':"E", 'nombre' : 'Extranjero'},
+      {'sigla':'G', 'nombre' : 'Gubernamental'}
+    ]
     cargar();
     function cargar() {
       var cliente = clientResource.getFresh({'cedula':client_id});
@@ -168,14 +174,9 @@ angular.module('frontEndApp')
         vm.client = data[0];
         vm.client.oldcedula = vm.client.cedula;
         vm.client.cedula = vm.client.cedula.slice(2);
+        console.log("Cliente ", vm.client.tipo);
       });
     }
-    vm.ListType = [
-      {'sigla':"V", 'name' : 'Venezolano'},
-      {'sigla':"J", 'name' : 'Jurídico'},
-      {'sigla':"E", 'name' : 'Extranjero'},
-      {'sigla':'G', 'name' : 'Gubernamental'}
-    ]
 
     vm.cancel= function() {
       $uibModalInstance.dismiss('cancel');
@@ -184,7 +185,7 @@ angular.module('frontEndApp')
     vm.save = function () {
       vm.isloading = true;
       vm.ListType.forEach(function(data){
-          if (data.name==vm.client.tipo) {
+          if (data.nombre==vm.client.tipo) {
             vm.client.cedula = data.sigla +"-"+vm.client.cedula;
           }
       });
@@ -291,6 +292,7 @@ angular.module('frontEndApp')
           }, function (err)  {
             if (err.status==409) {
               toastr.info("Ya existe un usuario con esa cedula", "Información");
+              vm.client.cedula = vm.client.cedula.slice(2);
             }
             vm.isloading = false;
           }

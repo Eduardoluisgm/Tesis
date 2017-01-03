@@ -19,7 +19,7 @@
         </select>
       </div>
       <div class="col-md-4">
-        <input class="form-control" type="text" ng-model="vm.pago" ng-currency currency-symbol="Bs " ng-keypress="vm.solonumeros($event)"/>
+        <input class="form-control" type="text" ng-change="vm.changePrecio()" maxlength="25" ng-model="vm.pago" ng-currency currency-symbol="Bs " ng-keypress="vm.solonumeros($event)"/>
       </div>
       <div class="col-md-3">
         <button ng-click="vm.add_pago()"  type="button" uib-tooltip="Agregar pago" class="btn btn-success">

@@ -37,6 +37,8 @@ angular.module('authService',[])
       $auth.login(credentials).then(
         function (response) {
           cacheSession(response.data.user.cedula, response.data.user.name, response.data.user);
+          localStorage.setItem('role_id', response.data.user.role_id);
+          localStorage.setItem('session', "true");
           toastr.info('Bienvenido');
           $rootScope.$broadcast('MenuProfile');
           $location.path('/');
@@ -51,6 +53,8 @@ angular.module('authService',[])
     var logout = function () {
       console.log("estoy deslogeandome service");
       uncacheSession();
+      localStorage.removeItem('role_id');
+      localStorage.removeItem('session');
       $location.path('/login');
     };
     return {

@@ -386,6 +386,12 @@ angular.module('frontEndApp')
       console.log(origin);
     }
 
+    vm.changePrecio = function () {
+      if (vm.pago>100000000000) {
+        vm.pago = 100000000000;
+      }
+    }
+
     if (origin.origin=="buy") {
       console.log("vengo de factura compra");
       vm.total = origin.total;

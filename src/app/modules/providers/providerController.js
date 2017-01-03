@@ -165,6 +165,7 @@ angular.module('frontEndApp')
           vm.provider = data;
           vm.provider.oldrif = vm.provider.rif;
           vm.provider.rif = vm.provider.rif.slice(2);
+          console.log("proveedor",vm.provider);
         }, function (err) {
         }
       );

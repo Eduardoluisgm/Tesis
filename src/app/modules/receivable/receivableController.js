@@ -158,6 +158,12 @@ angular.module('frontEndApp')
        console.log("eliminando pago");
      }
 
+     vm.changePrecio = function () {
+       if (vm.pago>100000000000) {
+         vm.pago = 100000000000;
+       }
+     }
+
      vm.add_pago = function() {
        if (vm.pago>0) {
          vm.listaPagos.push({

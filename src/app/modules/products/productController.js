@@ -158,6 +158,8 @@ angular.module('frontEndApp')
       var producto = productResource.getFresh({'codigo':product_id});
       $q.all([producto.$promise]).then(function(data){
         vm.product = data[0];
+        vm.product.precio_venta = parseFloat(vm.product.precio_venta);
+        vm.product.precio_costo = parseFloat(vm.product.precio_costo);
         vm.product.oldcodigo = vm.product.codigo;
       });
     }
@@ -168,6 +170,15 @@ angular.module('frontEndApp')
 
     vm.save = function () {
       vm.isloading = true;
+      if (!vm.product.stock) {
+        vm.product.stock = 0;
+      }
+      if (vm.product.precio_costo>vm.product.precio_venta) {
+        console.log("costo: "+ vm.product.precio_costo+ " Venta: "+ vm.product.precio_venta);
+        toastr.warning("El precio de venta debe ser mayor o igual al costo", "Advertencia");
+        vm.isloading = false;
+        return;
+      }
         productEdit.patch(vm.product,
           function (data) {
             vm.isloading = false;
@@ -188,6 +199,16 @@ angular.module('frontEndApp')
         event.preventDefault();
       }
     }
+
+    vm.changePrecio = function () {
+      if (vm.product.precio_venta>100000000000) {
+        vm.product.precio_venta = 100000000000;
+      }
+      if (vm.product.precio_costo > 100000000000) {
+        vm.product.precio_costo = 100000000000;
+      }
+    }
+
     vm.changeCodigo = function () {
       if (vm.product.codigo) {
         vm.product.codigo = parseInt(vm.product.codigo);
@@ -221,12 +242,18 @@ angular.module('frontEndApp')
     vm.product = {
       'codigo':"",
       'name':"",
-      'precio_costo':"",
-      'precio_venta':"",
-      'stock':""
+      'precio_costo':0,
+      'precio_venta':0,
+      'stock':0
     }
-
-
+    vm.changePrecio = function () {
+      if (vm.product.precio_venta>100000000000) {
+        vm.product.precio_venta = 100000000000;
+      }
+      if (vm.product.precio_costo > 100000000000) {
+        vm.product.precio_costo = 100000000000;
+      }
+    }
 
     vm.cancel= function() {
       $uibModalInstance.dismiss('cancel');
@@ -235,6 +262,16 @@ angular.module('frontEndApp')
     vm.save = function () {
       console.log("estoy guardando");
       vm.isloading = true;
+      if (!vm.product.stock) {
+        vm.product.stock = 0;
+      }
+
+      if (vm.product.precio_costo>vm.product.precio_venta) {
+        toastr.warning("El precio de venta debe ser mayor o igual al costo", "Advertencia");
+        vm.isloading = false;
+        return;
+      }
+
       vm.product.codigo = parseInt(vm.product.codigo);
       product.save(vm.product,
           function (data) {

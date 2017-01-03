@@ -36,14 +36,14 @@
                 <a ng-href="#/"><i class="fa fa-fw fa-dashboard"></i> Inicio</a>
             </li>
             <!--Miscelaneos -->
-            <li>
+            <li ng-if="vm.rol=='1' || vm.rol=='2'">
               <a ng-click="vm.miscelaneoOpen=!vm.miscelaneoOpen">
                 <i class="fa fa-gear"></i> Miscelaneos
                 <span ng-if="vm.miscelaneoOpen==false" style="padding-left: 78px;" class="fa fa-caret-right"></span>
                 <span ng-if="vm.miscelaneoOpen==true" style="padding-left: 78px;" class="fa fa-caret-down"></span>
               </a>
               <ul ng-if="vm.miscelaneoOpen==true">
-                <li>
+                <li ng-if="vm.rol=='1'">
                     <a ng-href="#/user"><i class="fa fa-users"></i> Usuarios</a>
                 </li>
                 <li>

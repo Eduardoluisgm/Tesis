@@ -107,11 +107,32 @@ angular
   })
   .run(function($rootScope,$location,authUser,toastr, moment){
      moment.locale('es');
-     var rutasPrivadas= ['/','/about','/client','/user'];
+     console.log("run");
+     var rutasPrivadas= ['/','/about','/client','/user', '/profile', '/provider', '/product', '/sell', '/buy', '/receivable',
+     '/payable', '/facturaVenta', '/facturaCompra'];
+     /*rutas que solo puede ver admin y super admin*/
+     var rutasAdmin = ['/client', '/user', '/provider', '/product', '/facturaVenta', '/facturaCompra'];
+     /*Rutas que solo ve el super admin*/
+     var rutasSuper = ['/user'];
+     var rol = "";
       $rootScope.$on('$routeChangeStart', function() {
-          if(($.inArray($location.path(),rutasPrivadas)!==-1) && !authUser.isLogin()) {
-            toastr.error('debe estar logueado');
-            $location.path('/login');
-          }
+        rol = localStorage.getItem('role_id');
+        if(($.inArray($location.path(),rutasPrivadas)!==-1) && !authUser.isLogin()) {
+          toastr.error('Debe estar logueado');
+          $location.path('/login');
+          return;
+        }
+        /*si es un vendedor no puede acceder a las rutas de miscelaneos*/
+        if (rol=="3" && $.inArray($location.path(),rutasAdmin)!==-1) {
+          toastr.error('Acceso Denegado');
+          $location.path('/');
+        }
+
+        if (rol=="2" && $.inArray($location.path(),rutasSuper)!==-1) {
+          toastr.error('Acceso Denegado');
+          $location.path('/');
+        }
+        $rootScope.$broadcast('GetRol');
       });
+
   });
