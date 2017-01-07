@@ -25,7 +25,8 @@ angular
     'ui.bootstrap',
     'angular-ladda',
     'mwl.confirm',
-    'ng-currency'
+    'ng-currency',
+    'chart.js'
   ])
   .config(function ($routeProvider,$authProvider,ApiUrl) {
     console.log("url del api ", ApiUrl);
@@ -106,6 +107,11 @@ angular
         controller: 'productomasVendidoController',
         controllerAs: 'vm'
       })
+      .when('/clienteActivo', {
+        templateUrl: 'modules/reporte-clientemasActivo/clientemasActivo.html',
+        controller: 'clientemasActivoController',
+        controllerAs: 'vm'
+      })
       .otherwise({
         redirectTo: '/'
       });
@@ -114,9 +120,9 @@ angular
      moment.locale('es');
      console.log("run");
      var rutasPrivadas= ['/','/about','/client','/user', '/profile', '/provider', '/product', '/sell', '/buy', '/receivable',
-     '/payable', '/facturaVenta', '/facturaCompra', '/masVendido'];
+     '/payable', '/facturaVenta', '/facturaCompra', '/masVendido', '/clienteActivo'];
      /*rutas que solo puede ver admin y super admin*/
-     var rutasAdmin = ['/client', '/user', '/provider', '/product', '/facturaVenta', '/facturaCompra', '/masVendido'];
+     var rutasAdmin = ['/client', '/user', '/provider', '/product', '/facturaVenta', '/facturaCompra', '/masVendido','/clienteActivo'];
      /*Rutas que solo ve el super admin*/
      var rutasSuper = ['/user'];
      var rol = "";

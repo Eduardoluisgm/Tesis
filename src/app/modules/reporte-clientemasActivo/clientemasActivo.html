@@ -1,0 +1,26 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <i class="fa fa-credit-card"></i>
+     Clientes mas Activos
+  </div>
+   <div class="panel-body">
+     <div class="row">
+       <div class="col-md-6">
+         <h4>Clientes con mayores compras (Monto)</h4>
+         <div class="down60">
+           <canvas id="bar" class="chart chart-bar"
+              chart-data="vm.clientMonto.cantidades" chart-options="vm.options" chart-labels="vm.clientMonto.nombres" chart-series="vm.series">
+           </canvas>
+         </div>
+       </div>
+       <div class="col-md-6">
+         <h4>Clientes con mayor cantidad de compras (Volumen)</h4>
+         <div class="down60">
+           <canvas id="bar" class="chart chart-bar"
+              chart-data="vm.clientVolumen.cantidades" chart-options="vm.options" chart-labels="vm.clientVolumen.nombres" chart-series="vm.series">
+           </canvas>
+         </div>
+       </div>
+     </div>
+   </div>
+</div>

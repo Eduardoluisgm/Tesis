@@ -18,4 +18,30 @@ class reportController extends Controller
         limit 10'));
       return $report;
     }
+
+    /*cliente que realiza las mayores compras en monto*/
+    function clientemayoresCompras () {
+      $report = DB::select(DB::raw('select client.name, client.cedula,
+        COUNT(client.cedula)as Cantidad,
+        SUM(fact_vent.monto_total)as Monto
+        FROM client, fact_vent
+        WHERE client.cedula = fact_vent.client_id
+        group by client.cedula, client.name
+        order by Monto desc
+        limit 6'));
+      return $report;
+    }
+
+    /*cliente que realiza mayor cantidad de compras no importa el monto*/
+    function clientevolumenCompras () {
+      $report = DB::select(DB::raw('select client.name, client.cedula,
+        COUNT(client.cedula)as Cantidad,
+        SUM(fact_vent.monto_total)as Monto
+        FROM client, fact_vent
+        WHERE client.cedula = fact_vent.client_id
+        group by client.cedula, client.name
+        order by Cantidad desc
+        limit 6'));
+      return $report;
+    }
 }

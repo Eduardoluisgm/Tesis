@@ -11,6 +11,13 @@
   min-height: 700px;
 }
 
+.reportPadding {
+  padding-top: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+}
+
 .background-login {
   background-image: url('images/beach.jpg');
   background-repeat: no-repeat;
@@ -93,6 +100,17 @@
 
 .down10 {
   margin-top: 10px;
+}
+
+.down30 {
+  margin-top: 30px;
+}
+.down40 {
+  margin-top: 40px;
+}
+
+.down60 {
+  margin-top: 60px;
 }
 
 .border-bottom1 {
