@@ -64,6 +64,9 @@ Route::group(['middleware' => 'cors'], function (){
     Route::patch('product/{oldcodigo}', 'productController@patch');
     Route::post('product', 'productController@save');
 
+    /*Reportes*/
+    Route::get('ProductosMasVendido', 'reportController@productomasVendido');
+
     /*Roles*/
     Route::get('role','roleController@All');
 

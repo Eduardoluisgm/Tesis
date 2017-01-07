@@ -101,6 +101,11 @@ angular
         controller: 'facturaCompraController',
         controllerAs: 'vm'
       })
+      .when('/masVendido', {
+        templateUrl: 'modules/reporte-productomasVendido/productomasVendido.html',
+        controller: 'productomasVendidoController',
+        controllerAs: 'vm'
+      })
       .otherwise({
         redirectTo: '/'
       });
@@ -109,9 +114,9 @@ angular
      moment.locale('es');
      console.log("run");
      var rutasPrivadas= ['/','/about','/client','/user', '/profile', '/provider', '/product', '/sell', '/buy', '/receivable',
-     '/payable', '/facturaVenta', '/facturaCompra'];
+     '/payable', '/facturaVenta', '/facturaCompra', '/masVendido'];
      /*rutas que solo puede ver admin y super admin*/
-     var rutasAdmin = ['/client', '/user', '/provider', '/product', '/facturaVenta', '/facturaCompra'];
+     var rutasAdmin = ['/client', '/user', '/provider', '/product', '/facturaVenta', '/facturaCompra', '/masVendido'];
      /*Rutas que solo ve el super admin*/
      var rutasSuper = ['/user'];
      var rol = "";

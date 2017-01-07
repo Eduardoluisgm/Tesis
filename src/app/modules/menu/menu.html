@@ -33,7 +33,7 @@
     <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav side-nav">
             <li>
-                <a ng-href="#/"><i class="fa fa-fw fa-dashboard"></i> Inicio</a>
+                <a ng-href="#/"><i class="fa fa-home"></i> Inicio</a>
             </li>
             <!--Miscelaneos -->
             <li ng-if="vm.rol=='1' || vm.rol=='2'">
@@ -43,23 +43,23 @@
                 <span ng-if="vm.miscelaneoOpen==true" style="padding-left: 78px;" class="fa fa-caret-down"></span>
               </a>
               <ul ng-if="vm.miscelaneoOpen==true">
-                <li ng-if="vm.rol=='1'">
+                <li ng-if="vm.rol=='1'" class="left12">
                     <a ng-href="#/user"><i class="fa fa-users"></i> Usuarios</a>
                 </li>
-                <li>
+                <li class="left12">
                     <a ng-href="#/client"><i class="fa fa-user"></i> Clientes</a>
                 </li>
-                <li>
+                <li class="left12">
                     <a ng-href="#/provider"><i class="fa fa-handshake-o"></i> Proveedores</a>
                 </li>
-                <li>
+                <li class="left12">
                     <a ng-href="#/product"><i class="fa fa-cart-plus"></i> Productos</a>
                 </li>
-                <li>
-                    <a ng-href="#/facturaVenta"><i class="fa fa-cart-plus"></i> Factura de Venta</a>
+                <li class="left12">
+                    <a ng-href="#/facturaVenta"><i class="fa fa-list-ul"></i> Factura de Venta</a>
                 </li>
-                <li>
-                    <a ng-href="#/facturaCompra"><i class="fa fa-cart-plus"></i> Factura de Compra</a>
+                <li class="left12">
+                    <a ng-href="#/facturaCompra"><i class="fa fa-align-justify"></i> Factura de Compra</a>
                 </li>
               </ul>
             </li>
@@ -70,13 +70,23 @@
                   <a ng-href="#/buy"><i class="fa fa-money"></i> Comprar</a>
             </li>
             <li>
-                  <a ng-href="#/receivable"><i class="fa fa-money"></i> Cuentas por cobrar</a>
+                  <a ng-href="#/receivable"><i class="fa fa-credit-card"></i> Cuentas por cobrar</a>
             </li>
             <li>
-                  <a ng-href="#/payable"><i class="fa fa-money"></i> Cuentas por pagar</a>
+                  <a ng-href="#/payable"><i class="fa fa-credit-card-alt"></i> Cuentas por pagar</a>
             </li>
-            <li>
-                <a><i class="fa fa-fw fa-desktop"></i> Reportes</a>
+            <!--Reportes -->
+            <li ng-if="vm.rol=='1' || vm.rol=='2'">
+              <a ng-click="vm.reportOpen =!vm.reportOpen">
+                <i class="fa fa-area-chart"></i> Reportes
+                <span ng-if="vm.reportOpen==false" style="padding-left: 90px;" class="fa fa-caret-right"></span>
+                <span ng-if="vm.reportOpen==true" style="padding-left: 90px;" class="fa fa-caret-down"></span>
+              </a>
+              <ul ng-if="vm.reportOpen==true">
+                <li class="left12">
+                    <a ng-href="#/masVendido"><i class="fa fa-users"></i> Productos mas vendidos</a>
+                </li>
+              </ul>
             </li>
         </ul>
     </div>

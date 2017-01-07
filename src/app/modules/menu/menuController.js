@@ -8,6 +8,7 @@ angular.module('frontEndApp')
       vm.showMenu = true;
       vm.logout = logout;
       vm.miscelaneoOpen=false; /*dropdow de miscelaneos*/
+      vm.reportOpen = false;
       vm.name = "Caguita";
       vm.profile = "";
 
@@ -16,6 +17,8 @@ angular.module('frontEndApp')
 
       function getProfile() {
         vm.rol = localStorage.getItem('role_id');
+        vm.miscelaneoOpen=false;
+        vm.reportOpen = false;
         if (authUser.isLogin()) {
           profile.getFresh(
             function(data) {
