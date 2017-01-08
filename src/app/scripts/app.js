@@ -107,9 +107,19 @@ angular
         controller: 'productomasVendidoController',
         controllerAs: 'vm'
       })
+      .when('/masComprado', {
+        templateUrl: 'modules/reporte-productomasComprado/productomasComprado.html',
+        controller: 'productomasCompradoController',
+        controllerAs: 'vm'
+      })
       .when('/clienteActivo', {
         templateUrl: 'modules/reporte-clientemasActivo/clientemasActivo.html',
         controller: 'clientemasActivoController',
+        controllerAs: 'vm'
+      })
+      .when('/proveedorActivo', {
+        templateUrl: 'modules/reporte-proveedormasActivo/proveedormasActivo.html',
+        controller: 'proveedormasActivoController',
         controllerAs: 'vm'
       })
       .otherwise({
@@ -120,9 +130,10 @@ angular
      moment.locale('es');
      console.log("run");
      var rutasPrivadas= ['/','/about','/client','/user', '/profile', '/provider', '/product', '/sell', '/buy', '/receivable',
-     '/payable', '/facturaVenta', '/facturaCompra', '/masVendido', '/clienteActivo'];
+     '/payable', '/facturaVenta', '/facturaCompra', '/masVendido', '/clienteActivo', '/proveedorActivo', '/masComprado'];
      /*rutas que solo puede ver admin y super admin*/
-     var rutasAdmin = ['/client', '/user', '/provider', '/product', '/facturaVenta', '/facturaCompra', '/masVendido','/clienteActivo'];
+     var rutasAdmin = ['/client', '/user', '/provider', '/product', '/facturaVenta', '/facturaCompra', '/masVendido','/clienteActivo',
+      '/proveedorActivo', '/masComprado'];
      /*Rutas que solo ve el super admin*/
      var rutasSuper = ['/user'];
      var rol = "";

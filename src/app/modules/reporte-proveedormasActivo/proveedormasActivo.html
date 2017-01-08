@@ -1,0 +1,26 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <i style="color:yellow;" class="fa fa-bar-chart"></i>
+     Proveedores mas Activos
+  </div>
+   <div class="panel-body">
+     <div class="row">
+       <div class="col-md-6">
+         <h4>Proveedores con mayores compras (Monto)</h4>
+         <div class="down60">
+           <canvas id="bar" class="chart chart-bar"
+              chart-data="vm.providerMonto.cantidades" chart-options="vm.options" chart-labels="vm.providerMonto.nombres" chart-series="vm.series">
+           </canvas>
+         </div>
+       </div>
+       <div class="col-md-6">
+         <h4>Proveedores con mayor cantidad de compras (Volumen)</h4>
+         <div class="down60">
+           <canvas id="bar" class="chart chart-bar"
+              chart-data="vm.providerVolumen.cantidades" chart-options="vm.options" chart-labels="vm.providerVolumen.nombres" chart-series="vm.series">
+           </canvas>
+         </div>
+       </div>
+     </div>
+   </div>
+</div>

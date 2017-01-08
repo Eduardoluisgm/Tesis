@@ -43,22 +43,22 @@
                 <span ng-if="vm.miscelaneoOpen==true" style="padding-left: 78px;" class="fa fa-caret-down"></span>
               </a>
               <ul ng-if="vm.miscelaneoOpen==true">
-                <li ng-if="vm.rol=='1'" class="left12">
+                <li ng-if="vm.rol=='1'" class="left18">
                     <a ng-href="#/user"><i class="fa fa-users"></i> Usuarios</a>
                 </li>
-                <li class="left12">
+                <li class="left18">
                     <a ng-href="#/client"><i class="fa fa-user"></i> Clientes</a>
                 </li>
-                <li class="left12">
+                <li class="left18">
                     <a ng-href="#/provider"><i class="fa fa-handshake-o"></i> Proveedores</a>
                 </li>
-                <li class="left12">
+                <li class="left18">
                     <a ng-href="#/product"><i class="fa fa-cart-plus"></i> Productos</a>
                 </li>
-                <li class="left12">
+                <li class="left18">
                     <a ng-href="#/facturaVenta"><i class="fa fa-list-ul"></i> Factura de Venta</a>
                 </li>
-                <li class="left12">
+                <li class="left18">
                     <a ng-href="#/facturaCompra"><i class="fa fa-align-justify"></i> Factura de Compra</a>
                 </li>
               </ul>
@@ -83,11 +83,17 @@
                 <span ng-if="vm.reportOpen==true" style="padding-left: 90px;" class="fa fa-caret-down"></span>
               </a>
               <ul ng-if="vm.reportOpen==true">
-                <li class="left12">
-                    <a ng-href="#/masVendido"><i class="fa fa-users"></i> Productos mas vendidos</a>
+                <li class="left18">
+                    <a ng-href="#/masVendido"><i style="color:blue;" class="fa fa-bar-chart"></i> Productos mas vendidos</a>
                 </li>
-                <li class="left12">
-                    <a ng-href="#/clienteActivo"><i class="fa fa-users"></i> Clientes mas activos</a>
+                <li class="left18">
+                    <a ng-href="#/masComprado"><i style="color:red;" class="fa fa-bar-chart"></i> Productos mas comprados</a>
+                </li>
+                <li class="left18">
+                    <a ng-href="#/clienteActivo"><i style="color:green;" class="fa fa-bar-chart"></i> Clientes destacados</a>
+                </li>
+                <li class="left18">
+                    <a ng-href="#/proveedorActivo"><i style="color:yellow;" class="fa fa-bar-chart"></i> Proveedores destacados</a>
                 </li>
               </ul>
             </li>

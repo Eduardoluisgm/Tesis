@@ -67,7 +67,10 @@ Route::group(['middleware' => 'cors'], function (){
     /*Reportes*/
     Route::get('ClienteVolumenCompras', 'reportController@clientevolumenCompras');
     Route::get('ClientemayoresCompras', 'reportController@clientemayoresCompras');
+    Route::get('ProveedorVolumenCompras', 'reportController@proveedorvolumenCompras');
+    Route::get('ProveedormayoresCompras', 'reportController@proveedormayoresCompras');
     Route::get('ProductosMasVendido', 'reportController@productomasVendido');
+    Route::get('ProductosMasComprado', 'reportController@productomasComprado');
 
     /*Roles*/
     Route::get('role','roleController@All');
