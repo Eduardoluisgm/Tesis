@@ -47,7 +47,7 @@ echo '<div><span>FACTURA</span>'.$factura['id'].'</div>
     echo '<tbody>
           <tr>
           <td class="service">'.$factura->detalle['id'].'</td>
-          <td class="desc">'.$factura->detalle['nombre'].'</td>
+          <td class="desc">'.$factura->detalle['producto']['nombre'].'</td>
           <td class="unit">'.$factura->detalle['precio_venta'].'</td>
           <td class="qty">'.$factura->detalle['cant'].'</td>
           <td class="total">'.$factura->detalle['monto_total'].'</td>
