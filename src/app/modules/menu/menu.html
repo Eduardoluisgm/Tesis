@@ -55,32 +55,68 @@
                 <li class="left18">
                     <a ng-href="#/product"><i class="fa fa-cart-plus"></i> Productos</a>
                 </li>
+              </ul>
+            </li>
+            <!--Facturacion-->
+            <li>
+              <a ng-click="vm.facturacionOpen=!vm.facturacionOpen">
+                <i class="fa fa-list-ul"></i> Facturación
+                <span ng-if="vm.facturacionOpen==false" style="padding-left: 80px;" class="fa fa-caret-right"></span>
+                <span ng-if="vm.facturacionOpen==true" style="padding-left: 80px;" class="fa fa-caret-down"></span>
+              </a>
+              <ul ng-if="vm.facturacionOpen==true">
                 <li class="left18">
-                    <a ng-href="#/facturaVenta"><i class="fa fa-list-ul"></i> Factura de Venta</a>
+                      <a ng-href="#/sell"><i class="fa fa-shopping-cart"></i> Vender</a>
                 </li>
                 <li class="left18">
-                    <a ng-href="#/facturaCompra"><i class="fa fa-align-justify"></i> Factura de Compra</a>
+                    <a ng-href="#/facturaVenta"><i class="fa fa-list-ul"></i> Facturas de Venta</a>
+                </li>
+                <li class="left18">
+                      <a ng-href="#/receivable"><i class="fa fa-credit-card"></i> Cuentas por cobrar</a>
                 </li>
               </ul>
             </li>
+            <!--Inventario-->
             <li>
-                  <a ng-href="#/sell"><i class="fa fa-shopping-cart"></i> Vender</a>
+              <a ng-click="vm.inventarioOpen=!vm.inventarioOpen">
+                <i class="fa fa-align-justify"></i> Inventario
+                <span ng-if="vm.inventarioOpen==false" style="padding-left: 92px;" class="fa fa-caret-right"></span>
+                <span ng-if="vm.inventarioOpen==true" style="padding-left: 92px;" class="fa fa-caret-down"></span>
+              </a>
+              <ul ng-if="vm.inventarioOpen==true">
+                <li class="left18">
+                    <a ng-href="#/buy"><i class="fa fa-money"></i> Comprar</a>
+                </li>
+                <li class="left18">
+                    <a ng-href="#/facturaCompra"><i class="fa fa-align-justify"></i> Facturas de Compra</a>
+                </li>
+                <li class="left18">
+                    <a ng-href="#/payable"><i class="fa fa-credit-card-alt"></i> Cuentas por pagar</a>
+                </li>
+              </ul>
             </li>
+            <!--Contabilidad-->
             <li>
-                  <a ng-href="#/buy"><i class="fa fa-money"></i> Comprar</a>
-            </li>
-            <li>
-                  <a ng-href="#/receivable"><i class="fa fa-credit-card"></i> Cuentas por cobrar</a>
-            </li>
-            <li>
-                  <a ng-href="#/payable"><i class="fa fa-credit-card-alt"></i> Cuentas por pagar</a>
+              <a ng-click="vm.contabilidadOpen=!vm.contabilidadOpen">
+                <i class="fa fa-align-justify"></i> Contabilidad
+                <span ng-if="vm.contabilidadOpen==false" style="padding-left: 76px;" class="fa fa-caret-right"></span>
+                <span ng-if="vm.contabilidadOpen==true" style="padding-left: 76px;" class="fa fa-caret-down"></span>
+              </a>
+              <ul ng-if="vm.contabilidadOpen==true">
+                <li class="left18">
+                      <a ng-href="#/receivable"><i class="fa fa-credit-card"></i> Cuentas por cobrar</a>
+                </li>
+                <li class="left18">
+                    <a ng-href="#/payable"><i class="fa fa-credit-card-alt"></i> Cuentas por pagar</a>
+                </li>
+              </ul>
             </li>
             <!--Reportes -->
             <li ng-if="vm.rol=='1' || vm.rol=='2'">
               <a ng-click="vm.reportOpen =!vm.reportOpen">
                 <i class="fa fa-area-chart"></i> Reportes
-                <span ng-if="vm.reportOpen==false" style="padding-left: 90px;" class="fa fa-caret-right"></span>
-                <span ng-if="vm.reportOpen==true" style="padding-left: 90px;" class="fa fa-caret-down"></span>
+                <span ng-if="vm.reportOpen==false" style="padding-left: 94px;" class="fa fa-caret-right"></span>
+                <span ng-if="vm.reportOpen==true" style="padding-left: 94px;" class="fa fa-caret-down"></span>
               </a>
               <ul ng-if="vm.reportOpen==true">
                 <li class="left18">
