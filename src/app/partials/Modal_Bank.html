@@ -1,0 +1,60 @@
+<div ng-if="vm.status=='crear'">
+  <div class="modal-header">
+      <Label>Crear Banco</label>
+      <button type="button" ng-click="vm.cancel()" class="close"><span aria-hidden="true">&times;</span></button>
+  </div>
+<form ng-submit="vm.save()">
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-6">
+          <label>Nombre:</label>
+          <input type="text" class="form-control" minlength="3" maxlength="35" ng-model="vm.bank.nombre" required/>
+        </div>
+        <div class="col-md-6">
+          <label>Descripción: </label>
+          <input type="text" ng-model="vm.bank.descripcion" class="form-control" minlength="3" maxlength="35"/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <label>Telefono:</label>
+          <input type="text" class="form-control" ng-model="vm.bank.telefono" maxlength="14" ng-keypress="vm.solonumeros($event)"/>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button ladda="vm.isloading" type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+  </form>
+</div>
+
+<!--Actualizar-->
+<div ng-if="vm.status=='actualizar'">
+  <div class="modal-header">
+      <Label>Actualizar Banco</label>
+      <button type="button" ng-click="vm.cancel()" class="close"><span aria-hidden="true">&times;</span></button>
+  </div>
+<form ng-submit="vm.save()">
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-6">
+          <label>Nombre:</label>
+          <input type="text" class="form-control" minlength="3" maxlength="35" ng-model="vm.bank.nombre" required/>
+        </div>
+        <div class="col-md-6">
+          <label>Descripción: </label>
+          <input type="text" class="form-control" minlength="3" maxlength="35" ng-model="vm.bank.descripcion"/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <label>Telefono:</label>
+          <input type="text" class="form-control" ng-model="vm.bank.telefono" maxlength="14" ng-keypress="vm.solonumeros($event)"/>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button ladda="vm.isloading" type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+  </form>
+</div>

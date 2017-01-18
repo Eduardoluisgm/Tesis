@@ -1,0 +1,84 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <i class="fa fa-university"></i>
+     Bancos
+  </div>
+   <div class="panel-body">
+     <div class="row">
+       <div class ="col-md-3">
+         <input type="text" ng-model="vm.Buscar.actual" class="form-control" maxlength="15" placeholder="Buscar"/>
+       </div>
+       <div class="col-md-2">
+         <button ng-click="vm.search()"  type="button" uib-tooltip="Buscar" class="btn btn-default">
+             <i class="fa fa-search"></i>
+         </button>
+         <button type="button" ng-if="vm.Buscar.buscando==true" ng-click="vm.reload()" uib-tooltip="Ver todos" class="btn btn-primary">
+             <i class="fa fa-refresh"></i>
+         </button>
+       </div>
+       <div class ="col-md-7">
+         <div class="text-right">
+           <button type="button" uib-tooltip="Crear Banco" ng-click="vm.openCreate()"  class="btn btn-primary">
+             Crear
+           </button>
+         </div>
+       </div>
+     </div>
+     <div class="row table-large">
+       <div class="col-md-12">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                 <th>Codigo</th>
+                 <th>Nombre</th>
+                 <th>Telefono</th>
+                 <th>Descripción</th>
+                 <th>Estatus</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="banco in vm.listaBancos">
+                  <td> {{banco.id}}</td>
+                  <td> {{banco.nombre}}</td>
+                  <td>{{banco.telefono}}</td>
+                  <td>{{banco.descripcion}}</td>
+                  <td>
+                    <label ng-if="banco.status==1" class="status-active">Activo</label>
+                    <label ng-if="banco.status==0" class="status-inactive">Inactivo</label>
+                  </td>
+                  <td>
+                    <button ng-click="vm.openEdit(banco.id)"  type="button" uib-tooltip="Editar" class="btn btn-success">
+                        <i class="fa fa-pencil"></i>
+                    </button>
+                    <button
+                      type="button"
+                      uib-tooltip="Cambiar estatus"
+                      class="btn btn-primary"
+                      mwl-confirm
+                      message="¿Esta seguro que desea cambiar el estatus del banco {{banco.nombre}}?"
+                      confirm-text="Si"
+                      cancel-text="No"
+                      placement="{{ placement }}"
+                      on-confirm="vm.changeStatus(banco.id, banco.status)"
+                      on-cancel=""
+                      confirm-button-type="success"
+                      cancel-button-type="default">
+                        <i class="fa fa-refresh"></i>
+                    </button>
+                  </td>
+              </tr>
+            </tbody>
+          </table>
+       </div>
+     </div>
+     <div class="row">
+       <div class="col-md-12">
+         <div class="pull-right">
+           <ul uib-pagination total-items="vm.pagination.total" ng-model="vm.pagination.current_page" max-size="5"
+           class="pagination-sm" ng-change="vm.changePage(vm.pagination.current_page)" boundary-links="true" force-ellipses="true" items-per-page="vm.pagination.per_page"
+           first-text="<<" last-text=">>" next-text=">" previous-text="<"></ul>
+         </div>
+       </div>
+     </div>
+   </div>
+</div>

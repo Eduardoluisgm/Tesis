@@ -15,7 +15,9 @@ class CreateBank extends Migration
     {
       Schema::create('bank', function (Blueprint $table) {
           $table->increments('id');
-          $table->string('nombre');
+          $table->string('nombre')->unique();
+          $table->string('telefono')->nullable();
+          $table->string('status')->default("1");
           $table->string('descripcion')->nullable();
           $table->timestamps();
       });

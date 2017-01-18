@@ -52,6 +52,11 @@ angular
         controller: 'usersController',
         controllerAs: 'vm'
       })
+      .when('/bank', {
+        templateUrl: 'modules/bank/bank.html',
+        controller: 'bankController',
+        controllerAs: 'vm'
+      })
       .when('/login', {
         templateUrl: 'modules/login/login.html',
         controller: 'loginController',
@@ -130,10 +135,10 @@ angular
      moment.locale('es');
      console.log("run");
      var rutasPrivadas= ['/','/about','/client','/user', '/profile', '/provider', '/product', '/sell', '/buy', '/receivable',
-     '/payable', '/facturaVenta', '/facturaCompra', '/masVendido', '/clienteActivo', '/proveedorActivo', '/masComprado'];
+     '/payable', '/facturaVenta', '/facturaCompra', '/masVendido', '/clienteActivo', '/proveedorActivo', '/masComprado', '/bank'];
      /*rutas que solo puede ver admin y super admin*/
      var rutasAdmin = ['/client', '/user', '/provider', '/product', '/facturaVenta', '/facturaCompra', '/masVendido','/clienteActivo',
-      '/proveedorActivo', '/masComprado'];
+      '/proveedorActivo', '/masComprado', '/bank'];
      /*Rutas que solo ve el super admin*/
      var rutasSuper = ['/user'];
      var rol = "";

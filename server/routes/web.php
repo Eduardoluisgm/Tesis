@@ -11,13 +11,16 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 /*Todas las rutas que seran accedidas por app externas colocando el cors ya tienen permiso*/
 Route::group(['middleware' => 'cors'], function (){
     /*Login*/
     Route::post('login','ApiAuthController@AuthUser');
+
+    /*Bancos*/
+    Route::get('bank', 'bankController@AllBank');
+    Route::get('bank/{id}', 'bankController@get');
+    Route::patch('bank/{id}', 'bankController@patch');
+    Route::post('bank', 'bankController@save');
 
     /*client*/
     Route::get('client', 'clientController@AllClient');
