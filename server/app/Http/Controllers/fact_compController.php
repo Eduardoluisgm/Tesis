@@ -112,7 +112,9 @@ class fact_compController extends Controller
       $factura->load('pagos');
       foreach ($factura->detalles as $detalle) {
         $detalle->load('producto');
+
       }
+      //return $factura;
       $pdf = PDF::loadView('pdfCompra', compact('factura'));
       return $pdf->download('welcome.pdf');
     }

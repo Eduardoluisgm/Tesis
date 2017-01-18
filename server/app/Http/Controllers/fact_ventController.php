@@ -43,6 +43,7 @@ class fact_ventController extends Controller
     foreach ($factura->detalles as $detalle) {
       $detalle->load('producto');
     }
+   // return $factura;
     $pdf = PDF::loadView('invoice', compact('factura'));
     return $pdf->download('welcome.pdf');
   }
