@@ -20,6 +20,9 @@ class RoleSeeder extends Seeder
         ],
         [
           'name'=>'Vendedor'
+        ],
+        [
+          'name'=>'Contador'
         ]
       ];
 
