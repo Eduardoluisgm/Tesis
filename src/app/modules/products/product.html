@@ -32,20 +32,24 @@
               <tr>
                  <th>Codigo     </th>
                  <th>Nombre   </th>
-                 <th>Precio_costo</th>
-                 <th>Precio_venta</th>
+                 <th>Precio costo</th>
+                 <th>Precio venta</th>
                  <th>stock</th>
+                 <th class="text-center">stock Maximo</th>
+                 <th class="text-center">stock Minimo</th>
 
               </tr>
             </thead>
             <tbody>
               <!--No te lo mostraba xq escribiste Provider con P mayuscula y lo declaraste en miniscula -->
-                  <tr ng-repeat="product in vm.listaProductos">
+                  <tr ng-repeat="product in vm.listaProductos" ng-class="{'border-red':product.stock<=product.min_stock}">
                   <td> {{product.codigo}}</td>
                   <td> {{product.nombre}}</td>
                   <td> {{product.precio_costo}}</td>
                   <td> {{product.precio_venta}}</td>
                   <td> {{product.stock}}</td>
+                  <td class="text-center">{{product.max_stock}}</td>
+                  <td class="text-center">{{product.min_stock}}</td>
                   <td>
                     <button ng-click="vm.openEdit(product.codigo)"  type="button" uib-tooltip="Editar" class="btn btn-success">
                         <i class="fa fa-pencil"></i>

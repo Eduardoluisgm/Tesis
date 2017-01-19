@@ -173,6 +173,18 @@ angular.module('frontEndApp')
       if (!vm.product.stock) {
         vm.product.stock = 0;
       }
+      if (!vm.product.min_stock) {
+        vm.product.min_stock = 0;
+      }
+      if (!vm.product.max_stock) {
+        vm.product.max_stock = 0;
+      }
+      console.log("minimo: "+ vm.product.min_stock + " maximo: "+ vm.product.max_stock);
+      if (parseInt(vm.product.min_stock)>parseInt(vm.product.max_stock)) {
+        toastr.warning("Stock maximo debe ser mayor al minimo", "Advertencia");
+        vm.isloading = false;
+        return;
+      }
       if (vm.product.precio_costo>vm.product.precio_venta) {
         console.log("costo: "+ vm.product.precio_costo+ " Venta: "+ vm.product.precio_venta);
         toastr.warning("El precio de venta debe ser mayor o igual al costo", "Advertencia");
@@ -244,7 +256,11 @@ angular.module('frontEndApp')
       'name':"",
       'precio_costo':0,
       'precio_venta':0,
-      'stock':0
+      'stock':0,
+      'min_stock':0,
+      'max_stock':0,
+      'marca': "",
+      'descripcion': ""
     }
     vm.changePrecio = function () {
       if (vm.product.precio_venta>100000000000) {
@@ -264,6 +280,18 @@ angular.module('frontEndApp')
       vm.isloading = true;
       if (!vm.product.stock) {
         vm.product.stock = 0;
+      }
+      if (!vm.product.min_stock) {
+        vm.product.min_stock = 0;
+      }
+      if (!vm.product.max_stock) {
+        vm.product.max_stock = 0;
+      }
+      console.log("minimo: "+ vm.product.min_stock + " maximo: "+ vm.product.max_stock);
+      if (parseInt(vm.product.min_stock)>parseInt(vm.product.max_stock)) {
+        toastr.warning("Stock maximo debe ser mayor al minimo", "Advertencia");
+        vm.isloading = false;
+        return;
       }
 
       if (vm.product.precio_costo>vm.product.precio_venta) {

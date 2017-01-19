@@ -4,6 +4,19 @@
   margin-right: 35%;
 }
 
+.text-center {
+  text-align: center;
+}
+
+
+.red {
+  color:red;
+}
+
+.border-red {
+  border: 3px solid red;
+}
+
 .panel-login {
   margin-top: 0px!important;
   margin-left: 0px!important;

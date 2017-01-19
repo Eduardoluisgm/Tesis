@@ -14,6 +14,10 @@ class Product extends Model
       'nombre',
       'precio_costo',
       'precio_venta',
-      'stock'
+      'stock',
+      'descripcion',
+      'marca',
+      'min_stock',
+      'max_stock'
   ];
 }

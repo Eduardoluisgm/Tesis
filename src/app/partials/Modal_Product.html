@@ -8,28 +8,48 @@
     <div class="modal-body">
       <div class="row">
         <div class="col-md-6">
-          <label>Codigo:</label>
+          <label>Codigo <span class="red">*</span></label>
           <input type="text" ng-model="vm.product.codigo" class="form-control" maxlength="25" required ng-keypress="vm.solonumeros($event)"/>
         </div>
         <div class="col-md-6">
-          <label>Nombre</label>
+          <label>Nombre <span class="red">*</span></label>
           <input type="text" class="form-control" minlength="3" maxlength="25" ng-model="vm.product.nombre" required/>
         </div>
       </div>
       <div class="row">
         <div class="col-md-6">
-          <label>Precio de Costo</label>
+          <label>Precio de Costo <span class="red">*</span></label>
           <input type="text" class="form-control" ng-currency currency-symbol="Bs " ng-change="vm.changePrecio()" maxlength="25" ng-model="vm.product.precio_costo" ng-keypress="vm.solonumeros($event)"required/>
         </div>
         <div class="col-md-6">
-          <label>Precio de Venta</label>
-          <input type="text" class="form-control" ng-currency currency-symbol="Bs " ng-change="vm.changePrecio()" maxlength="25" ng-model="vm.product.precio_venta" maxlength="14" ng-keypress="vm.solonumeros($event)"/>
+          <label>Precio de Venta <span class="red">*</span></label>
+          <input type="text" class="form-control" ng-currency currency-symbol="Bs " ng-change="vm.changePrecio()" maxlength="25" ng-model="vm.product.precio_venta" maxlength="14" ng-keypress="vm.solonumeros($event)" required/>
         </div>
       </div>
       <div class="row">
         <div class="col-md-6">
           <label>Stock: </label>
           <input type="text" class="form-control" minlength="1" maxlength="25" ng-model="vm.product.stock" ng-keypress="vm.solonumeros($event)"/>
+        </div>
+        <div class="col-md-6">
+          <label>Stock Maximo: </label>
+          <input type="text" class="form-control" minlength="1" maxlength="25" ng-model="vm.product.max_stock" ng-keypress="vm.solonumeros($event)"/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <label>Stock Minimo: </label>
+          <input type="text" class="form-control" minlength="1" maxlength="25" ng-model="vm.product.min_stock" ng-keypress="vm.solonumeros($event)"/>
+        </div>
+        <div class="col-md-6">
+          <label>Marca</label>
+          <input type="text" class="form-control" minlength="3" maxlength="25" ng-model="vm.product.marca"/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <label>Descripción</label>
+          <input type="text" class="form-control" minlength="3" maxlength="25" ng-model="vm.product.descripcion"/>
         </div>
       </div>
     </div>
@@ -72,6 +92,26 @@
     </div>
     <div class="row">
       <div class="col-md-12">
+          <label>Stock Maximo:</label> <label>{{vm.product.max_stock}}</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+          <label>Stock Minimo:</label> <label>{{vm.product.min_stock}}</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+          <label>Marca:</label> <label>{{vm.product.marca}}</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+          <label>Descripcción:</label> <label>{{vm.product.descripcion}}</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
           <label>Fecha de Registro:</label> <label>{{vm.product.created_at}}</label>
       </div>
     </div>
@@ -93,21 +133,21 @@
     <div class="modal-body">
       <div class="row">
         <div class="col-md-6">
-          <label>Codigo:</label>
+          <label>Codigo <span class="red">*</span></label>
           <input type="text" ng-model="vm.product.codigo" ng-change="vm.changeCodigo()" class="form-control" minlength="2" maxlength="9" required ng-keypress="vm.solonumeros($event)"/>
         </div>
         <div class="col-md-6">
-          <label>Nombre</label>
+          <label>Nombre <span class="red">*</span></label>
           <input type="text" class="form-control" minlength="3" maxlength="25" ng-model="vm.product.nombre" required/>
         </div>
       </div>
       <div class="row">
         <div class="col-md-6">
-          <label>Precio Costo</label>
-          <input type="text" class="form-control" ng-currency currency-symbol="Bs "  ng-change="vm.changePrecio()" maxlength="25" ng-model="vm.product.precio_costo" required ng-keypress="vm.solonumeros($event)"/>
+          <label>Precio Costo <span class="red">*</span></label>
+          <input type="text" class="form-control" ng-currency currency-symbol="Bs "  ng-change="vm.changePrecio()" maxlength="25" ng-model="vm.product.precio_costo" required ng-keypress="vm.solonumeros($event)" required/>
         </div>
         <div class="col-md-6">
-          <label>Precio Venta</label>
+          <label>Precio Venta <span class="red">*</span></label>
           <input type="text" class="form-control" ng-currency currency-symbol="Bs "  ng-model="vm.product.precio_venta" ng-change="vm.changePrecio()" maxlength="25" ng-keypress="vm.solonumeros($event)" required/>
         </div>
       </div>
@@ -115,6 +155,26 @@
         <div class="col-md-6">
           <label>Stock: </label>
           <input type="text" class="form-control" minlength="1" maxlength="25" ng-model="vm.product.stock" ng-keypress="vm.solonumeros($event)"/>
+        </div>
+        <div class="col-md-6">
+          <label>Stock Maximo: </label>
+          <input type="text" class="form-control" minlength="1" maxlength="25" ng-model="vm.product.max_stock" ng-keypress="vm.solonumeros($event)"/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <label>Stock Minimo: </label>
+          <input type="text" class="form-control" minlength="1" maxlength="25" ng-model="vm.product.min_stock" ng-keypress="vm.solonumeros($event)"/>
+        </div>
+        <div class="col-md-6">
+          <label>Marca</label>
+          <input type="text" class="form-control" minlength="3" maxlength="25" ng-model="vm.product.marca"/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <label>Descripción</label>
+          <input type="text" class="form-control" minlength="3" maxlength="25" ng-model="vm.product.descripcion"/>
         </div>
       </div>
     </div>
