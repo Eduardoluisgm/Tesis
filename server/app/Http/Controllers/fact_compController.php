@@ -75,6 +75,9 @@ class fact_compController extends Controller
             $factura_pago->factura_id = $factura_compra->id;
             $factura_pago->tipo = $pago->tipo;
             $factura_pago->monto = $pago->monto;
+            if (isset($pago->banco_id)) {
+              $factura_pago->bank_id = $pago->banco_id;
+            }
             $factura_pago->save();
           }
         }
@@ -129,6 +132,9 @@ class fact_compController extends Controller
         $factura_pago->factura_id = $id;
         $factura_pago->tipo = $pago->tipo;
         $factura_pago->monto = $pago->monto;
+        if (isset($pago->banco_id)) {
+          $factura_pago->bank_id = $pago->banco_id;
+        }
         $factura_pago->save();
       }
 

@@ -166,7 +166,7 @@ angular.module('frontEndApp')
           var fileURL = URL.createObjectURL(file);
           /*window.open(fileURL,'download_window');*/
           var link = document.createElement('a');
-          link.download = 'Factura '+factura_id;
+          link.download = 'Factura venta '+factura_id;
           link.target = '_blank';
           link.href = fileURL;
           document.body.appendChild(link);
@@ -373,17 +373,45 @@ angular.module('frontEndApp')
       });
   };
 
-  function sellAddPayController ($uibModalInstance,$q, origin, toastr, $rootScope) {
+  function sellAddPayController ($uibModalInstance,$q, origin, toastr, $rootScope, bankActive) {
     var vm =this;
     vm.status= "pagar";
     vm.isloading = false;
+    vm.bank = {
+      'id':"",
+      'list': []
+    }
     vm.pago = 0;
+
+    loadBanks();
+
+    /*origen vendiendo a un cliente*/
     if (origin.origin=="sell") {
       console.log("vengo de factura venta");
       vm.total = origin.total;
       vm.cancelado = origin.cancelado;
+      vm.diferencia = vm.total - vm.cancelado;
       vm.listapagos = angular.copy(origin.listapagos);
       console.log(origin);
+    }
+
+    /*origigen comprando a un proveedor*/
+    if (origin.origin=="buy") {
+      console.log("vengo de factura compra");
+      vm.total = origin.total;
+      vm.cancelado = origin.cancelado;
+      vm.diferencia = vm.total - vm.cancelado;
+      vm.listapagos = angular.copy(origin.listapagos);
+      console.log(origin);
+    }
+    /*cargar lista de bancos*/
+    function loadBanks() {
+      bankActive.queryFresh(
+        function success (data){
+          vm.bank.list = data;
+          console.log("lista de bancos ", vm.bank.list);
+        }
+      )
     }
 
     vm.changePrecio = function () {
@@ -392,13 +420,7 @@ angular.module('frontEndApp')
       }
     }
 
-    if (origin.origin=="buy") {
-      console.log("vengo de factura compra");
-      vm.total = origin.total;
-      vm.cancelado = origin.cancelado;
-      vm.listapagos = angular.copy(origin.listapagos);
-      console.log(origin);
-    }
+
 
 
     vm.ListType = {
@@ -408,10 +430,36 @@ angular.module('frontEndApp')
 
     vm.add_pago = function() {
       if (vm.pago>0) {
-        vm.listapagos.push({
-          'tipo': vm.ListType.tipo,
-          'monto': vm.pago
-        })
+        if (vm.pago+vm.cancelado>vm.total) {
+          toastr.info ('El monto cancelado no debe exceder el monto total');
+          return;
+        }
+        console.log("tipo de pago "+ vm.ListType.tipo);
+        if (vm.ListType.tipo=="Efectivo") { /*Si es efectivo guardo normal*/
+          vm.listapagos.push({
+            'tipo': vm.ListType.tipo,
+            'monto': vm.pago
+          })
+        } else { /*si es debito o credito guardo con el id del banco*/
+          if (!vm.bank.id) {
+            toastr.info ('Seleccione un banco');
+            return;
+          }
+          var banco_name = "";
+          vm.bank.list.forEach(function(banco){
+            console.log(banco);
+            if (banco.id==vm.bank.id) {
+              banco_name = banco.nombre;
+            }
+          });
+          vm.listapagos.push({
+            'tipo': vm.ListType.tipo,
+            'monto': vm.pago,
+            'banco_id': vm.bank.id,
+            'banco_name': banco_name
+          })
+        }
+        console.log("lista de pagos ", vm.listapagos);
         vm.calcular();
       }
     }
@@ -421,6 +469,7 @@ angular.module('frontEndApp')
       vm.listapagos.forEach(function (pago){
         vm.cancelado = vm.cancelado + pago.monto;
       });
+      vm.diferencia = vm.total - vm.cancelado;
     }
 
     vm.cancel= function() {

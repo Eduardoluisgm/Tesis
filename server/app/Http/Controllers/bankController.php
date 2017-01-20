@@ -26,6 +26,12 @@ class bankController extends Controller
       return $banks;
   }
 
+  /*Devuelve los bancos que estan activos*/
+  function bankActive() {
+    $banks = bank::where('status', '=', '1')->get();
+    return $banks;
+  }
+
   function get ($id) {
     $banco = bank::findOrFail($id);
     return $banco;

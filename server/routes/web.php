@@ -18,6 +18,8 @@ Route::group(['middleware' => 'cors'], function (){
 
     /*Bancos*/
     Route::get('bank', 'bankController@AllBank');
+    Route::get('bank_active','bankController@bankActive');
+
     Route::get('bank/{id}', 'bankController@get');
     Route::patch('bank/{id}', 'bankController@patch');
     Route::post('bank', 'bankController@save');

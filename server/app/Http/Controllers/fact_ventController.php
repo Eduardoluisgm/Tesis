@@ -52,7 +52,6 @@ class fact_ventController extends Controller
   function GuardarFactura (Request $request) {
     $detalles = json_decode($request->input('detalles'));
     $pagos = json_decode($request->input('pagos'));
-
     $factura_venta = new fact_vent;
     $factura_venta->fill($request->all());
     if ($factura_venta->save()) {
@@ -78,6 +77,9 @@ class fact_ventController extends Controller
           $factura_pago->factura_id = $factura_venta->id;
           $factura_pago->tipo = $pago->tipo;
           $factura_pago->monto = $pago->monto;
+          if (isset($pago->banco_id)) {
+            $factura_pago->bank_id = $pago->banco_id;
+          }
           $factura_pago->save();
         }
       }
@@ -94,6 +96,9 @@ class fact_ventController extends Controller
       $factura_pago->factura_id = $id;
       $factura_pago->tipo = $pago->tipo;
       $factura_pago->monto = $pago->monto;
+      if (isset($pago->banco_id)) {
+        $factura_pago->bank_id = $pago->banco_id;
+      }
       $factura_pago->save();
     }
 
