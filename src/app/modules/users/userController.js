@@ -114,7 +114,8 @@ angular.module('frontEndApp')
           animation: true,
           templateUrl: 'partials/Modal_User.html', /*Llamo al template donde usare lamodal*/
           controller: 'UserCreateController', /*nombre del controlador de la modal*/
-          controllerAs: 'vm' /*Importante colocar esto*/
+          controllerAs: 'vm', /*Importante colocar esto*/
+          backdrop: false
         });
       }
 
@@ -126,6 +127,7 @@ angular.module('frontEndApp')
           templateUrl: 'partials/Modal_User.html', /*Llamo al template donde usare lamodal*/
           controller: 'UserInformationController', /*nombre del controlador de la modal*/
           controllerAs: 'vm',
+          backdrop: false,
           resolve: {
             user_id: function () {
               return cedula;
@@ -142,6 +144,7 @@ angular.module('frontEndApp')
           templateUrl: 'partials/Modal_User.html', /*Llamo al template donde usare lamodal*/
           controller: 'UserEditController', /*nombre del controlador de la modal*/
           controllerAs: 'vm',
+          backdrop: false,
           resolve: { /*asi se pasa un parametro**/
             user_id: function () {
               return cedula;

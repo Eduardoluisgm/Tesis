@@ -108,6 +108,7 @@ angular.module('frontEndApp')
           templateUrl: 'partials/Modal_Client.html',
           controller: 'ClientCreateController',
           controllerAs: 'vm',
+          backdrop: false,
           resolve: {
             origin: function () {
               return {
@@ -125,6 +126,7 @@ angular.module('frontEndApp')
           templateUrl: 'partials/Modal_Client.html', /*Llamo al template donde usare lamodal*/
           controller: 'ClientInformationController', /*nombre del controlador de la modal*/
           controllerAs: 'vm',
+          backdrop: false,
           resolve: {
             client_id: function () {
               return client.cedula;
@@ -141,6 +143,7 @@ angular.module('frontEndApp')
           templateUrl: 'partials/Modal_Client.html', /*Llamo al template donde usare lamodal*/
           controller: 'ClientEditController', /*nombre del controlador de la modal*/
           controllerAs: 'vm',
+          backdrop: false,
           resolve: { /*asi se pasa un parametro**/
             client_id: function () {
               return cedula;

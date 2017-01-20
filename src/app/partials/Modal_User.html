@@ -7,11 +7,11 @@
     <div class="modal-body">
       <div class="row">
         <div class="col-md-6">
-          <label>Cédula:</label>
+          <label>Cédula <span class="red">*</span></label>
           <input type="text" ng-model="vm.user.cedula" ng-change="vm.changeCedula()" class="form-control" minlength="5" maxlength="9" required ng-keypress="vm.solonumeros($event)"/>
         </div>
         <div class="col-md-6">
-          <label>Fecha de ingreso:</label>
+          <label>Fecha de ingreso <span class="red">*</span></label>
           <div class="input-group">
             <input type="text" class="form-control" uib-datepicker-popup ng-model="vm.user.start_date"
             is-open="vm.openDate"
@@ -24,7 +24,7 @@
       </div>
       <div class="row">
         <div class="col-md-6">
-          <label>Nombre</label>
+          <label>Nombre <span class="red">*</span></label>
           <input type="text" class="form-control" minlength="3" maxlength="25" ng-model="vm.user.name" required/>
         </div>
         <div class="col-md-6">
@@ -34,11 +34,11 @@
       </div>
       <div class="row">
         <div class="col-md-6">
-          <label>Contraseña</label>
+          <label>Contraseña <span class="red">*</span></label>
           <input type="password" ng-model="vm.user.password" class="form-control" minlength="5" maxlength="14" required/>
         </div>
         <div class="col-md-6">
-          <label>Confirmar Contraseña </label>
+          <label>Confirmar Contraseña <span class="red">*</span></label>
           <input type="password" ng-model="vm.user.confirm_password" class="form-control" minlength="5" maxlength="14" required/>
         </div>
       </div>
@@ -48,7 +48,7 @@
           <input type="text" class="form-control" ng-model="vm.user.telefono" maxlength="14" ng-keypress="vm.solonumeros($event)"/>
         </div>
         <div class="col-md-6">
-          <label>Seleccione un Rol</label>
+          <label>Seleccione un Rol <span class="red">*</span></label>
           <select class="form-control" ng-model="vm.user.role_id" ng-options="rol.id as rol.name for rol in vm.listaroles" required>
             <option>{{rol.name}}</option>
           </select> <!-- -->
@@ -127,11 +127,11 @@
     <div class="modal-body">
       <div class="row">
         <div class="col-md-6">
-          <label>Cédula:</label>
+          <label>Cédula <span class="red">*</span></label>
           <input type="text" ng-model="vm.user.cedula" ng-change="vm.changeCedula()" class="form-control" minlength="5" maxlength="9" required ng-keypress="vm.solonumeros($event)"/>
         </div>
         <div class="col-md-6">
-          <label>Fecha de ingreso:</label>
+          <label>Fecha de ingreso <span class="red">*</span></label>
           <div class="input-group">
             <input type="text" class="form-control" uib-datepicker-popup ng-model="vm.user.start_date"
             is-open="vm.openDate"
@@ -144,7 +144,7 @@
       </div>
       <div class="row">
         <div class="col-md-6">
-          <label>Nombre</label>
+          <label>Nombre <span class="red">*</span></label>
           <input type="text" class="form-control" minlength="3" maxlength="25" ng-model="vm.user.name" required/>
         </div>
         <div class="col-md-6">
@@ -168,7 +168,7 @@
           <input type="text" class="form-control" ng-model="vm.user.telefono" maxlength="14" ng-keypress="vm.solonumeros($event)"/>
         </div>
         <div class="col-md-6">
-          <label>Seleccione un Rol</label>
+          <label>Seleccione un Rol <span class="red">*</span></label>
           <select class="form-control" ng-model="vm.user.role_id" ng-options="rol.id as rol.name for rol in vm.listaroles" required>
             <option>{{rol.name}}</option>
           </select> <!-- -->

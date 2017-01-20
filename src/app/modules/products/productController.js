@@ -106,7 +106,8 @@ angular.module('frontEndApp')
           animation: true,
           templateUrl: 'partials/Modal_Product.html', /*Llamo al template donde usare lamodal*/
           controller: 'ProductCreateController', /*nombre del controlador de la modal*/
-          controllerAs: 'vm' /*Importante colocar esto*/
+          controllerAs: 'vm',
+          backdrop: false,
         });
       }
 
@@ -117,6 +118,7 @@ angular.module('frontEndApp')
           templateUrl: 'partials/Modal_Product.html', /*Llamo al template donde usare lamodal*/
           controller: 'ProductInformationController', /*nombre del controlador de la modal*/
           controllerAs: 'vm',
+          backdrop: false,
           resolve: {
             product_id: function () {
               return product.codigo;
@@ -133,6 +135,7 @@ angular.module('frontEndApp')
           templateUrl: 'partials/Modal_Product.html', /*Llamo al template donde usare lamodal*/
           controller: 'ProductEditController', /*nombre del controlador de la modal*/
           controllerAs: 'vm',
+          backdrop: false,
           resolve: { /*asi se pasa un parametro**/
             product_id: function () {
               return codigo;

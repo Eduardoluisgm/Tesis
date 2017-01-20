@@ -88,6 +88,7 @@ angular.module('frontEndApp')
         templateUrl: 'partials/Modal_Cuentas_Pagar.html', /*Llamo al template donde usare lamodal*/
         controller: 'receivablePayController', /*nombre del controlador de la modal*/
         controllerAs: 'vm',
+        backdrop: false,
         resolve: {
           origin: function () {
             return {

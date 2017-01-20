@@ -7,7 +7,7 @@
     <div class="modal-body">
       <div class="row">
         <div class="col-md-6">
-          <label>Cédula o Rif:</label>
+          <label>Cédula o Rif <span class="red">*</span></label>
           <div class="row">
               <div class=col-md-4>
                 <select class="form-control" ng-model="vm.provider.tipo" ng-options="type.nombre as type.sigla for type in vm.ListType" required>
@@ -20,14 +20,14 @@
           </div>
         </div>
         <div class="col-md-6">
-          <label>Nombre</label>
-          <input type="text" class="form-control" minlength="3" maxlength="25" ng-model="vm.provider.nombre" required/>
+          <label>Nombre <span class="red">*</span></label>
+          <input type="text" class="form-control" minlength="3" maxlength="35" ng-model="vm.provider.nombre" required/>
         </div>
       </div>
       <div class="row">
         <div class="col-md-6">
-          <label>Nombre Vendedor</label>
-          <input type="text" class="form-control" minlength="3" maxlength="25" ng-model="vm.provider.nombre_vendedor" required/>
+          <label>Nombre Vendedor <span class="red">*</span></label>
+          <input type="text" class="form-control" minlength="3" maxlength="35" ng-model="vm.provider.nombre_vendedor" required/>
         </div>
         <div class="col-md-6">
           <label>Telefono</label>
@@ -102,7 +102,7 @@
     <div class="modal-body">
       <div class="row">
         <div class="col-md-6">
-          <label>Cédula o Rif:</label>
+          <label>Cédula o Rif <span class="red">*</span></label>
           <div class="row">
               <div class=col-md-4>
                 <select class="form-control" ng-model="vm.provider.tipo" ng-options="type.nombre as type.sigla for type in vm.ListType" required>
@@ -115,13 +115,13 @@
           </div>
         </div>
         <div class="col-md-6">
-          <label>Nombre</label>
+          <label>Nombre <span class="red">*</span></label>
           <input type="text" class="form-control" minlength="3" maxlength="25" ng-model="vm.provider.nombre" required/>
         </div>
       </div>
       <div class="row">
         <div class="col-md-6">
-          <label>Nombre Vendedor</label>
+          <label>Nombre Vendedor <span class="red">*</span></label>
           <input type="text" class="form-control" minlength="3" maxlength="25" ng-model="vm.provider.nombre_vendedor" required/>
         </div>
         <div class="col-md-6">
@@ -141,11 +141,3 @@
     </div>
   </form>
 </div>
-
-
-
-
-
-
-
-

@@ -104,6 +104,7 @@ angular.module('frontEndApp')
         templateUrl: 'partials/Modal_Bank.html',
         controller: 'BankCreateController',
         controllerAs: 'vm',
+        backdrop: false,
         resolve: {
           origin: function () {
             return {
@@ -122,6 +123,7 @@ angular.module('frontEndApp')
         templateUrl: 'partials/Modal_Bank.html', /*Llamo al template donde usare lamodal*/
         controller: 'BankEditController', /*nombre del controlador de la modal*/
         controllerAs: 'vm',
+        backdrop: false,
         resolve: { /*asi se pasa un parametro**/
           origin: function () {
             return {

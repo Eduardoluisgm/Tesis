@@ -7,7 +7,7 @@
     <div class="modal-body">
       <div class="row">
         <div class="col-md-6">
-          <label>Cédula o Rif:</label>
+          <label>Cédula o Rif <span class="red">*</span></label>
           <div class="row">
               <div class=col-md-4>
                 <select class="form-control" ng-model="vm.client.tipo" ng-options="type.name as type.sigla for type in vm.ListType" required>
@@ -20,13 +20,13 @@
           </div>
         </div>
         <div class="col-md-6">
-          <label>Nombre</label>
+          <label>Nombre <span class="red">*</span></label>
           <input type="text" class="form-control" minlength="3" maxlength="25" ng-model="vm.client.name" required/>
         </div>
       </div>
       <div class="row">
         <div class="col-md-6">
-          <label>Apellido</label>
+          <label>Apellido <span class="red">*</span></label>
           <input type="text" class="form-control" minlength="3" maxlength="25" ng-model="vm.client.apellido" required/>
         </div>
         <div class="col-md-6">
@@ -97,7 +97,7 @@
     <div class="modal-body">
       <div class="row">
         <div class="col-md-6">
-          <label>Cédula o Rif:</label>
+          <label>Cédula o Rif <span class="red">*</span></label>
           <div class="row">
               <div class=col-md-4>
                 <select class="form-control" ng-model="vm.client.tipo" ng-options="type.nombre as type.sigla for type in vm.ListType" required>
@@ -110,13 +110,13 @@
           </div>
         </div>
         <div class="col-md-6">
-          <label>Nombre</label>
+          <label>Nombre <span class="red">*</span></label>
           <input type="text" class="form-control" minlength="3" maxlength="25" ng-model="vm.client.name" required/>
         </div>
       </div>
       <div class="row">
         <div class="col-md-6">
-          <label>Apellido</label>
+          <label>Apellido <span class="red">*</span></label>
           <input type="text" class="form-control" minlength="3" maxlength="25" ng-model="vm.client.apellido" required/>
         </div>
         <div class="col-md-6">

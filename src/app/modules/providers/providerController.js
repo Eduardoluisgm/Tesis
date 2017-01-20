@@ -104,6 +104,7 @@ angular.module('frontEndApp')
           templateUrl: 'partials/Modal_Provider.html', /*Llamo al template donde usare lamodal*/
           controller: 'ProviderCreateController', /*nombre del controlador de la modal*/
           controllerAs: 'vm', /*Importante colocar esto*/
+          backdrop: false,
           resolve: {
             origin: function () {
               return {
@@ -121,6 +122,7 @@ angular.module('frontEndApp')
           templateUrl: 'partials/Modal_Provider.html', /*Llamo al template donde usare lamodal*/
           controller: 'ProviderInformationController', /*nombre del controlador de la modal*/
           controllerAs: 'vm',
+          backdrop: false,
           resolve: {
             provider_id: function () {
               return provider.rif;
@@ -137,6 +139,7 @@ angular.module('frontEndApp')
           templateUrl: 'partials/Modal_Provider.html', /*Llamo al template donde usare lamodal*/
           controller: 'ProviderEditController', /*nombre del controlador de la modal*/
           controllerAs: 'vm',
+          backdrop: false,
           resolve: { /*asi se pasa un parametro**/
             provider_id: function () {
               return rif;

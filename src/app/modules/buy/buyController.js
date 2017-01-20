@@ -131,6 +131,7 @@ angular.module('frontEndApp')
         templateUrl: 'partials/Modal_Pago_Venta.html',
         controller: 'sellAddPayController',
         controllerAs: 'vm',
+        backdrop: false,
         resolve: {
           origin: function () {
             return {
@@ -170,6 +171,7 @@ angular.module('frontEndApp')
         templateUrl: 'partials/Modal_Provider.html',
         controller: 'ProviderCreateController',
         controllerAs: 'vm',
+        backdrop: false,
         resolve: {
           origin: function () {
             return {
@@ -202,6 +204,7 @@ angular.module('frontEndApp')
         templateUrl: 'partials/Modal_Product.html',
         controller: 'ProductSearchController',
         controllerAs: 'vm',
+        backdrop: false,
         resolve: {
           origin: function () {
             return {
