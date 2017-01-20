@@ -4,11 +4,51 @@
      Productos mas Vendidos
   </div>
    <div class="panel-body">
+     <div class ="row">
+       <div class="col-md-6"></div>
+       <div class="col-md-2">
+         <label>Fecha de inicio:</label>
+       </div>
+       <div class="col-md-2">
+         <label>Fecha de final:</label>
+       </div>
+     </div>
+     <div class="row">
+       <div class="col-md-6"></div>
+       <div class="col-md-2">
+         <div class="input-group">
+           <input type="text" class="form-control" uib-datepicker-popup ng-model="vm.fechas.inicio"
+           is-open="vm.openInicio"
+           ng-required="true" close-text="Cerrar" required/>
+           <span class="input-group-btn">
+               <button type="button" class="btn btn-success" ng-click="vm.open_fecha_inicio()"><i class="glyphicon glyphicon-calendar"></i></button>
+           </span>
+         </div>
+       </div>
+       <div class="col-md-2">
+         <div class="input-group">
+           <input type="text" class="form-control" uib-datepicker-popup ng-model="vm.fechas.final"
+           is-open="vm.openFinal"
+           ng-required="true" close-text="Cerrar" required/>
+           <span class="input-group-btn">
+               <button type="button" class="btn btn-success" ng-click="vm.open_fecha_final()"><i class="glyphicon glyphicon-calendar"></i></button>
+           </span>
+         </div>
+       </div>
+       <div class="col-md-2">
+         <button ng-click="vm.search()"  type="button" uib-tooltip="Buscar" class="btn btn-default">
+             <i class="fa fa-search"></i>
+         </button>
+         <button type="button" ng-if="vm.Buscar==true" ng-click="vm.reload()" uib-tooltip="Ver todos" class="btn btn-primary">
+             <i class="fa fa-refresh"></i>
+         </button>
+       </div>
+     </div>
       <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-10">
           <h4>Lista de productos mas demandados por los clientes:</h4>
-          <div class="down30">
+          <div class="down5">
             <canvas id="bar" class="chart chart-bar"
                chart-data="vm.product.cantidades" chart-options="vm.options" chart-labels="vm.product.nombres" chart-series="vm.series">
             </canvas>
