@@ -8,6 +8,7 @@ angular.module('frontEndApp')
       vm.listaFacturas = [];
       vm.pagination = [];
       vm.changePage = changePage;
+      vm.Facturapdf = Facturapdf;
       vm.status = "Normal";
       vm.reload = reload;
       vm.search = search;
@@ -30,6 +31,28 @@ angular.module('frontEndApp')
             vm.status = "Normal";
         });
       }
+
+      function Facturapdf(factura_id) {
+        console.log("id de la factura "+ factura_id);
+        $http({
+          url: ApiUrl + '/factura_compra/'+factura_id+'/pdf',
+          method: 'GET',
+          responseType: 'arraybuffer'
+        }).success(function(data) {
+          var file = new Blob([data], {
+            type: 'application/pdf'
+          });
+          var fileURL = URL.createObjectURL(file);
+          /*window.open(fileURL,'download_window');*/
+          var link = document.createElement('a');
+          link.download = 'Factura compra '+factura_id;
+          link.target = '_blank';
+          link.href = fileURL;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+      });
+    }
 
 
       /*funcion para buscar*/

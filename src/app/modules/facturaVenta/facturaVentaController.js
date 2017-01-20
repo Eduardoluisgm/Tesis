@@ -90,7 +90,7 @@ angular.module('frontEndApp')
           var fileURL = URL.createObjectURL(file);
           /*window.open(fileURL,'download_window');*/
           var link = document.createElement('a');
-          link.download = 'Factura '+factura_id;
+          link.download = 'Factura venta '+factura_id;
           link.target = '_blank';
           link.href = fileURL;
           document.body.appendChild(link);

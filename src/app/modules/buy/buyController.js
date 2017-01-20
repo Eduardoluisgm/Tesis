@@ -3,7 +3,7 @@
 angular.module('frontEndApp')
   .controller('buyController', buyController);
 
-  function buyController ($log, authUser,$rootScope, providerResource, toastr, $uibModal, factura_compra) {
+  function buyController ($log, authUser,$rootScope,$http,ApiUrl, providerResource, toastr, $uibModal, factura_compra) {
     var vm = this;
     vm.searchProvider = searchProvider;
     vm.changeProvider = changeProvider;
@@ -257,6 +257,7 @@ angular.module('frontEndApp')
       factura_compra.save(vm.save,
         function (data) {
           toastr.success("Factura guardada con exito");
+          Facturapdf(data.data.id);
           limpiar();
           vm.factura.isloading = false;
         }, function (err) {
@@ -264,23 +265,30 @@ angular.module('frontEndApp')
           vm.factura.isloading = false;
         }
       )
-
-
-  /*    factura_venta.save(vm.save,
-        function (data) {
-          console.log(data);
-          toastr.success("Factura guardada con exito");
-          vm.factura.isloading = false;
-          Facturapdf(data.data.id);
-          limpiar();
-        },
-        function (err) {
-          toastr.error("Error del servidor");
-          console.log(err);
-          vm.factura.isloading = false;
-        });*/
       console.log("facturando", vm.save);
     }
+
+    function Facturapdf(factura_id) {
+      console.log("id de la factura "+ factura_id);
+      $http({
+        url: ApiUrl + '/factura_compra/'+factura_id+'/pdf',
+        method: 'GET',
+        responseType: 'arraybuffer'
+      }).success(function(data) {
+        var file = new Blob([data], {
+          type: 'application/pdf'
+        });
+        var fileURL = URL.createObjectURL(file);
+        /*window.open(fileURL,'download_window');*/
+        var link = document.createElement('a');
+        link.download = 'Factura compra '+factura_id;
+        link.target = '_blank';
+        link.href = fileURL;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    });
+  }
 
 
 

@@ -3,7 +3,7 @@
 angular.module('frontEndApp')
   .controller('payableController', payableController);
 
-  function payableController (client,$q,$uibModal, $rootScope, toastr, cuenta_pagar) {
+  function payableController (client,$q,$uibModal, $rootScope, toastr, cuenta_pagar, $http, ApiUrl) {
     var vm = this;
     vm.pagination = [];
     vm.listaCuentas = [];
@@ -11,6 +11,7 @@ angular.module('frontEndApp')
     vm.openPagar = openPagar;
     vm.reload = reload;
     vm.search = search;
+    vm.Facturapdf=Facturapdf;
     vm.status = "Normal";
     vm.Buscar = {
       'busqueda':"",
@@ -29,6 +30,28 @@ angular.module('frontEndApp')
           vm.pagination.last_page = data[0].last_page;
       });
     }
+
+    function Facturapdf(factura_id) {
+      console.log("id de la factura "+ factura_id);
+      $http({
+        url: ApiUrl + '/factura_compra/'+factura_id+'/pdf',
+        method: 'GET',
+        responseType: 'arraybuffer'
+      }).success(function(data) {
+        var file = new Blob([data], {
+          type: 'application/pdf'
+        });
+        var fileURL = URL.createObjectURL(file);
+        /*window.open(fileURL,'download_window');*/
+        var link = document.createElement('a');
+        link.download = 'Factura compra '+factura_id;
+        link.target = '_blank';
+        link.href = fileURL;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    });
+  }
 
 
     /*funcion para buscar*/
