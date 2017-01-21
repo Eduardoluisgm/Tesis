@@ -1,0 +1,38 @@
+.section-title.center .line {
+    border-top: 4px solid #fcac45;
+    height: 10px;
+    width: 60px;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+.section-title hr {
+    border-color: #fcac45;
+    border-width: 4px;
+    width: 60px;
+    float: left;
+    clear: both;
+}
+
+.section-title.center hr {
+    border-top: 4px solid rgba(252, 172, 69, 0.34);
+    width: 40px;
+    text-align: center;
+    margin-top: 10px;
+    position: relative;
+    left: 17%;
+}
+
+.clearfix {
+    display: block;
+}
+
+.clearfix:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}

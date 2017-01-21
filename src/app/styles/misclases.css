@@ -1,3 +1,11 @@
+.absolute-homeText {
+  position: absolute !important;
+  z-index: 400;
+  text-align: center;
+  left: 0px;
+  right: 0px;
+}
+
 .login {
   margin-top: 20%;
   margin-left: 30%;
@@ -52,7 +60,7 @@
 }
 
 .pull-right {
-  float: right;
+  float: right !important;
 }
 
 .status-active {

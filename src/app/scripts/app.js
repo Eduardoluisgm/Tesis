@@ -37,6 +37,11 @@ angular
         controller: 'MainCtrl',
         controllerAs: 'main'
       })
+      .when('/home', {
+        templateUrl: 'modules/home/home.html',
+        controller: 'homeController',
+        controllerAs: 'vm'
+      })
       .when('/about', {
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl',
@@ -145,8 +150,7 @@ angular
       $rootScope.$on('$routeChangeStart', function() {
         rol = localStorage.getItem('role_id');
         if(($.inArray($location.path(),rutasPrivadas)!==-1) && !authUser.isLogin()) {
-          toastr.error('Debe estar logueado');
-          $location.path('/login');
+          $location.path('/home');
           return;
         }
         /*si es un vendedor no puede acceder a las rutas de miscelaneos*/

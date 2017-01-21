@@ -1,0 +1,28 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="collapsed navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-9" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span> <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand">Licoreria Caguita</a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-9">
+      <ul class="nav navbar-nav">
+        <li ng-click="vm.option=1"  ng-class="{'active':vm.option==1}"><a>Inicio</a></li>
+        <li ng-click="vm.option=2" ng-class="{'active':vm.option==2}"><a>Quienes Somos</a></li>
+        <li ng-click="vm.option=3" ng-class="{'active':vm.option==3}"><a>Contactanos</a></li>
+      </ul>
+      <form class="navbar-form navbar-left pull-right" ng-submit="vm.login()" role="form">
+        <div class="form-group">
+          <input type="text" class="form-control" ng-model="vm.credential.cedula" placeholder="Cedula">
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" ng-model="vm.credential.password" placeholder="Contraseña">
+        </div>
+        <button ladda="vm.isloading" type="submit" class="btn btn-default">Login</button>
+      </form>
+    </div>
+  </div>
+</nav>

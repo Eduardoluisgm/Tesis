@@ -55,7 +55,7 @@ angular.module('authService',[])
       uncacheSession();
       localStorage.removeItem('role_id');
       localStorage.removeItem('session');
-      $location.path('/login');
+      $location.path('/home');
     };
     return {
       loginApi: function (credentials) {

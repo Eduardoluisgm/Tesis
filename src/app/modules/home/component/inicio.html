@@ -1,0 +1,17 @@
+<div class="absolute-homeText">
+    <div class="overlay">
+        <div class="content">
+            <h1>Welcome on <strong><span class="color">Caguita</span></strong></h1>
+            <p class="lead">We are a digital agency with <strong>years of experience</strong> and with <strong>extraordinary people</strong></p>
+        </div>
+    </div>
+</div>
+<div uib-carousel active="vm.carousel.active" interval="vm.carousel.myInterval" no-wrap="vm.carousel.noWrapSlides">
+  <div uib-slide ng-repeat="slide in vm.carousel.slides" index="slide.id">
+    <img ng-src="{{slide.image}}" style="margin:auto;">
+    <div class="carousel-caption">
+      <!--<h4>Slide {{slide.id}}</h4>
+      <p>{{slide.text}}</p> -->
+    </div>
+  </div>
+</div>
