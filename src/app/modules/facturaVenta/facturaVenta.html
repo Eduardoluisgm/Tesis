@@ -48,6 +48,21 @@
                     <button ng-click="vm.Facturapdf(factura.id)"  type="button" uib-tooltip="Descargar Factura" class="btn btn-default">
                         <i class="fa fa-download"></i>
                     </button>
+                    <button
+                      type="button"
+                      uib-tooltip="Eliminar factura"
+                      class="btn btn-danger"
+                      mwl-confirm
+                      message="¿Esta seguro que desea eliminar la factura?"
+                      confirm-text="Si"
+                      cancel-text="No"
+                      placement="{{ placement }}"
+                      on-confirm="vm.DeleteFactura(factura.id)"
+                      on-cancel=""
+                      confirm-button-type="success"
+                      cancel-button-type="default">
+                        <i class="fa fa-trash"></i>
+                    </button>
                   </td>
               </tr>
             </tbody>

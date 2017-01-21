@@ -3,13 +3,14 @@
 angular.module('frontEndApp')
   .controller('facturaVentaController', facturaVentaController);
 
-  function facturaVentaController ($log, authUser,$rootScope, factura_venta, $q, $http, ApiUrl) {
+  function facturaVentaController ($log, authUser,$rootScope, factura_venta, $q, $http, ApiUrl, factura_ventaResource, toastr) {
       var vm = this;
       vm.listaFacturas = [];
       vm.pagination = [];
       vm.changePage = changePage;
       vm.search = search;
       vm.Facturapdf =  Facturapdf;
+      vm.DeleteFactura = DeleteFactura;
       vm.reload = reload;
       vm.status = "Normal";
       vm.Buscar = {
@@ -40,6 +41,18 @@ angular.module('frontEndApp')
           changePage(1);
         }
         console.log(vm.Buscar);
+      }
+
+      function DeleteFactura (factura_id) {
+        console.log("factura que voy a eliminar "+ factura_id);
+        factura_ventaResource.delete({'id':factura_id},
+          function success(data){
+              toastr.success("Factura eliminada");
+              changePage(vm.pagination.current_page);
+          }, function err(err){
+              toastr.error("Error de servidor");
+          }
+        )
       }
 
       /*recarga todo al principio*/

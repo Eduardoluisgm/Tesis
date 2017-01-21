@@ -147,4 +147,13 @@ class fact_compController extends Controller
       $factura->save();
       return "Guardado";
     }
+
+
+    /*eliminar factura de compra*/
+    function delete ($id) {
+      $factura = fact_comp::findOrFail($id);
+      $factura->delete();
+      return "Eliminado";
+    }
+
 }

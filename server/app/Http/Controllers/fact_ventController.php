@@ -139,4 +139,11 @@ class fact_ventController extends Controller
     $pagos = fact_vent_pagos::where('factura_id','=',$id)->get();
     return $pagos;
   }
+
+  /*eliminar factura de venta*/
+  function delete ($id) {
+    $factura = fact_vent::findOrFail($id);
+    $factura->delete();
+    return "Eliminado";
+  }
 }

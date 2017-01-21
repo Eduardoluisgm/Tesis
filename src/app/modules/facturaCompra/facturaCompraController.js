@@ -3,12 +3,13 @@
 angular.module('frontEndApp')
   .controller('facturaCompraController', facturaCompraController);
 
-  function facturaCompraController ($log, authUser,$rootScope, factura_compra, $q, $http, ApiUrl) {
+  function facturaCompraController ($log, authUser,$rootScope, factura_compra, $q, $http, ApiUrl, factura_compraResource, toastr) {
       var vm = this;
       vm.listaFacturas = [];
       vm.pagination = [];
       vm.changePage = changePage;
       vm.Facturapdf = Facturapdf;
+      vm.DeleteFactura = DeleteFactura;
       vm.status = "Normal";
       vm.reload = reload;
       vm.search = search;
@@ -52,6 +53,18 @@ angular.module('frontEndApp')
           link.click();
           document.body.removeChild(link);
       });
+    }
+
+    function DeleteFactura (factura_id) {
+      console.log("factura que voy a eliminar "+ factura_id);
+      factura_compraResource.delete({'id':factura_id},
+        function success(data){
+            toastr.success("Factura eliminada");
+            changePage(vm.pagination.current_page);
+        }, function err(err){
+            toastr.error("Error de servidor");
+        }
+      )
     }
 
 
