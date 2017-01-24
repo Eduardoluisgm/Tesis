@@ -3,11 +3,13 @@
 angular.module('frontEndApp')
   .controller('buyController', buyController);
 
+
   function buyController ($log, authUser,$rootScope,$http,ApiUrl, providerResource, toastr, $uibModal, factura_compra) {
     var vm = this;
     vm.searchProvider = searchProvider;
     vm.changeProvider = changeProvider;
     vm.deleteDetail = deleteDetail;
+    vm.openCreate = openCreate;
     vm.open_add_pago = open_add_pago;
     vm.backBuy = backBuy;
     vm.pagar = pagar;
@@ -191,6 +193,9 @@ angular.module('frontEndApp')
       }
     }
 
+
+
+
     /*abre la modal de buscar productos*/
     function open_search_product () {
       console.log("Buscando producto "+ vm.product_search);
@@ -215,6 +220,26 @@ angular.module('frontEndApp')
         }
       });
     }
+
+
+      function openCreate () {
+        console.log("hello");
+        var modalInstance = $uibModal.open({
+          animation: true,
+          templateUrl: 'partials/Modal_Product.html', /*Llamo al template donde usare lamodal*/
+          controller: 'ProductCreateController', /*nombre del controlador de la modal*/
+          controllerAs: 'vm',
+          backdrop: false,
+          resolve: {
+            origin: function () {
+              return {
+                'origin':'buy'
+              };
+            }
+          }
+        });
+        
+      }
 
     function facturar () {
       vm.factura.isloading = true;
