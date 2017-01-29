@@ -8,7 +8,7 @@
 </head>
 <header class="clearfix">
 <center>
-<h1>SENIAT</h1>
+<h1>FACTURA NO-FISCAL</h1>
 <h4> 
 V-016328118  <br> 
 COMERCIAL CAGÜITA, F.P.  <br> 
@@ -25,8 +25,6 @@ echo '<div><span>FACTURA</span>'.$factura['id'].'</div>
       <div><span>RIF</span>'.$factura['proveedor']['rif'].'</div>
       <div><span>DIRECCION</span>'.$factura['proveedor']['direccion'].'</div>';
 ?>
-
-
 
 </div>
 </header>
@@ -71,9 +69,32 @@ echo '<div><span>FACTURA</span>'.$factura['id'].'</div>
             <td colspan="4" class="grand total">MONTO TOTAL</td>
             <td class="grand total">'.$factura['monto_total'].'</td>';
 ?>
-      </table>
-    <!--   <div id="notices">
-       <div>NOTICIA:</div>
-        <div class="notice">LOS PRODUCTOS NO PUEDEN SER DEVUELTOS UNA VEZ EMITIDA LA FACTURA.</div>
-      </div>-->
+     </table>
+      
+<h4>ABONOS</h4>
+      <table>
+        <thead>
+          <tr>
+            <th class="service">NUMERO</th>
+            <th class="desc">TIPO</th>
+            <th>MONTO</th>
+            <th>FECHA-HORA</th>
+          </tr>
+        </thead>
+<?php
+ 
+ foreach ($factura->pagos as $factura->pago) {
+    echo '<tbody>
+          <tr>
+          <td class="service">'.$factura->pago['id'].'</td>
+          <td class="desc">'.$factura->pago['tipo'].'</td>
+          <td class="unit">'.$factura->pago['monto'].'</td>
+          <td class="qty">'.$factura->pago['created_at'].'</td>
+          </tr>
+          </tbody>';
+       
+  
+}
+?>
+</table>
 </html>
