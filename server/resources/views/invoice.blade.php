@@ -53,11 +53,8 @@ echo '<div><span>FACTURA</span>'.$factura['id'].'</div>
           <td class="total">'.$factura->detalle['monto_total'].'</td>
           </tr>
           </tbody>';
-       
-  
 }
 ?>
-
 <!--aki debo meter el foreach pro de manera que recorra la tabla columna por columna-->
 <?php
      echo '<tr>

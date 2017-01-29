@@ -67,8 +67,14 @@
                 <div class="col-md-3" style="margin-left:-15px; max-width: 210px;">
                   <input type="text" ng-model="vm.product_search" ng-keypress="vm.search_product($event)" class="form-control down10" maxlength="9"/>
                 </div>
+        <div class ="col-md-7">
+         <div class="text-right">
+           <button type="button" uib-tooltip="Crear Producto" ng-click="vm.openCreate()" class="btn btn-primary">
+             Crear
+           </button>
+         </div>
+       </div>
               </div>
-
               <div class="col-md-12">
                 <table class="table table-striped">
                   <thead>

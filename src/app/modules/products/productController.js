@@ -108,6 +108,13 @@ angular.module('frontEndApp')
           controller: 'ProductCreateController', /*nombre del controlador de la modal*/
           controllerAs: 'vm',
           backdrop: false,
+          resolve: {
+            origin: function () {
+              return {
+                'origin':'product'
+              };
+            }
+          }
         });
       }
 
@@ -250,7 +257,7 @@ angular.module('frontEndApp')
     }
   }
 
-  function ProductCreateController ($uibModalInstance,$q,product,toastr, $rootScope) {
+  function ProductCreateController ($uibModalInstance,$q,product,toastr, $rootScope, origin) {
     var vm = this;
     vm.status="crear";
     vm.isloading = false;
@@ -265,6 +272,7 @@ angular.module('frontEndApp')
       'marca': "",
       'descripcion': ""
     }
+    console.log(origin.origin);
     vm.changePrecio = function () {
       if (vm.product.precio_venta>100000000000) {
         vm.product.precio_venta = 100000000000;
