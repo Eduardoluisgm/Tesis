@@ -51,6 +51,14 @@ angular.module('frontEndApp')
         'isloading': false
       };
 
+      /*opciones*/
+      vm.options = function (event) {
+        console.log("opciones "+ event.keyCode);
+        if (event.keyCode==120) { /*f9*/
+          open_search_product();
+        }
+      }
+
       /**/
       vm.listapagos = [];
 
@@ -214,12 +222,6 @@ angular.module('frontEndApp')
 
       /*abre la modal de buscar productos*/
       function open_search_product () {
-        console.log("Buscando producto "+ vm.product_search);
-        if (!vm.product_search) {
-          console.log("estoy retornando");
-          return;
-        }
-
         var modalInstance = $uibModal.open({
           animation: true,
           templateUrl: 'partials/Modal_Product.html',

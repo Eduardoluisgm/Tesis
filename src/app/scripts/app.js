@@ -147,9 +147,12 @@ angular
      /*Rutas que solo ve el super admin*/
      var rutasSuper = ['/user'];
      var rol = "";
+     var session ="";
       $rootScope.$on('$routeChangeStart', function() {
         rol = localStorage.getItem('role_id');
-        if(($.inArray($location.path(),rutasPrivadas)!==-1) && !authUser.isLogin()) {
+        session = localStorage.getItem('session');
+        console.log("Session:  "+ session)
+        if(($.inArray($location.path(),rutasPrivadas)!==-1) && !session) {
           $location.path('/home');
           return;
         }

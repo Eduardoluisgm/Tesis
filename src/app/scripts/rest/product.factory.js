@@ -4,10 +4,15 @@
     .factory('productResource', productResource)
     .factory('productEdit', productEdit)
     .factory('product', product)
+    .factory('productActive', productActive)
     .factory('productSearch', productSearch);
 
     function product (cachedResource, ApiUrl) {
       return cachedResource(ApiUrl+'/product');
+    }
+
+    function productActive (cachedResource, ApiUrl) {
+      return cachedResource(ApiUrl+'/productActive');
     }
 
     function productResource (cachedResource, ApiUrl) {

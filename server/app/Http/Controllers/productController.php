@@ -25,6 +25,14 @@ class productController extends Controller
       return $Products;
     }
 
+    /*Productos qu estan activos*/
+    function ProductActive() {
+      $product = Product::where('status', '=', '1')
+        ->orderBy('nombre')
+        ->get();
+      return $product;
+    }
+
     function get ($codigo) {
       $product = Product::findOrFail($codigo);
       return $product;

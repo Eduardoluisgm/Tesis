@@ -6,6 +6,12 @@
   right: 0px;
 }
 
+.modalSearch {
+  height: 450px !important;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
 .login {
   margin-top: 20%;
   margin-left: 30%;

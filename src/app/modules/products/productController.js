@@ -334,18 +334,19 @@ angular.module('frontEndApp')
   }
 
   /*echo por eduardo para buscar productos*/
-  function ProductSearchController ($uibModalInstance,$q,$rootScope, origin, productSearch) {
+  function ProductSearchController ($uibModalInstance,$q,$rootScope, origin, productActive) {
     var vm = this;
     vm.status= "buscar";
     vm.isloading = true;
+    vm.search = "";
     vm.products_number = 0;
     vm.listaProductos = [];
 
-    productSearch.queryFresh({
-      'name':origin.name
-    }, function (data) {
+    productActive.queryFresh(
+      function (data) {
       vm.listaProductos = data;
       vm.products_number = Object.keys(vm.listaProductos).length;
+      console.log(vm.products_number);
       vm.isloading = false;
     }, function (err) {
       vm.isloading = false;

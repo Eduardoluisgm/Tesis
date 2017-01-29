@@ -66,6 +66,7 @@ Route::group(['middleware' => 'cors'], function (){
 
     /*Product*/
     Route::get('product', 'productController@AllProducts');
+    Route::get('productActive', 'productController@ProductActive');
     Route::get('product_search', 'productController@SearchProduct');
     Route::get('product/{codigo}', 'productController@get');
     Route::patch('product/{oldcodigo}', 'productController@patch');

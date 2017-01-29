@@ -175,11 +175,18 @@
              <h4>Total: {{vm.factura.total | currency:"Bs "}}</h4>
            </div>
            <div class="col-md-12">
-             <h4>Pagado: {{vm.factura.cancelado | currency:"Bs "}}</h4>
+             <h4>Abonado: {{vm.factura.cancelado | currency:"Bs "}}</h4>
            </div>
          </div>
        </div>
-       <div class="col-md-9">
+       <div class="col-md-3">
+         <div class="row up10">
+           <div class="col-md-12">
+             <h4>Diferencia: {{vm.factura.total-vm.factura.cancelado | currency:"Bs "}}</h4>
+           </div>
+         </div>
+       </div>
+       <div class="col-md-6">
            <div class="pull-right down5">
              <button ng-disabled="vm.btn.pagar==true" ng-click="vm.pagar()"  type="button" uib-tooltip="Pagar" class="btn btn-default btn-sell">
                  <i class="fa fa-money font25 green"></i>
