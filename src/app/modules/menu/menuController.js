@@ -43,11 +43,12 @@ angular.module('frontEndApp')
 
       /*Me estoy deslogueando*/
       function logout() {
+        vm.profile="";
         authUser.logout();
       }
 
       $rootScope.$on('MenuProfile', function() {
-        profile.get(
+        profile.getFresh(
           function(data) {
             vm.profile=data;
           }, function (err) {

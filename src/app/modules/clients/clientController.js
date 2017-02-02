@@ -4,6 +4,7 @@ angular.module('frontEndApp')
   .controller('clientController', clientController)
   .controller('ClientInformationController', ClientInformationController)
   .controller('ClientEditController', ClientEditController)
+  .controller('ClientSearchController', ClientSearchController)
   .controller('ClientCreateController',ClientCreateController);
 
   function clientController (client,$q,$uibModal, $rootScope, clientEdit, toastr) {
@@ -27,7 +28,7 @@ angular.module('frontEndApp')
       cargar();
 
       function cargar () {
-        var clientes = client.get({page:1});
+        var clientes = client.getFresh({page:1});
         $q.all([clientes.$promise]).then(function(data){
             vm.listaClientes = data[0].data;
             vm.pagination.current_page = data[0].current_page;
@@ -234,6 +235,35 @@ angular.module('frontEndApp')
         console.log(vm.client);
     }, function (err) {
     });
+
+    vm.cancel= function() {
+      $uibModalInstance.dismiss('cancel');
+    }
+  }
+
+  function ClientSearchController ($uibModalInstance,$q,clientActive,toastr, $rootScope, origin) {
+    var vm = this;
+    console.log(origin);
+    vm.status="buscar";
+    vm.isloading = true;
+    vm.search = "";
+    vm.listaClientes = [];
+
+    clientActive.queryFresh(
+      function (data) {
+      vm.listaClientes = data;
+      vm.isloading = false;
+    }, function (err) {
+      vm.isloading = false;
+    });
+
+
+    vm.AddClient = function (cliente) {
+      if (origin.origin =="sell") { /*Factura venta*/
+        $rootScope.$broadcast('Sell_add_client', cliente);
+        $uibModalInstance.dismiss('cancel');
+      }
+    }
 
     vm.cancel= function() {
       $uibModalInstance.dismiss('cancel');

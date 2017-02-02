@@ -1,8 +1,4 @@
-<div class="panel panel-default">
-<!--  <div class="panel-heading">
-    <i class="fa fa-shopping-cart"></i>
-     Vender
-   </div> -->
+<div class="panel panel-default" ng-keydown="vm.options($event)" tabindex="0">
    <div class="panel-body">
      <div class="row">
        <div class="col-md-9 border-right1  up15"  style="min-height: 520px">
@@ -65,16 +61,16 @@
                    </h4>
                 </div>
                 <div class="col-md-3" style="margin-left:-15px; max-width: 210px;">
-                  <input type="text" ng-model="vm.product_search" ng-keypress="vm.search_product($event)" class="form-control down10" maxlength="9"/>
+                  <input type="text" placeholder="codigo" ng-model="vm.product_search" ng-keypress="vm.search_product($event)" class="form-control down10" maxlength="50"/>
                 </div>
-        <div class ="col-md-7">
-         <div class="text-right">
-           <button type="button" uib-tooltip="Crear Producto" ng-click="vm.openCreate()" class="btn btn-primary">
-             Crear
-           </button>
-         </div>
-       </div>
-              </div>
+                <div class ="col-md-7 down10">
+                 <div class="text-right">
+                   <button type="button" uib-tooltip="Crear Producto" ng-click="vm.openCreate()" class="btn btn-primary">
+                     <i class="fa fa-cart-plus"></i>
+                   </button>
+                 </div>
+               </div>
+            </div>
               <div class="col-md-12">
                 <table class="table table-striped">
                   <thead>
@@ -178,21 +174,41 @@
        <div class="col-md-3">
          <div class="row up10">
            <div class="col-md-12">
-             <h4>Total: {{vm.factura.total | currency:"Bs "}}</h4>
+             <h5 class="font16">Total: {{vm.factura.total | currency:"Bs "}}</h5>
            </div>
            <div class="col-md-12">
-             <h4>Abonado: {{vm.factura.cancelado | currency:"Bs "}}</h4>
+             <h5 class="font16">Abonado: {{vm.factura.cancelado | currency:"Bs "}}</h5>
            </div>
          </div>
        </div>
        <div class="col-md-3">
          <div class="row up10">
            <div class="col-md-12">
-             <h4>Diferencia: {{vm.factura.total-vm.factura.cancelado | currency:"Bs "}}</h4>
+             <h5 class="font16">Diferencia: {{vm.factura.total-vm.factura.cancelado | currency:"Bs "}}</h5>
            </div>
          </div>
        </div>
-       <div class="col-md-6">
+       <div class="col-md-2">
+         <div class="row up10">
+           <div class="col-md-12">
+             <h5 class="font16">F7: Buscar Producto</h5>
+           </div>
+           <div class="col-md-12">
+             <h5 class="font16">F8: Buscar Proveedor</h5>
+           </div>
+         </div>
+       </div>
+       <div class="col-md-2">
+         <div class="row up10">
+           <div class="col-md-12">
+             <h5 class="font16">F9: Realizar Pagos</h5>
+           </div>
+           <div class="col-md-12">
+             <h5 class="font16">F10: Facturar</h5>
+           </div>
+         </div>
+       </div>
+       <div class="col-md-2">
            <div class="pull-right down5">
              <button ng-disabled="vm.btn.pagar==true" ng-click="vm.pagar()"  type="button" uib-tooltip="Pagar" class="btn btn-default btn-sell">
                  <i class="fa fa-money font25 green"></i>

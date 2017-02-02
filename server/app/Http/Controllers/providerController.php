@@ -33,6 +33,14 @@ class providerController extends Controller
       return $provider;
     }
 
+    /*Proveedores qu estan activos*/
+    function ProviderActive() {
+      $provider = Provider::where('status', '=', '1')
+        ->orderBy('nombre')
+        ->get();
+      return $provider;
+    }
+
     function save (Request $request) {
       $rif = $request->input('rif');
       $provider = Provider::find($rif);

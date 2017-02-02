@@ -3,16 +3,36 @@
 angular.module('frontEndApp')
   .controller('homeController', homeController);
 
-  function homeController ($log, authUser,$rootScope) {
+  function homeController ($log, authUser,$rootScope, message, toastr) {
     var vm = this;
     console.log("Home");
     vm.login = login;
     vm.isloading = false;
+    vm.loadingMsj = false;
     vm.option = 1;
     vm.credential = {
       'cedula': "",
       'password': ""
     };
+    vm.message = {
+      'email':"",
+      'message': ""
+    }
+
+    vm.sendMessage =  function () {
+      vm.loadingMsj = true;
+      console.log("Guardando ", vm.message);
+      message.save(vm.message,
+        function success () {
+          vm.loadingMsj = false;
+          vm.message.message = "";
+          toastr.success("Mensaje enviado");
+        },
+        function error () {
+          vm.loadingMsj = false;
+        }
+      )
+    }
 
     /*hace la peticion al login*/
     function login () {
