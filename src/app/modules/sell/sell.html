@@ -170,32 +170,42 @@
        <div class="col-md-3">
          <div class="row up10">
            <div class="col-md-12">
-             <h4>Total: {{vm.factura.total | currency:"Bs "}}</h4>
+             <h5 class="font17">Total: {{vm.factura.total | currency:"Bs "}}</h5>
            </div>
            <div class="col-md-12">
-             <h4>Abonado: {{vm.factura.cancelado | currency:"Bs "}}</h4>
-           </div>
-         </div>
-       </div>
-       <div class="col-md-3">
-         <div class="row up10">
-           <div class="col-md-12">
-             <h4>Diferencia: {{vm.factura.total-vm.factura.cancelado | currency:"Bs "}}</h4>
+             <h5 class="font17">Abonado: {{vm.factura.cancelado | currency:"Bs "}}</h5>
            </div>
          </div>
        </div>
        <div class="col-md-3">
          <div class="row up10">
            <div class="col-md-12">
-             <h4>F9: Buscar Producto</h4>
+             <h5 class="font17">Diferencia: {{vm.factura.total-vm.factura.cancelado | currency:"Bs "}}</h5>
+           </div>
+         </div>
+       </div>
+       <div class="col-md-2">
+         <div class="row up10">
+           <div class="col-md-12">
+             <h5 class="font17">F7: Buscar Producto</h5>
            </div>
            <div class="col-md-12">
-             <h4>F10: Buscar Cliente</h4>
+             <h5 class="font17">F8: Buscar Cliente</h5>
+           </div>
+         </div>
+       </div>
+       <div class="col-md-2">
+         <div class="row up10">
+           <div class="col-md-12">
+             <h5 class="font17">F9: Realizar Pagos</h5>
+           </div>
+           <div class="col-md-12">
+             <h5 class="font17">F10: Facturar</h5>
            </div>
          </div>
        </div>
 
-       <div class="col-md-3">
+       <div class="col-md-2">
            <div class="pull-right down5">
              <button ng-disabled="vm.btn.pagar==true" ng-click="vm.pagar()"  type="button" uib-tooltip="Pagar" class="btn btn-default btn-sell">
                  <i class="fa fa-money font25 green"></i>

@@ -29,6 +29,14 @@ class clientController extends Controller
       return $clients;
   }
 
+  /*Productos qu estan activos*/
+  function ClientActive() {
+    $client = Client::where('status', '=', '1')
+      ->orderBy('name')
+      ->get();
+    return $client;
+  }
+
   /*Guardar Usuario*/
   function save (Request $request) {
     $cedula = $request->input('cedula');

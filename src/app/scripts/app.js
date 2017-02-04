@@ -132,6 +132,11 @@ angular
         controller: 'proveedormasActivoController',
         controllerAs: 'vm'
       })
+      .when('/mensajes', {
+        templateUrl: 'modules/messages/messages.html',
+        controller: 'MessagesController',
+        controllerAs: 'vm'
+      })
       .otherwise({
         redirectTo: '/'
       });
@@ -140,10 +145,11 @@ angular
      moment.locale('es');
      console.log("run");
      var rutasPrivadas= ['/','/about','/client','/user', '/profile', '/provider', '/product', '/sell', '/buy', '/receivable',
-     '/payable', '/facturaVenta', '/facturaCompra', '/masVendido', '/clienteActivo', '/proveedorActivo', '/masComprado', '/bank'];
+     '/payable', '/facturaVenta', '/facturaCompra', '/masVendido', '/clienteActivo', '/proveedorActivo', '/masComprado', '/bank',
+     '/mensajes'];
      /*rutas que solo puede ver admin y super admin*/
      var rutasAdmin = ['/client', '/user', '/provider', '/product', '/facturaVenta', '/facturaCompra', '/masVendido','/clienteActivo',
-      '/proveedorActivo', '/masComprado', '/bank'];
+      '/proveedorActivo', '/masComprado', '/bank', '/mensajes'];
      /*Rutas que solo ve el super admin*/
      var rutasSuper = ['/user'];
      var rol = "";

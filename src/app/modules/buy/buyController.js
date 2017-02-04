@@ -4,7 +4,7 @@ angular.module('frontEndApp')
   .controller('buyController', buyController);
 
 
-  function buyController ($log, authUser,$rootScope,$http,ApiUrl, providerResource, toastr, $uibModal, factura_compra) {
+  function buyController ($log, authUser,$rootScope,$http,ApiUrl, providerResource, toastr, $uibModal, factura_compra, productResource) {
     var vm = this;
     vm.searchProvider = searchProvider;
     vm.changeProvider = changeProvider;
@@ -83,6 +83,39 @@ angular.module('frontEndApp')
             vm.provider.loading = false;
           });
       }
+    }
+
+
+    /*opciones*/
+    vm.options = function (event) {
+      console.log("opciones "+ event.keyCode);
+      if (event.keyCode==118) { /*f7*/
+        if (vm.btn.pagar==true) {
+          toastr.info('Debe ir a la sección de seleccionar productos','información');
+          return;
+        }
+        open_search_product();
+      }
+      if (event.keyCode==119) { /*f8*/
+        if (vm.btn.pagar==true) {
+          toastr.info('Debe ir a la sección de seleccionar productos','información');
+          return;
+        }
+        open_search_provider();
+      }
+      /*pagar*/
+      if (event.keyCode==120) { /*f9*/
+        pagar();
+      }
+
+      if (event.keyCode==121) { /*f10*/
+        if (vm.btn.pagar==false) {
+          toastr.info('Seleccione la opción pagar','información');
+          return;
+        }
+        facturar();
+      }
+
     }
 
     /*resetar la pantalla despes de facturar*/
@@ -188,8 +221,47 @@ angular.module('frontEndApp')
 
     /*Buscar productos*/
     vm.search_product = function (event) {
-      if (event.keyCode == 13) {
-        open_search_product ();
+      if (event.keyCode == 13 && vm.product_search) {
+        var bandera = false;
+        console.log("codigo del producto "+vm.product_search);
+        var bandera = false;
+        vm.detalles_factura.forEach(function (detalle){
+            if (detalle.codigo==vm.product_search) {
+              bandera = true;
+              vm.product_search = "";
+              if (detalle.cantidad < detalle.stock) {
+                detalle.cantidad ++;
+              } else {
+                toastr.warning("El stock del producto es de: " +detalle.stock,"Advertencia");
+              }
+              countTotal();
+            }
+        });
+
+        if (!bandera) {
+          productResource.getFresh(
+            {'codigo': vm.product_search},
+            function success (data) {
+              console.log(data);
+              vm.product_search = "";
+              vm.detalles_factura.push({
+                'codigo': data.codigo,
+                'nombre': data.nombre,
+                'precio_costo': data.precio_costo,
+                'precio_venta': data.precio_venta,
+                'stock': data.stock,
+                'cantidad': 1
+              });
+              countTotal();
+            },
+            function err (error) {
+              if (error.status==404) {
+                toastr.info("Producto no encontrado");
+              }
+              vm.product_search = "";
+            }
+          );
+        }
       }
     }
 
@@ -198,12 +270,6 @@ angular.module('frontEndApp')
 
     /*abre la modal de buscar productos*/
     function open_search_product () {
-      console.log("Buscando producto "+ vm.product_search);
-      if (!vm.product_search) {
-        console.log("estoy retornando");
-        return;
-      }
-
       var modalInstance = $uibModal.open({
         animation: true,
         templateUrl: 'partials/Modal_Product.html',
@@ -213,8 +279,24 @@ angular.module('frontEndApp')
         resolve: {
           origin: function () {
             return {
-              'origin':'buy',
-              'name': vm.product_search
+              'origin':'buy'
+            };
+          }
+        }
+      });
+    }
+
+    function open_search_provider () {
+      var modalInstance = $uibModal.open({
+        animation: true,
+        templateUrl: 'partials/Modal_Provider.html',
+        controller: 'ProviderSearchController',
+        controllerAs: 'vm',
+        backdrop: false,
+        resolve: {
+          origin: function () {
+            return {
+              'origin':'buy'
             };
           }
         }
@@ -238,7 +320,7 @@ angular.module('frontEndApp')
             }
           }
         });
-        
+
       }
 
     function facturar () {
@@ -347,9 +429,17 @@ angular.module('frontEndApp')
         console.log("cree un usuario desde buy", data.data);
         vm.provider.isLoad = true;
         vm.provider.nombre = data.data.data.nombre;
-      //  vm.provider.tipo = data.data.data.tipo;
+        vm.provider.tipo = data.data.data.tipo;
         vm.provider.id = data.data.data.rif.slice(2);
         console.log("proveedor ", vm.provider);
+    });
+
+    $rootScope.$on('Buy_add_provider', function (event, data) {
+      console.log("Agregando Proveedor ",data);
+      vm.provider.isLoad = true;
+      vm.provider.nombre = data.nombre;
+      vm.provider.tipo = data.tipo;
+      vm.provider.id = data.rif.slice(2);
     });
 
     $rootScope.$on('Buy_add_pay', function(event, data) {

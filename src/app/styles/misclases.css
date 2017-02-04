@@ -6,6 +6,10 @@
   right: 0px;
 }
 
+.message-negrita {
+  font-weight: bold !important;
+}
+
 .modalSearch {
   height: 450px !important;
   overflow: scroll;
@@ -17,6 +21,8 @@
   margin-left: 30%;
   margin-right: 35%;
 }
+
+
 
 .text-center {
   text-align: center;
@@ -98,6 +104,14 @@
 
 .left18 {
   margin-left: -18px !important;
+}
+
+.font16 {
+  font-size: 16px !important;
+}
+
+.font17 {
+  font-size: 17px !important;
 }
 
 .font25 {

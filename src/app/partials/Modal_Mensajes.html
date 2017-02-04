@@ -1,0 +1,22 @@
+<div ng-if="vm.status=='ver'">
+  <div class="modal-header">
+      <Label>mensaje</label>
+      <button type="button" ng-click="vm.cancel()" class="close"><span aria-hidden="true">&times;</span></button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-6">
+        <label>Email</span></label>
+        <input type="text" class="form-control" minlength="3" maxlength="35" ng-model="vm.message.email" readonly/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <label>Mensaje</span></label>
+        <textarea class="form-control" minlength="10" maxlength="250"  ng-model="vm.message.message" rows="4" readonly></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+  </div>
+</div>

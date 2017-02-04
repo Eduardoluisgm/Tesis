@@ -4,7 +4,7 @@ angular.module('frontEndApp')
   .controller('sellController', sellController)
   .controller('sellAddPayController', sellAddPayController);
 
-  function sellController ($log, authUser,$http,$rootScope, $uibModal, toastr,factura_venta, clientResource, ApiUrl) {
+  function sellController ($log, authUser,$http,$rootScope, $uibModal, toastr,factura_venta, productResource,clientResource, ApiUrl) {
       var vm = this;
       vm.searchClient = searchClient;
       vm.changeClient = changeClient;
@@ -54,9 +54,33 @@ angular.module('frontEndApp')
       /*opciones*/
       vm.options = function (event) {
         console.log("opciones "+ event.keyCode);
-        if (event.keyCode==120) { /*f9*/
+        if (event.keyCode==118) { /*f7*/
+          if (vm.btn.pagar==true) {
+            toastr.info('Debe ir a la sección de seleccionar productos','información');
+            return;
+          }
           open_search_product();
         }
+        if (event.keyCode==119) { /*f8*/
+          if (vm.btn.pagar==true) {
+            toastr.info('Debe ir a la sección de seleccionar productos','información');
+            return;
+          }
+          open_search_client();
+        }
+        /*pagar*/
+        if (event.keyCode==120) { /*f9*/
+          pagar();
+        }
+
+        if (event.keyCode==121) { /*f10*/
+          if (vm.btn.pagar==false) {
+            toastr.info('Seleccione la opción pagar','información');
+            return;
+          }
+          facturar();
+        }
+
       }
 
       /**/
@@ -220,6 +244,25 @@ angular.module('frontEndApp')
         }
       }
 
+      /*abre la modal de buscar clientes*/
+      function open_search_client () {
+        console.log("abriendo modal de buscar clientes")
+        var modalInstance = $uibModal.open({
+          animation: true,
+          templateUrl: 'partials/Modal_Client.html',
+          controller: 'ClientSearchController',
+          controllerAs: 'vm',
+          backdrop: false,
+          resolve: {
+            origin: function () {
+              return {
+                'origin':'sell'
+              };
+            }
+          }
+        });
+      }
+
       /*abre la modal de buscar productos*/
       function open_search_product () {
         var modalInstance = $uibModal.open({
@@ -330,8 +373,50 @@ angular.module('frontEndApp')
 
       /*Buscar productos*/
       vm.search_product = function (event) {
-        if (event.keyCode == 13) {
-          open_search_product ();
+        /*Enter*/
+        if (event.keyCode == 13 && vm.product_search) {
+          var bandera = false;
+          console.log("codigo del producto "+vm.product_search);
+          /*Verifico si ya ese producto esta en la lista*/
+          vm.detalles_factura.forEach(function (detalle){
+              if (detalle.codigo==vm.product_search) {
+                vm.product_search = "";
+                bandera = true;
+                if (detalle.cantidad < detalle.stock) {
+                  detalle.cantidad ++;
+                } else {
+                  toastr.warning("El stock del producto es de: " +detalle.stock,"Advertencia");
+                }
+                countTotal();
+              }
+          });
+
+          if (!bandera) {
+            console.log("No encontre el producto");
+            productResource.getFresh(
+              {'codigo': vm.product_search},
+              function success (data) {
+                console.log(data);
+                vm.product_search = "";
+                vm.detalles_factura.push({
+                  'codigo': data.codigo,
+                  'nombre': data.nombre,
+                  'precio_costo': data.precio_costo,
+                  'precio_venta': data.precio_venta,
+                  'stock': data.stock,
+                  'cantidad': 1
+                })
+                countTotal();
+              },
+              function err (error) {
+                if (error.status==404) {
+                  toastr.info("Producto no encontrado");
+                }
+                vm.product_search = "";
+              }
+            );
+          }
+
         }
       }
 
@@ -370,6 +455,14 @@ angular.module('frontEndApp')
         }
 
         countTotal();
+      });
+
+      $rootScope.$on('Sell_add_client', function (event, data) {
+        console.log("Agregando cliente ",data);
+        vm.client.isLoad = true;
+        vm.client.nombre = data.name;
+        vm.client.tipo = data.tipo;
+        vm.client.id = data.cedula.slice(2);
       });
 
       $rootScope.$on('Sell_add_pay', function(event, data) {

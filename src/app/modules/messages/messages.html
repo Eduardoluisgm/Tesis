@@ -1,0 +1,77 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <i class="fa fa-user"></i>
+     Mensajes
+  </div>
+   <div class="panel-body">
+     <div class="row">
+       <div class ="col-md-3">
+         <input type="text" ng-model="vm.Buscar.actual" class="form-control" maxlength="15" placeholder="Buscar"/>
+       </div>
+       <div class="col-md-2">
+         <button ng-click="vm.search()"  type="button" uib-tooltip="Buscar" class="btn btn-default">
+             <i class="fa fa-search"></i>
+         </button>
+         <button type="button" ng-if="vm.Buscar.buscando==true" ng-click="vm.reload()" uib-tooltip="Ver todos" class="btn btn-primary">
+             <i class="fa fa-refresh"></i>
+         </button>
+       </div>
+     </div>
+     <div class="row table-large">
+       <div class="col-md-12">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>
+                  Id
+                </th>
+                 <th>Email</th>
+                 <th>Mensaje</th>
+                 <th>Fecha</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-class="{'message-negrita':mensaje.status==1}" ng-repeat="mensaje in vm.listaMensajes">
+                  <td>{{mensaje.id}}</td>
+                  <td>{{mensaje.email}}</td>
+                  <td>
+                      {{mensaje.message | limitTo:25}}
+                      {{mensaje.message.length > 25 ? '..' : ''}}
+                  </td>
+                  <td>{{mensaje.created_at}}</td>
+                  <td>
+                    <button ng-click="vm.openInformation(mensaje)"  type="button" uib-tooltip="Ver" class="btn btn-default">
+                        <i class="fa fa-eye"></i>
+                    </button>
+                    <button
+                      type="button"
+                      uib-tooltip="Eliminar mensaje"
+                      class="btn btn-danger"
+                      mwl-confirm
+                      message="¿Esta seguro que desea eliminar el mensaje?"
+                      confirm-text="Si"
+                      cancel-text="No"
+                      placement="{{ placement }}"
+                      on-confirm="vm.delete(mensaje.id)"
+                      on-cancel=""
+                      confirm-button-type="success"
+                      cancel-button-type="default">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                  </td>
+              </tr>
+            </tbody>
+          </table>
+       </div>
+     </div>
+     <div class="row">
+       <div class="col-md-12">
+         <div class="pull-right">
+           <ul uib-pagination total-items="vm.pagination.total" ng-model="vm.pagination.current_page" max-size="5"
+           class="pagination-sm" ng-change="vm.changePage(vm.pagination.current_page)" boundary-links="true" force-ellipses="true" items-per-page="vm.pagination.per_page"
+           first-text="<<" last-text=">>" next-text=">" previous-text="<"></ul>
+         </div>
+       </div>
+     </div>
+   </div>
+</div>

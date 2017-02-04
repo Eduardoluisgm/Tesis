@@ -15,6 +15,7 @@
 Route::group(['middleware' => 'cors'], function (){
     /*Login*/
     Route::post('login','ApiAuthController@AuthUser');
+    Route::post('message', 'messagesController@save');
 
     /*Bancos*/
     Route::get('bank', 'bankController@AllBank');
@@ -26,6 +27,7 @@ Route::group(['middleware' => 'cors'], function (){
 
     /*client*/
     Route::get('client', 'clientController@AllClient');
+    Route::get('clientActive', 'clientController@ClientActive');
     Route::get('client/{cedula}', 'clientController@get');
     Route::patch('client/{oldcedula}', 'clientController@patch');
     Route::post('client', 'clientController@save');
@@ -51,6 +53,11 @@ Route::group(['middleware' => 'cors'], function (){
     Route::post('factura_compra/{id}/pagos', 'fact_compController@AddPagos');
     Route::delete('factura_compra/{id}', 'fact_compController@delete');
 
+    Route::get('message', 'messagesController@all');
+    Route::get('message/{id}', 'messagesController@get');
+    Route::patch('message/{id}', 'messagesController@update');
+    Route::delete('message/{id}', 'messagesController@delete');
+
     /*User*/
     Route::get('user', 'userController@AllUser');
     Route::get('user/{cedula}', 'userController@get');
@@ -60,6 +67,7 @@ Route::group(['middleware' => 'cors'], function (){
 
     /*Provider*/
     Route::get('provider', 'providerController@AllProviders');
+    Route::get('providerActive', 'providerController@ProviderActive');
     Route::get('provider/{rif}', 'providerController@get');
     Route::patch('provider/{oldrif}', 'providerController@patch');
     Route::post('provider', 'providerController@save');

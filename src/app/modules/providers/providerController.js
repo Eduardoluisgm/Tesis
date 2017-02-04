@@ -4,6 +4,7 @@ angular.module('frontEndApp')
   .controller('providerController', providerController)
   .controller('ProviderInformationController', ProviderInformationController)
   .controller('ProviderEditController', ProviderEditController)
+  .controller('ProviderSearchController', ProviderSearchController)
   .controller('ProviderCreateController',ProviderCreateController);
 
   function providerController (provider,$q,$uibModal, $rootScope, providerEdit, toastr) {
@@ -220,6 +221,36 @@ angular.module('frontEndApp')
     }
   }
 
+  /*modal de buscar*/
+  function ProviderSearchController ($uibModalInstance,$q, $rootScope, toastr, origin, providerActive) {
+    var vm = this;
+    console.log(origin);
+    vm.status="buscar";
+    vm.isloading = true;
+    vm.search = "";
+    vm.listaProveedores = [];
+
+    providerActive.queryFresh(
+      function (data) {
+      vm.listaProveedores = data;
+      vm.isloading = false;
+    }, function (err) {
+      vm.isloading = false;
+    });
+
+
+    vm.AddProvider = function (proveedor) {
+      if (origin.origin =="buy") {
+        $rootScope.$broadcast('Buy_add_provider', proveedor);
+        $uibModalInstance.dismiss('cancel');
+      }
+    }
+
+    vm.cancel= function() {
+      $uibModalInstance.dismiss('cancel');
+    }
+  }
+
   function ProviderInformationController ($uibModalInstance,$q, $rootScope, providerResource, toastr, provider_id) {
     var vm= this;
     vm.status="ver";
@@ -257,10 +288,11 @@ angular.module('frontEndApp')
       {'sigla':"J", 'nombre' : 'Jurídico'},
       {'sigla':"E", 'nombre' : 'Extranjero'},
       {'sigla':'G', 'nombre' : 'Gubernamental'}
-    ]
+    ];
 
     if (origin.origin=="buy") {
       vm.provider.rif = origin.rif;
+      vm.provider.tipo = origin.tipo;
     }
 
 
