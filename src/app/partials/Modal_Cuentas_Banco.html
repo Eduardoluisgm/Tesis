@@ -1,0 +1,65 @@
+<div ng-if="vm.status=='crear'">
+  <div class="modal-header">
+      <label>Registrar cuenta Bancaria</label>
+      <button type="button" ng-click="vm.cancel()" class="close"><span aria-hidden="true">&times;</span></button>
+  </div>
+<form ng-submit="vm.save()">
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-6">
+          <label>Banco <span class="red">*</span></label>
+          <select class="form-control" ng-model="vm.cuenta.bank_id" ng-options="banco.id as banco.nombre for banco in vm.listaBancos" required>
+            <option>banco.nombre</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label>Numero de cuenta <span class="red">*</span></label>
+          <input type="text" class="form-control" minlength="14" maxlength="20" ng-model="vm.cuenta.numero" ng-keypress="vm.solonumeros($event)" required/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <label>Descripción</label>
+          <input type="text" class="form-control" minlength="3" maxlength="35" ng-model="vm.cuenta.descripcion"/>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button ladda="vm.isloading" type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+  </form>
+</div>
+
+
+<!--Actualizar cuenta bancaria-->
+<div ng-if="vm.status=='actualizar'">
+  <div class="modal-header">
+      <label>Actualizar cuenta Bancaria</label>
+      <button type="button" ng-click="vm.cancel()" class="close"><span aria-hidden="true">&times;</span></button>
+  </div>
+<form ng-submit="vm.save()">
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-6">
+          <label>Banco <span class="red">*</span></label>
+          <select class="form-control" ng-model="vm.cuenta.bank_id" ng-options="banco.id as banco.nombre for banco in vm.listaBancos" required>
+            <option>banco.nombre</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label>Numero de cuenta <span class="red">*</span></label>
+          <input type="text" class="form-control" minlength="14" maxlength="20" ng-model="vm.cuenta.numero" ng-keypress="vm.solonumeros($event)" required/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <label>Descripción</label>
+          <input type="text" class="form-control" minlength="3" maxlength="35" ng-model="vm.cuenta.descripcion"/>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button ladda="vm.isloading" type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+  </form>
+</div>

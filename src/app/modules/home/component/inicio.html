@@ -2,7 +2,7 @@
     <div class="overlay">
 
         <div class="content">
-            
+
         </div>
     </div>
 </div>
@@ -13,11 +13,10 @@
 
 <div uib-carousel active="vm.carousel.active" interval="vm.carousel.myInterval" no-wrap="vm.carousel.noWrapSlides">
   <div uib-slide ng-repeat="slide in vm.carousel.slides" index="slide.id">
-    <img ng-src="{{slide.image}}" style="margin:auto;">
+    <img ng-src="{{slide.image}}" style="margin:auto; width: 400px; height: 400px;">
     <div class="carousel-caption">
       <!--<h4>Slide {{slide.id}}</h4>
       <p>{{slide.text}}</p> -->
     </div>
   </div>
 </div>
-

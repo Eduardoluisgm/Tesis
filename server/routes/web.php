@@ -32,6 +32,12 @@ Route::group(['middleware' => 'cors'], function (){
     Route::patch('client/{oldcedula}', 'clientController@patch');
     Route::post('client', 'clientController@save');
 
+    /*Cuentas de bancos*/
+    Route::get('cuentas', 'cuentasController@all');
+    Route::get('cuentas/{id}', 'cuentasController@get');
+    Route::patch('cuentas/{id}', 'cuentasController@update');
+    Route::post('cuentas', 'cuentasController@Save');
+
     /*Facturas de venta*/
     Route::get('factura_venta', 'fact_ventController@AllSale');
     Route::get('factura_venta/{id}/pdf', 'fact_ventController@FacturaPdf');
