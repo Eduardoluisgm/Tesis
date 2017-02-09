@@ -37,6 +37,12 @@ Route::group(['middleware' => 'cors'], function (){
     Route::get('cuentas/{id}', 'cuentasController@get');
     Route::patch('cuentas/{id}', 'cuentasController@update');
     Route::post('cuentas', 'cuentasController@Save');
+    Route::delete('cuentas/{id}', 'cuentasController@delete');
+
+    /*cuenta de bancos Pagos*/
+    Route::get('cuentas_pagos/{cuenta_id}', 'cuenta_pagosController@getCuentaMovimiento');
+    Route::post('cuentas_pagos/{cuenta_id}', 'cuenta_pagosController@Save');
+    Route::delete('cuentas_pagos/{id}', 'cuenta_pagosController@delete');
 
     /*Facturas de venta*/
     Route::get('factura_venta', 'fact_ventController@AllSale');

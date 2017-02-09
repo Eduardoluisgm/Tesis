@@ -29,6 +29,13 @@ class cuentasController extends Controller
       return $cuentas;
     }
 
+    /*eliminar factura de venta*/
+    function delete ($id) {
+      $cuenta = cuentas::findOrFail($id);
+      $cuenta->delete();
+      return "Eliminado";
+    }
+
     /*Guardar una cuenta de banco*/
     function Save (Request $request) {
       $bank_id= $request->input('bank_id');
@@ -63,8 +70,6 @@ class cuentasController extends Controller
       } else {
         abort(409,'La cuenta ya esta registrada en este banco');
       }
-
-
     }
 
     /*Obtener una cuenta en especifico*/

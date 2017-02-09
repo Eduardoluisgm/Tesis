@@ -17,6 +17,7 @@ class CreateTableCuentas extends Migration
           $table->increments('id');
           $table->integer('bank_id')->unsigned();
           $table->string('numero');
+          $table->decimal('saldo', 15, 2)->default(0);
           $table->string('descripcion')->nullable();
           $table->foreign('bank_id')->references('id')->on('bank')->onDelete('cascade')->onUpdate('cascade');
           $table->unique(['bank_id', 'numero']);

@@ -20,7 +20,7 @@ angular.module('frontEndApp')
       {'sigla':"J", 'name' : 'Jurídico'},
       {'sigla':"E", 'name' : 'Extranjero'},
       {'sigla':'G', 'name' : 'Gubernamental'}
-    ]
+    ];
 
     /*esto es para activar o desactivar los botones de abajo*/
     vm.btn = {

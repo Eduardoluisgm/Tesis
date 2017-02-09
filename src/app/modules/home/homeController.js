@@ -59,7 +59,10 @@ angular.module('frontEndApp')
     function addSlides () {
       vm.carousel.slides = [
         {'id':0, 'text': 'prueba', 'image': 'images/productos/cacique500.jpg'},
-        {'id':1, 'text': 'segundo', 'image': 'images/productos/cocacola.png'}
+        {'id':1, 'text': 'segundo', 'image': 'images/productos/0.jpg'},
+        {'id':2, 'text': 'segundo', 'image': 'images/productos/1.jpg'},
+        {'id':3, 'text': 'segundo', 'image': 'images/productos/3.jpg'},
+        {'id':4, 'text': 'segundo', 'image': 'images/productos/4.jpg'}
       ]
     }
 

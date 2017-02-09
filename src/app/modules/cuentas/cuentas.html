@@ -32,6 +32,9 @@
                  <th>Id</th>
                  <th>Nro de cuenta</th>
                  <th>Banco</th>
+                 <th>
+                   Saldo
+                 </th>
                  <th>Descripción</th>
               </tr>
             </thead>
@@ -40,6 +43,7 @@
                   <td>{{cuenta.id}}</td>
                   <td>{{cuenta.numero}}</td>
                   <td>{{cuenta.bank.nombre}}</td>
+                  <td>{{cuenta.saldo | currency:"Bs "}}</td>
                   <td>
                     {{cuenta.descripcion | limitTo:35}}
                     {{cuenta.descripcion > 35 ? '..' : ''}}
@@ -54,18 +58,18 @@
                     </button>
                     <button
                       type="button"
-                      uib-tooltip="Cambiar estatus"
-                      class="btn btn-primary"
+                      uib-tooltip="Eliminar cuenta"
+                      class="btn btn-danger"
                       mwl-confirm
-                      message="¿Esta seguro que desea cambiar el estatus del cliente {{client.name}}?"
+                      message="¿Esta seguro que desea eliminar la cuenta?"
                       confirm-text="Si"
                       cancel-text="No"
                       placement="{{ placement }}"
-                      on-confirm="vm.changeStatus(client.cedula, client.status)"
+                      on-confirm="vm.DeleteCuenta(cuenta.id)"
                       on-cancel=""
                       confirm-button-type="success"
                       cancel-button-type="default">
-                        <i class="fa fa-refresh"></i>
+                        <i class="fa fa-trash"></i>
                     </button>
                   </td>
               </tr>

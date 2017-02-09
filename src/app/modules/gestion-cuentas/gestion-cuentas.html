@@ -1,0 +1,94 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <i class="fa fa-user"></i>
+     Gestion de cuentas Bancarias
+  </div>
+   <div class="panel-body">
+     <div class="row">
+       <div class ="col-md-4">
+         <select class="form-control" ng-model="vm.cuenta_id" ng-options="cuenta.id as cuenta.numero group by cuenta.bank.nombre for cuenta in vm.listaCuentas" required>
+           <option value="">Seleccione la cuenta</option>
+           <option>{{cuenta.numero}}</option>
+         </select>
+       </div>
+       <div class="col-md-2">
+         <button ng-click="vm.search()"  type="button" uib-tooltip="Buscar" class="btn btn-default">
+             <i class="fa fa-search"></i>
+         </button>
+       </div>
+       <div class="col-md-4">
+         <div ng-if="vm.options.Buscando==true">
+           <label style="font-size: 14px;">{{vm.options.cuenta.banco}} - {{vm.options.cuenta.nroCuenta}}</label>
+         </div>
+       </div>
+       <div class ="col-md-2">
+         <div class="text-right">
+           <button type="button" uib-tooltip="Agregar Movimiento" ng-click="vm.openCreate()"  class="btn btn-primary">
+             <i class="fa fa-plus"></i>
+           </button>
+         </div>
+       </div>
+     </div>
+     <div ng-if="vm.options.Buscando==true">
+       <div class="col-md-12 text-center" style="font-size:100px" ng-if="vm.options.isLoading==true">
+         <i class="fa fa-spinner fa-spin"></i>
+       </div>
+       <div class="row table-large" ng-if="vm.options.isLoading==false">
+         <div class="col-md-12">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                   <th>Referencia</th>
+                   <th>Tipo</th>
+                   <th>Monto</th>
+                   <th>Fecha</th>
+                   <th>Descripción</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="movimiento in vm.listaMovimientos">
+                    <td>{{movimiento.referencia}}</td>
+                    <td>{{movimiento.tipo}}</td>
+                    <td>{{movimiento.monto | currency:"Bs "}}</td>
+                    <td>{{movimiento.fecha_pago}}</td>
+                    <td>
+                      {{movimiento.descripcion | limitTo:35}}
+                      {{movimiento.descripcion > 35 ? '..' : ''}}
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        uib-tooltip="Eliminar cuenta"
+                        class="btn btn-danger"
+                        mwl-confirm
+                        message="¿Esta seguro que desea eliminar el movimiento?"
+                        confirm-text="Si"
+                        cancel-text="No"
+                        placement="{{ placement }}"
+                        on-confirm="vm.deleteMovimiento(movimiento.id)"
+                        on-cancel=""
+                        confirm-button-type="success"
+                        cancel-button-type="default">
+                          <i class="fa fa-trash"></i>
+                      </button>
+                    </td>
+                </tr>
+              </tbody>
+            </table>
+         </div>
+       </div>
+       <div class="row" ng-if="vm.options.isLoading==false">
+         <div class="col-md-8">
+           <h4>Saldo: {{vm.options.saldo  | currency:"Bs "}}</h4>
+         </div>
+         <div class="col-md-4">
+           <div class="pull-right">
+             <ul uib-pagination total-items="vm.pagination.total" ng-model="vm.pagination.current_page" max-size="5"
+             class="pagination-sm" ng-change="vm.changePage(vm.pagination.current_page)" boundary-links="true" force-ellipses="true" items-per-page="vm.pagination.per_page"
+             first-text="<<" last-text=">>" next-text=">" previous-text="<"></ul>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+</div>

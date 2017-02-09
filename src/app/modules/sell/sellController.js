@@ -478,7 +478,7 @@ angular.module('frontEndApp')
     vm.bank = {
       'id':"",
       'list': []
-    }
+    };
     vm.pago = 0;
 
     loadBanks();

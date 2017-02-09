@@ -1,0 +1,63 @@
+<div ng-if="vm.status=='crear'">
+  <div class="modal-header">
+      <Label>Registrar Movimiento</label>
+      <button type="button" ng-click="vm.cancel()" class="close"><span aria-hidden="true">&times;</span></button>
+  </div>
+  <form ng-submit="vm.save()">
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-6">
+          <label>Cuenta <span class="red">*</span></label>
+          <select class="form-control" ng-model="vm.registro.cuenta_id" ng-change="vm.changeCuenta()" ng-options="cuenta.id as cuenta.numero group by cuenta.bank.nombre for cuenta in vm.listaCuentas" required>
+            <option value="">Seleccione la cuenta</option>
+            <option>{{cuenta.numero}}</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label>Saldo</label>
+          <h4 ng-if="vm.registro.cuenta_id!=''">{{vm.saldo  | currency:"Bs "}}</h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <label>Referencia <span class="red">*</span></label>
+          <select class="form-control" ng-model="vm.registro.referencia" ng-options="referencia.id as referencia.name for referencia in vm.ListReferencia" required>
+            <option>{{referencia.name}}</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label>Fecha del movimiento <span class="red">*</span></label>
+          <div class="input-group">
+            <input type="text" class="form-control" uib-datepicker-popup ng-model="vm.registro.fecha"
+            is-open="vm.openDate"
+            ng-required="true" close-text="Cerrar" today-text="Hoy" clear-text="Limpiar" required/>
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-success" ng-click="vm.open_fecha_ingreso()"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <label>Tipo <span class="red">*</span></label>
+          <select class="form-control" ng-model="vm.registro.tipo" ng-options="tipo.id as tipo.name for tipo in vm.ListType" required>
+            <option>{{tipo.name}}</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label>Monto <span class="red">*</span></label>
+          <input class="form-control" type="text" ng-change="vm.changePrecio()" maxlength="25" ng-model="vm.registro.monto" ng-currency currency-symbol="Bs " ng-keypress="vm.solonumeros($event)" required/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <label>Descripcción: </label>
+          <input type="text" class="form-control" ng-model="vm.registro.descripcion" minlength="3" maxlength="35"/>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button ladda="vm.isloading" type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+  </form>
+</div>

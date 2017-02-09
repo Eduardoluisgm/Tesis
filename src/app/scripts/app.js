@@ -62,6 +62,11 @@ angular
         controller: 'bankController',
         controllerAs: 'vm'
       })
+      .when('/gestionCuentas', {
+        templateUrl: 'modules/gestion-cuentas/gestion-cuentas.html',
+        controller: 'gestionCuentasController',
+        controllerAs: 'vm'
+      })
       .when('/login', {
         templateUrl: 'modules/login/login.html',
         controller: 'loginController',
@@ -151,7 +156,7 @@ angular
      console.log("run");
      var rutasPrivadas= ['/','/about','/client','/user', '/profile', '/provider', '/product', '/sell', '/buy', '/receivable',
      '/payable', '/facturaVenta', '/facturaCompra', '/masVendido', '/clienteActivo', '/proveedorActivo', '/masComprado', '/bank',
-     '/mensajes','/cuentas'];
+     '/mensajes','/cuentas', 'gestionCuentasController'];
      /*rutas que solo puede ver admin y super admin*/
      var rutasAdmin = ['/client', '/user', '/provider', '/product', '/facturaVenta', '/facturaCompra', '/masVendido','/clienteActivo',
       '/proveedorActivo', '/masComprado', '/bank', '/mensajes','/cuentas'];

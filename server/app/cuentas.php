@@ -17,4 +17,8 @@ class cuentas extends Model
   public function bank () {
     return $this->belongsTo('App\bank');
   }
+
+  public function movimientos() {
+    return $this->hasMany('App\cuenta_pagos','cuenta_id');
+  }
 }

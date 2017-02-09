@@ -5,13 +5,14 @@ angular.module('frontEndApp')
   .controller('CuentaEditController', CuentaEditController)
   .controller('CuentasController', CuentasController);
 
-  function CuentasController ($log,$rootScope, toastr, $uibModal, $q, cuentaBanco) {
+  function CuentasController ($log,$rootScope, toastr, $uibModal, $q, cuentaBanco, cuentaResource) {
     var vm = this;
     vm.pagination = [];
     vm.listaCuentas = [];
     vm.openCreate = openCreate;
     vm.openEdit = openEdit;
     vm.changePage=changePage;
+    vm.DeleteCuenta = DeleteCuenta;
     vm.reload = reload;
     vm.search = search;
     vm.status = "Normal";
@@ -33,6 +34,19 @@ angular.module('frontEndApp')
           vm.pagination.total = data[0].total;
           vm.pagination.last_page = data[0].last_page;
       });
+    }
+
+
+    function DeleteCuenta (cuenta_id) {
+      console.log("cuenta a eliminar "+ cuenta_id);
+      cuentaResource.delete({'id': cuenta_id},
+        function success () {
+          toastr.success("Cuenta eliminada con exito");
+          changePage(vm.pagination.current_page);
+        }, function error (err) {
+
+        }
+      )
     }
 
     function changePage (number) {
@@ -140,6 +154,16 @@ angular.module('frontEndApp')
           console.log(data);
           vm.cuenta = data[0];
           vm.listaBancos = data[1];
+          var bandera = false;
+          vm.listaBancos.forEach(function(banco){
+            if (banco.id==vm.cuenta.bank_id) {
+              bandera = true;
+            }
+          });
+          if (!bandera) {
+            vm.cuenta.bank_id = "";
+          }
+          console.log("Bandera "+ bandera+ " cuenta "+ vm.cuenta.bank_id);
       });
     }
     vm.cancel= function() {
@@ -147,6 +171,10 @@ angular.module('frontEndApp')
     };
 
     vm.save= function () {
+      if (!vm.cuenta.bank_id) {
+        toastr.warning('Debe seleccionar un Banco');
+        return;
+      }
       vm.isloading = true;
       cuentaResource.patch(vm.cuenta,
         function success (data) {
@@ -205,8 +233,11 @@ angular.module('frontEndApp')
     };
 
     vm.save = function() {
+      if (!vm.cuenta.bank_id) {
+        toastr.warning('Debe seleccionar un Banco');
+        return;
+      }
       vm.isloading = true;
-      console.log("guardando ", vm.cuenta);
       cuentaBanco.save(vm.cuenta,
         function success (data) {
           vm.isloading = false;
