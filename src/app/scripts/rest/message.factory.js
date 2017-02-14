@@ -2,8 +2,13 @@
 
   angular.module('frontEndApp')
     .factory('messageResource', messageResource)
+    .factory('messageActive', messageActive)
     .factory('message', message);
 
+
+    function messageActive (cachedResource, ApiUrl) {
+      return cachedResource(ApiUrl+'/MessageActive');
+    }
 
     function message (cachedResource, ApiUrl) {
       return cachedResource(ApiUrl+'/message');

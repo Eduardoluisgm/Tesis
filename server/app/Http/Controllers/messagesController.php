@@ -32,6 +32,11 @@ class messagesController extends Controller
     return $mensaje;
   }
 
+  function MessageActive () {
+    $messages:: messages::where('status','=','1')->get();
+    return $messages;
+  }
+
   /*Actualizar el status del message*/
   function update (Request $request, $id) {
     $message = messages::findOrFail($id);
