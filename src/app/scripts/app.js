@@ -33,9 +33,9 @@ angular
     $authProvider.loginUrl = ApiUrl+'/login';
     $routeProvider
       .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
-        controllerAs: 'main'
+        templateUrl: 'modules/main/main.html',
+        controller: 'mainController',
+        controllerAs: 'vm'
       })
       .when('/home', {
         templateUrl: 'modules/home/home.html',

@@ -20,4 +20,8 @@ class Product extends Model
       'min_stock',
       'max_stock'
   ];
+
+  public function providers() {
+    return $this->belongsToMany('App\provider', 'provider_product');
+  }
 }

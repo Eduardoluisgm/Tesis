@@ -2,10 +2,15 @@
 
   angular.module('frontEndApp')
     .factory('productResource', productResource)
+    .factory('product_Providers', product_Providers)
     .factory('productEdit', productEdit)
     .factory('product', product)
     .factory('productActive', productActive)
     .factory('productSearch', productSearch);
+
+    function product_Providers (cachedResource, ApiUrl) {
+      return cachedResource(ApiUrl+'/product/:codigo/provider' ,{codigo: '@codigo'});
+    }
 
     function product (cachedResource, ApiUrl) {
       return cachedResource(ApiUrl+'/product');

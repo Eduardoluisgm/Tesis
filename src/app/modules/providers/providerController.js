@@ -5,6 +5,7 @@ angular.module('frontEndApp')
   .controller('ProviderInformationController', ProviderInformationController)
   .controller('ProviderEditController', ProviderEditController)
   .controller('ProviderSearchController', ProviderSearchController)
+  .controller('Provider_ProductController', Provider_ProductController)
   .controller('ProviderCreateController',ProviderCreateController);
 
   function providerController (provider,$q,$uibModal, $rootScope, providerEdit, toastr) {
@@ -14,6 +15,7 @@ angular.module('frontEndApp')
       vm.openEdit = openEdit;
       vm.openInformation = openInformation;
       vm.changeStatus= changeStatus;
+      vm.openProduct = openProduct;
       vm.listaProveedores = [];
       vm.pagination = [];
       vm.reload = reload;
@@ -96,6 +98,25 @@ angular.module('frontEndApp')
               vm.Buscar.buscando=true;
           });
         }
+      }
+
+      /*Ver los productos que trae ese proveedor*/
+      function openProduct (provider) {
+        var modalInstance = $uibModal.open({
+          animation: true,
+          templateUrl: 'partials/Modal_Provider_Product.html', /*Llamo al template donde usare lamodal*/
+          controller: 'Provider_ProductController', /*nombre del controlador de la modal*/
+          controllerAs: 'vm', /*Importante colocar esto*/
+          backdrop: false,
+          resolve: {
+            origin: function () {
+              return {
+                'origin':'provider',
+                'provider':provider
+              };
+            }
+          }
+        });
       }
 
       /*Abre la modal de crear usuario*/
@@ -218,6 +239,35 @@ angular.module('frontEndApp')
       if (vm.provider.rif) {
         vm.provider.rif = parseInt(vm.provider.rif);
       }
+    }
+  }
+
+
+  /*modal de productos que proveee un proveedor*/
+  function Provider_ProductController ($uibModalInstance,$q, origin, provider_Products) {
+    var vm = this;
+    vm.provider = origin.provider;
+    vm.search = "";
+    vm.listaProductos = [];
+    vm.isloading = false;
+    console.log(origin);
+    cargar();
+
+    function cargar () {
+      vm.isloading = true;
+      provider_Products.getFresh({'rif':vm.provider.rif},
+        function success (data) {
+          vm.isloading = false;
+          vm.listaProductos = data.products;
+        }, function error (err) {
+          vm.isloading = false;
+        });
+    }
+
+
+
+    vm.cancel= function() {
+      $uibModalInstance.dismiss('cancel');
     }
   }
 

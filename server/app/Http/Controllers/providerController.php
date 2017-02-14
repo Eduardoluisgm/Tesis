@@ -33,6 +33,13 @@ class providerController extends Controller
       return $provider;
     }
 
+    /*Proveedores que expenden un producto*/
+    function Providers_Products ($rif) {
+      $provider = Provider::findOrFail($rif);
+      $provider->load('products');
+      return $provider;
+    }
+
     /*Proveedores qu estan activos*/
     function ProviderActive() {
       $provider = Provider::where('status', '=', '1')

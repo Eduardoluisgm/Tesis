@@ -18,4 +18,8 @@ class Provider extends Model
       'nombre_vendedor',
       'tipo'
   ];
+
+  public function products() {
+    return $this->belongsToMany('App\product', 'provider_product');
+  }
 }

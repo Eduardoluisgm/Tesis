@@ -2,6 +2,7 @@
 
 angular.module('frontEndApp')
   .controller('productController', productController)
+  .controller('Product_ProviderController', Product_ProviderController)
   .controller('ProductInformationController', ProductInformationController)
   .controller('ProductEditController', ProductEditController)
   .controller('ProductSearchController', ProductSearchController)
@@ -13,6 +14,7 @@ angular.module('frontEndApp')
       vm.openCreate = openCreate;
       vm.openEdit = openEdit;
       vm.openInformation = openInformation;
+      vm.openProviders = openProviders;
       vm.changeStatus= changeStatus;
       vm.listaProductos = [];
       vm.pagination = [];
@@ -118,6 +120,25 @@ angular.module('frontEndApp')
         });
       }
 
+      /*Ver los productos que trae ese proveedor*/
+      function openProviders (product) {
+        var modalInstance = $uibModal.open({
+          animation: true,
+          templateUrl: 'partials/Modal_Product_Provider.html', /*Llamo al template donde usare lamodal*/
+          controller: 'Product_ProviderController', /*nombre del controlador de la modal*/
+          controllerAs: 'vm', /*Importante colocar esto*/
+          backdrop: false,
+          resolve: {
+            origin: function () {
+              return {
+                'origin':'product',
+                'product':product
+              };
+            }
+          }
+        });
+      }
+
       function openInformation (product) {
         console.log("ver informacion ", product);
         var modalInstance = $uibModal.open({
@@ -156,6 +177,36 @@ angular.module('frontEndApp')
         changePage(vm.pagination.current_page);
       });
   };
+
+  /*Modal de proveedores que tiene un producto*/
+  function Product_ProviderController ($uibModalInstance,$q, origin, product_Providers) {
+      var vm = this;
+      vm.product = origin.product;
+      vm.search = "";
+      vm.listaProveedores = [];
+      vm.isloading = false;
+      console.log(origin);
+      cargar();
+
+      function cargar () {
+        console.log("entro aqui");
+        vm.isloading = true;
+        product_Providers.getFresh({'codigo':vm.product.codigo},
+          function success (data) {
+            vm.isloading = false;
+            vm.listaProveedores = data.providers;
+          }, function error (err) {
+            vm.isloading = false;
+          });
+      }
+
+
+
+      vm.cancel= function() {
+        $uibModalInstance.dismiss('cancel');
+      }
+
+  }
 
   /*Modal editar Usuario*/
   function ProductEditController ($uibModalInstance,$q, $rootScope, product_id ,productResource, productEdit, toastr) {
@@ -311,7 +362,8 @@ angular.module('frontEndApp')
         return;
       }
 
-      vm.product.codigo = parseInt(vm.product.codigo);
+      //vm.product.codigo = parseInt(vm.product.codigo);
+      vm.product.codigo = vm.product.codigo.toString();
       product.save(vm.product,
           function (data) {
             toastr.success("Producto registrado exitosamente");

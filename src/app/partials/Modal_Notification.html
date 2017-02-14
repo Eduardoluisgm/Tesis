@@ -1,0 +1,69 @@
+<div>
+  <div class="modal-header">
+      <label ng-if="vm.tipo=='min_stock'">Productos con Stock inferior al minimo</label>
+      <label ng-if="vm.tipo=='max_stock'">Productos con Stock superior al maximo</label>
+      <label ng-if="vm.tipo=='fact_vent'">Facturas de venta con mas de 7 dias sin cobrar</label>
+      <label ng-if="vm.tipo=='fact_comp'">Facturas de compra con mas de 7 dias sin pagar</label>
+      <button type="button" ng-click="vm.cancel()" class="close"><span aria-hidden="true">&times;</span></button>
+  </div>
+  <div class="modal-body" style="min-height:350px;">
+    <div class="row">
+      <div class="col-md-3">
+          <input type="text" placeholder="Buscar" ng-model="vm.search" class="form-control down10" maxlength="12"/>
+      </div>
+    </div>
+    <div class="row" ng-if="vm.tipo=='min_stock' || vm.tipo=='max_stock'">
+      <div class="col-md-12 modalSearch">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+               <th>Codigo</th>
+               <th>Nombre</th>
+               <th>Stock</th>
+               <th ng-if="vm.tipo=='min_stock'">Stock minimo</th>
+               <th ng-if="vm.tipo=='max_stock'">Stock Maximo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="producto in vm.lista | filter:vm.search">
+              <td>{{producto.codigo}}</td>
+              <td>{{producto.nombre}}</td>
+              <td>{{producto.stock}}</td>
+              <td ng-if="vm.tipo=='min_stock'">{{producto.min_stock}}</td>
+              <td ng-if="vm.tipo=='max_stock'">{{producto.max_stock}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!--Parte de las facturas-->
+    <div class="row" ng-if="vm.tipo=='fact_vent' || vm.tipo=='fact_comp'">
+      <div class="col-md-12 modalSearch">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+               <th>Codigo</th>
+               <th ng-if="vm.tipo=='fact_vent'">Id de Cliente</th>
+               <th ng-if="vm.tipo=='fact_vent'"> Nombre del cliente</th>
+               <th ng-if="vm.tipo=='fact_comp'">Id de Proveedor</th>
+               <th ng-if="vm.tipo=='fact_comp'"> Nombre del proveedor</th>
+               <th>Fecha</th>
+               <th>Monto</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="factura in vm.lista | filter:vm.search">
+              <td>{{factura.id}}</td>
+              <td ng-if="vm.tipo=='fact_vent'">{{factura.client_id}}</td>
+              <td ng-if="vm.tipo=='fact_vent'">{{factura.cliente.name}}</td>
+              <td ng-if="vm.tipo=='fact_comp'">{{factura.provider_id}}</td>
+              <td ng-if="vm.tipo=='fact_comp'">{{factura.proveedor.nombre}}</td>
+              <td>{{factura.created_at}}</td>
+              <td>{{factura.monto_total | currency:"Bs "}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

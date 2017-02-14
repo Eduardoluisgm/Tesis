@@ -25,6 +25,13 @@ class productController extends Controller
       return $Products;
     }
 
+    /*Proveedores que expenden un producto*/
+    function Product_providers ($codigo) {
+      $product = Product::findOrFail($codigo);
+      $product->load('providers');
+      return $product;
+    }
+
     /*Productos qu estan activos*/
     function ProductActive() {
       $product = Product::where('status', '=', '1')

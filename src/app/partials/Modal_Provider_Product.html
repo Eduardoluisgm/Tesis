@@ -1,0 +1,39 @@
+<div>
+  <div class="modal-header">
+      <Label>Productos del proveedor {{vm.provider.nombre}} - {{vm.provider.rif}}</label>
+      <button type="button" ng-click="vm.cancel()" class="close"><span aria-hidden="true">&times;</span></button>
+  </div>
+  <div class="modal-body" style="min-height:350px;">
+    <div class="row" ng-if="vm.isloading==false && vm.listaProductos.length>0">
+      <div class="col-md-3">
+          <input type="text" placeholder="Buscar" ng-model="vm.search" class="form-control down10" maxlength="12"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 text-center" style="font-size:60px" ng-if="vm.isloading==true">
+        <i class="fa fa-spinner fa-spin"></i>
+      </div>
+      <div class="col-md-12 modalSearch"  ng-if="vm.isloading==false">
+        <table class="table table-striped" ng-if="vm.listaProductos.length>0">
+          <thead>
+            <tr>
+               <th>Nombre</th>
+               <th>Codigo</th>
+               <th>Precio</th>
+               <th>Stock</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="producto in vm.listaProductos | filter:vm.search">
+              <td>{{producto.nombre}}</td>
+              <td>{{producto.codigo}}</td>
+              <td>{{producto.precio_venta}}</td>
+              <td>{{producto.stock}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <h3 ng-if="vm.listaProductos.length<1">No hay productos para este proveedor</h3>
+      </div>
+    </div>
+  </div>
+</div>

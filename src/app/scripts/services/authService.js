@@ -53,6 +53,7 @@ angular.module('authService',[])
     var logout = function () {
       console.log("estoy deslogeandome service");
       uncacheSession();
+      $rootScope.$broadcast('HideMenu');
       localStorage.removeItem('role_id');
       localStorage.removeItem('session');
       $location.path('/home');

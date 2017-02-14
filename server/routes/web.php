@@ -70,6 +70,14 @@ Route::group(['middleware' => 'cors'], function (){
     Route::patch('message/{id}', 'messagesController@update');
     Route::delete('message/{id}', 'messagesController@delete');
 
+
+    /*Notificaciones*/
+    Route::get('notification/min_stock', 'notificationController@stockMinimo');
+    Route::get('notification/max_stock', 'notificationController@stockMaximo');
+    Route::get('notification/factura_venta_deuda', 'notificationController@FacturaVentaPorCobrar');
+    Route::get('notification/factura_compra_deuda', 'notificationController@FacturaCompraPorPagar');
+
+
     /*User*/
     Route::get('user', 'userController@AllUser');
     Route::get('user/{cedula}', 'userController@get');
@@ -81,6 +89,7 @@ Route::group(['middleware' => 'cors'], function (){
     Route::get('provider', 'providerController@AllProviders');
     Route::get('providerActive', 'providerController@ProviderActive');
     Route::get('provider/{rif}', 'providerController@get');
+    Route::get('provider/{rif}/product', 'providerController@Providers_Products');
     Route::patch('provider/{oldrif}', 'providerController@patch');
     Route::post('provider', 'providerController@save');
 
@@ -89,6 +98,7 @@ Route::group(['middleware' => 'cors'], function (){
     Route::get('productActive', 'productController@ProductActive');
     Route::get('product_search', 'productController@SearchProduct');
     Route::get('product/{codigo}', 'productController@get');
+    Route::get('product/{codigo}/provider', 'productController@Product_providers');
     Route::patch('product/{oldcodigo}', 'productController@patch');
     Route::post('product', 'productController@save');
 
