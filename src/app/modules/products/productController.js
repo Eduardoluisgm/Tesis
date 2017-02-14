@@ -242,7 +242,7 @@ angular.module('frontEndApp')
       }
       console.log("minimo: "+ vm.product.min_stock + " maximo: "+ vm.product.max_stock);
       if (parseInt(vm.product.min_stock)>parseInt(vm.product.max_stock)) {
-        toastr.warning("Stock maximo debe ser mayor al minimo", "Advertencia");
+        toastr.warning("Stock máximo debe ser mayor al mínimo", "Advertencia");
         vm.isloading = false;
         return;
       }

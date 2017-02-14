@@ -1,9 +1,9 @@
 <div>
   <div class="modal-header">
-      <label ng-if="vm.tipo=='min_stock'">Productos con Stock inferior al minimo</label>
-      <label ng-if="vm.tipo=='max_stock'">Productos con Stock superior al maximo</label>
-      <label ng-if="vm.tipo=='fact_vent'">Facturas de venta con mas de 7 dias sin cobrar</label>
-      <label ng-if="vm.tipo=='fact_comp'">Facturas de compra con mas de 7 dias sin pagar</label>
+      <label ng-if="vm.tipo=='min_stock'">Productos con Stock inferior al mínimo</label>
+      <label ng-if="vm.tipo=='max_stock'">Productos con Stock superior al máximo</label>
+      <label ng-if="vm.tipo=='fact_vent'">Facturas de venta con más de 7 días sin cobrar</label>
+      <label ng-if="vm.tipo=='fact_comp'">Facturas de compra con más de 7 días sin pagar</label>
       <button type="button" ng-click="vm.cancel()" class="close"><span aria-hidden="true">&times;</span></button>
   </div>
   <div class="modal-body" style="min-height:350px;">
@@ -20,8 +20,8 @@
                <th>Codigo</th>
                <th>Nombre</th>
                <th>Stock</th>
-               <th ng-if="vm.tipo=='min_stock'">Stock minimo</th>
-               <th ng-if="vm.tipo=='max_stock'">Stock Maximo</th>
+               <th ng-if="vm.tipo=='min_stock'">Stock mínimo</th>
+               <th ng-if="vm.tipo=='max_stock'">Stock Máximo</th>
             </tr>
           </thead>
           <tbody>

@@ -30,7 +30,7 @@
           <input type="text" class="form-control" minlength="3" maxlength="25" ng-model="vm.client.apellido" required/>
         </div>
         <div class="col-md-6">
-          <label>Telefono</label>
+          <label>Teléfono</label>
           <input type="text" class="form-control" ng-model="vm.client.telefono" maxlength="14" ng-keypress="vm.solonumeros($event)"/>
         </div>
       </div>
@@ -71,7 +71,7 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-          <label>Telefono:</label> <label>{{vm.client.telefono}}</label>
+          <label>Teléfono:</label> <label>{{vm.client.telefono}}</label>
       </div>
     </div>
     <div class="row">
@@ -120,7 +120,7 @@
           <input type="text" class="form-control" minlength="3" maxlength="25" ng-model="vm.client.apellido" required/>
         </div>
         <div class="col-md-6">
-          <label>Telefono</label>
+          <label>Teléfono</label>
           <input type="text" class="form-control" ng-model="vm.client.telefono" maxlength="14" ng-keypress="vm.solonumeros($event)"/>
         </div>
       </div>
@@ -158,7 +158,7 @@
             <tr>
                <th>Nombre</th>
                <th>Apellido</th>
-               <th>Cedula/Rif</th>
+               <th>Cédula/Rif</th>
                <th></th>
             </tr>
           </thead>
@@ -175,7 +175,6 @@
             </tr>
           </tbody>
         </table>
-        <h2 ng-if="vm.products_number<1">No hay productos con esa descripción</h2>
       </div>
     </div>
   </div>

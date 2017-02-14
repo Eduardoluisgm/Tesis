@@ -14,9 +14,9 @@
             <div class="row" ng-if="vm.listMin_stock.length>0">
               <div class="col-md-3"></div>
               <div class="col-md-6">
-                <div uib-alert ng-class="'alert-danger'" ng-click="vm.openNotification(vm.listMin_stock,'min_stock')">
-                  <span ng-if="vm.listMin_stock.length==1"> <strong>{{vm.listMin_stock.length}}</strong> producto esta por debajo del stock Minimo</span>
-                  <span ng-if="vm.listMin_stock.length>1"><strong>{{vm.listMin_stock.length}}</strong> productos estan por debajo del stock Minimo</span>
+                <div uib-alert ng-class="'alert-danger'" style="cursor: pointer;" ng-click="vm.openNotification(vm.listMin_stock,'min_stock')">
+                  <span ng-if="vm.listMin_stock.length==1"> <strong>{{vm.listMin_stock.length}}</strong> producto está por debajo del stock Mínimo</span>
+                  <span ng-if="vm.listMin_stock.length>1"><strong>{{vm.listMin_stock.length}}</strong> productos están por debajo del stock Mínimo</span>
                 </div>
               </div>
               <div class="col-md-3"></div>
@@ -25,9 +25,9 @@
             <div class="row" ng-if="vm.listMax_stock.length>0">
               <div class="col-md-3"></div>
               <div class="col-md-6">
-                <div uib-alert ng-class="'alert-success'" ng-click="vm.openNotification(vm.listMax_stock, 'max_stock')">
-                  <span ng-if="vm.listMax_stock.length==1"><a><strong>{{vm.listMax_stock.length}}</strong> producto esta por encima del stock Maximo </a></span>
-                  <span ng-if="vm.listMax_stock.length>1"><strong>{{vm.listMax_stock.length}}</strong> productos estan por encima del stock Maximo</span>
+                <div uib-alert ng-class="'alert-success'" style="cursor: pointer;" ng-click="vm.openNotification(vm.listMax_stock, 'max_stock')">
+                  <span ng-if="vm.listMax_stock.length==1"><a><strong>{{vm.listMax_stock.length}}</strong> producto está por encima del stock Máximo </a></span>
+                  <span ng-if="vm.listMax_stock.length>1"><strong>{{vm.listMax_stock.length}}</strong> productos están por encima del stock Máximo</span>
                 </div>
               </div>
               <div class="col-md-3"></div>
@@ -36,9 +36,9 @@
             <div class="row" ng-if="vm.listFacturaVenta.length>0" >
               <div class="col-md-3"></div>
               <div class="col-md-6">
-                <div uib-alert ng-class="'alert-info'" ng-click="vm.openNotification(vm.listFacturaVenta,'fact_vent')">
-                  <span ng-if="vm.listFacturaVenta.length==1"> <strong>{{vm.listFacturaVenta.length}}</strong> Factura de venta tiene mas de 7 dias sin cobrar</span>
-                  <span ng-if="vm.listFacturaVenta.length>1"><strong>{{vm.listFacturaVenta.length}}</strong> Facturas de venta tienen mas de 7 dias sin cobrar</span>
+                <div uib-alert ng-class="'alert-info'" style="cursor: pointer;" ng-click="vm.openNotification(vm.listFacturaVenta,'fact_vent')">
+                  <span ng-if="vm.listFacturaVenta.length==1"> <strong>{{vm.listFacturaVenta.length}}</strong> Factura de venta tiene más de 7 días sin cobrar</span>
+                  <span ng-if="vm.listFacturaVenta.length>1"><strong>{{vm.listFacturaVenta.length}}</strong> Facturas de venta tienen más de 7 días sin cobrar</span>
                 </div>
               </div>
               <div class="col-md-3"></div>
@@ -47,9 +47,9 @@
             <div class="row" ng-if="vm.listaFacturaCompra.length>0">
               <div class="col-md-3"></div>
               <div class="col-md-6">
-                <div uib-alert ng-class="'alert-warning'" ng-click="vm.openNotification(vm.listaFacturaCompra,'fact_comp')">
-                  <span ng-if="vm.listaFacturaCompra.length==1"> <strong>{{vm.listaFacturaCompra.length}}</strong> Factura de compra tiene mas de 7 dias sin pagar</span>
-                  <span ng-if="vm.listaFacturaCompra.length>1"><strong>{{vm.listaFacturaCompra.length}}</strong> Facturas de compra tienen mas de 7 dias sin pagar</span>
+                <div uib-alert ng-class="'alert-warning'" style="cursor: pointer;" ng-click="vm.openNotification(vm.listaFacturaCompra,'fact_comp')">
+                  <span ng-if="vm.listaFacturaCompra.length==1"> <strong>{{vm.listaFacturaCompra.length}}</strong> Factura de compra tiene más de 7 días sin pagar</span>
+                  <span ng-if="vm.listaFacturaCompra.length>1"><strong>{{vm.listaFacturaCompra.length}}</strong> Facturas de compra tienen más de 7 días sin pagar</span>
                 </div>
               </div>
               <div class="col-md-3"></div>

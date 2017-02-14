@@ -12,7 +12,7 @@ angular.module('frontEndApp')
       vm.inventarioOpen = false;
       vm.contabilidadOpen = false;
       vm.reportOpen = false;
-      vm.name = "Caguita";
+      vm.name = "Cagüita";
       vm.profile = "";
 
 
