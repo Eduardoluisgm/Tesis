@@ -8,6 +8,7 @@ angular.module('frontEndApp')
       vm.listProduct = [];
       vm.search = search;
       vm.reload = reload;
+      vm.isLoading=false;
       vm.Buscar = false;
       vm.fechas = {
         'inicio': new Date(),
@@ -23,6 +24,7 @@ angular.module('frontEndApp')
       cargar();
 
       function cargar() {
+        vm.isLoading=true;
         var products = ProductoVendido.queryFresh();
         $q.all([products.$promise]).then(function (data){
           vm.listProduct = data[0];
@@ -33,7 +35,7 @@ angular.module('frontEndApp')
             count = count +1;
           });
           vm.cantidades[0]= vm.product.cantidades;
-          console.log("cantidades ", vm.cantidades);
+          vm.isLoading = false;
         });
       }
 
@@ -63,6 +65,8 @@ angular.module('frontEndApp')
           return;
         }
 
+        vm.isLoading=true;
+
         var fecha_inicio = moment(vm.fechas.inicio).format('YYYY-MM-DD HH:mm');
         var fecha_final = moment(vm.fechas.final).format('YYYY-MM-DD HH:mm');
         /*colocando la hora de inicio a las 0 horas*/
@@ -90,6 +94,7 @@ angular.module('frontEndApp')
           });
           console.log("despues de busqueda ", vm.product.nombres);
           vm.cantidades[0]= vm.product.cantidades;
+          vm.isLoading=false;
         });
       }
 

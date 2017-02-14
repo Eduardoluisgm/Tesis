@@ -9,6 +9,7 @@ angular.module('frontEndApp')
       vm.Buscar = false;
       vm.search = search;
       vm.reload = reload;
+      vm.isLoading=false;
       vm.fechas = {
         'inicio': new Date(),
         'final': new Date()
@@ -23,6 +24,7 @@ angular.module('frontEndApp')
       cargar();
 
       function cargar() {
+        vm.isLoading=true;
         var products = ProductoComprado.queryFresh();
         $q.all([products.$promise]).then(function (data){
           vm.listProduct = data[0];
@@ -32,6 +34,7 @@ angular.module('frontEndApp')
             vm.product.cantidades[count]=parseInt(product.cantidad);
             count = count +1;
           });
+          vm.isLoading=false;
         });
       }
 
@@ -51,6 +54,8 @@ angular.module('frontEndApp')
           toastr.warning("La fecha final debe ser menor a la inicial", "Advertencia");
           return;
         }
+
+        vm.isLoading=true;
 
         var fecha_inicio = moment(vm.fechas.inicio).format('YYYY-MM-DD HH:mm');
         var fecha_final = moment(vm.fechas.final).format('YYYY-MM-DD HH:mm');
@@ -77,6 +82,7 @@ angular.module('frontEndApp')
             vm.product.cantidades[count]=parseInt(product.cantidad);
             count = count +1;
           });
+          vm.isLoading=false;
         });
       }
 
