@@ -4,13 +4,14 @@ angular.module('frontEndApp')
   .controller('NotificationController', NotificationController)
   .controller('mainController', mainController);
 
-  function mainController ($log,$uibModal, authUser,$rootScope, notification_min_stock, notification_max_stock ,$q, notification_factura_venta_deuda, notification_factura_compra_deuda) {
+  function mainController ($log,$uibModal, authUser,$rootScope,messageActive,notification_min_stock, notification_max_stock ,$q, notification_factura_venta_deuda, notification_factura_compra_deuda) {
       var vm = this;
       vm.openNotification = openNotification;
       vm.listMin_stock = []; /*Lista de productos con stock minimo*/
       vm.listMax_stock = [];
       vm.listFacturaVenta = []; /*Lista de facturas de venta con mas de 7 dias sin pagar*/
       vm.listaFacturaCompra = []; /*Lista de facturas de compra con mas de 7 dias sin pagar*/
+      vm.listaMensajes = [];
       vm.fecha = moment().subtract(7, 'day').format();
 
       console.log("Fecha actual ", vm.fecha);
@@ -22,11 +23,14 @@ angular.module('frontEndApp')
         var max_stock = notification_max_stock.queryFresh();
         var venta_deuda = notification_factura_venta_deuda.queryFresh({'fecha': vm.fecha});
         var compra_deuda = notification_factura_compra_deuda.queryFresh({'fecha': vm.fecha});
-        $q.all([min_stock.$promise, max_stock.$promise, venta_deuda.$promise, compra_deuda.$promise]).then(function(data){
+        var mensajes = messageActive.queryFresh();
+        $q.all([min_stock.$promise, max_stock.$promise, venta_deuda.$promise, compra_deuda.$promise, mensajes.$promise]).then(function(data){
           vm.listMin_stock = data[0];
           vm.listMax_stock = data[1];
           vm.listFacturaVenta = data[2];
           vm.listaFacturaCompra = data[3];
+          vm.listaMensajes = data[4];
+          console.log(vm.listaMensajes);
         });
       }
 

@@ -7,7 +7,7 @@
 
 
     function messageActive (cachedResource, ApiUrl) {
-      return cachedResource(ApiUrl+'/MessageActive');
+      return cachedResource(ApiUrl+'/message_active');
     }
 
     function message (cachedResource, ApiUrl) {

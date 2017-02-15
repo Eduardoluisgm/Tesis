@@ -66,7 +66,7 @@ Route::group(['middleware' => 'cors'], function (){
     Route::delete('factura_compra/{id}', 'fact_compController@delete');
 
     Route::get('message', 'messagesController@all');
-    Route::get('ActiveMessage', 'messagesController@MessageActive');
+    Route::get('message_active', 'messagesController@MessageActive');
     Route::get('message/{id}', 'messagesController@get');
     Route::patch('message/{id}', 'messagesController@update');
     Route::delete('message/{id}', 'messagesController@delete');

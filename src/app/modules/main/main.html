@@ -9,7 +9,9 @@
         </p> -->
         <!--Stock Minimo -->
         <div class="row">
-          <div class="col-md-7"></div>
+          <div class="col-md-5">
+          </div>
+          <div class="col-md-2"></div>
           <div class="col-md-5">
             <div class="row" ng-if="vm.listMin_stock.length>0">
               <div class="col-md-3"></div>
@@ -51,6 +53,18 @@
                   <span ng-if="vm.listaFacturaCompra.length==1"> <strong>{{vm.listaFacturaCompra.length}}</strong> Factura de compra tiene más de 7 días sin pagar</span>
                   <span ng-if="vm.listaFacturaCompra.length>1"><strong>{{vm.listaFacturaCompra.length}}</strong> Facturas de compra tienen más de 7 días sin pagar</span>
                 </div>
+              </div>
+              <div class="col-md-3"></div>
+            </div>
+            <div class="row" ng-if="vm.listaMensajes.length>0">
+              <div class="col-md-3"></div>
+              <div class="col-md-6">
+                <a ng-href="#/mensajes">
+                  <div uib-alert ng-class="'alert-danger'"  style="cursor: pointer;color: #fff;background-color: #337ab7;border-color: #2e6da4;">
+                    <span ng-if="vm.listaMensajes.length==1"> <strong>{{vm.listaMensajes.length}}</strong> mensaje sin leer</span>
+                    <span ng-if="vm.listaMensajes.length>1"><strong>{{vm.listaMensajes.length}}</strong> mensajes sin leer</span>
+                  </div>
+                </a>
               </div>
               <div class="col-md-3"></div>
             </div>
