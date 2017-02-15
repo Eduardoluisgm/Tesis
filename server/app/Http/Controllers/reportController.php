@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\fact_vent_pagos;
+use App\fact_comp_pagos;
 
 class reportController extends Controller
 {
@@ -36,6 +38,22 @@ class reportController extends Controller
         return $report;
     }
 
+    }
+
+    /*Todos los pagos recibidos en un dia.*/
+    function Ganancia (Request $request) {
+      $fecha_inicio = $request->input('fecha_inicio');
+      $fecha_final = $request->input('fecha_final');
+      $Ganancias = fact_vent_pagos::whereBetween('created_at', array($fecha_inicio, $fecha_final))->get();
+      return $Ganancias;
+    }
+
+    /*Todos los pagos hechos en un dia*/
+    function Perdida (Request $request) {
+      $fecha_inicio = $request->input('fecha_inicio');
+      $fecha_final = $request->input('fecha_final');
+      $Perdidas = fact_comp_pagos::whereBetween('created_at', array($fecha_inicio, $fecha_final))->get();
+      return $Perdidas;
     }
 
     /*reporte Producto mas comprado a los preoveedores*/

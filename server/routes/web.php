@@ -104,6 +104,8 @@ Route::group(['middleware' => 'cors'], function (){
     Route::post('product', 'productController@save');
 
     /*Reportes*/
+    Route::get('Ganancias', 'reportController@Ganancia');
+    Route::get('Perdidas', 'reportController@Perdida');
     Route::get('ClienteVolumenCompras', 'reportController@clientevolumenCompras');
     Route::get('ClientemayoresCompras', 'reportController@clientemayoresCompras');
     Route::get('ProveedorVolumenCompras', 'reportController@proveedorvolumenCompras');

@@ -65,7 +65,6 @@ class fact_compController extends Controller
               $new->product_id = $detalle->codigo;
               $new->provider_id = $factura_compra->provider_id;
               $new->save();
-              return "retorne aqui";
             }
           }
         }

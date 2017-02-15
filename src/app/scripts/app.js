@@ -147,6 +147,11 @@ angular
         controller: 'CuentasController',
         controllerAs: 'vm'
       })
+      .when('/gananciasPerdidas', {
+        templateUrl: 'modules/ganancias_perdidas/Ganancias_perdidas.html',
+        controller: 'ganancias_perdidasController',
+        controllerAs: 'vm'
+      })
       .otherwise({
         redirectTo: '/'
       });
@@ -156,7 +161,7 @@ angular
      console.log("run");
      var rutasPrivadas= ['/','/about','/client','/user', '/profile', '/provider', '/product', '/sell', '/buy', '/receivable',
      '/payable', '/facturaVenta', '/facturaCompra', '/masVendido', '/clienteActivo', '/proveedorActivo', '/masComprado', '/bank',
-     '/mensajes','/cuentas', 'gestionCuentasController'];
+     '/mensajes','/cuentas', 'gestionCuentasController', 'gananciasPerdidas'];
      /*rutas que solo puede ver admin y super admin*/
      var rutasAdmin = ['/client', '/user', '/provider', '/product', '/facturaVenta', '/facturaCompra', '/masVendido','/clienteActivo',
       '/proveedorActivo', '/masComprado', '/bank', '/mensajes','/cuentas'];

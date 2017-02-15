@@ -58,7 +58,7 @@ angular.module('frontEndApp')
     /*Agregar Imagenes al carrousel*/
     function addSlides () {
       vm.carousel.slides = [
-        {'id':0, 'text': 'prueba', 'image': 'images/productos/cacique500.jpg'},
+        {'id':0, 'text': 'prueba', 'image': 'images/productos/cacique.jpg'},
         {'id':1, 'text': 'segundo', 'image': 'images/productos/0.jpg'},
         {'id':2, 'text': 'segundo', 'image': 'images/productos/1.jpg'},
         {'id':3, 'text': 'segundo', 'image': 'images/productos/3.jpg'},

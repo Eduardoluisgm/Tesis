@@ -1,0 +1,115 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <i style="color:blue;" class="fa fa-bar-chart"></i>
+     Ganancias y perdidas por día
+  </div>
+   <div class="panel-body">
+     <div class ="row">
+       <div class="col-md-6">
+         <h4>{{vm.showDate}}</h4>
+       </div>
+       <div class="col-md-2">
+       </div>
+       <div class="col-md-2">
+         <label>Fecha:</label>
+       </div>
+     </div>
+     <div class="row">
+       <div class="col-md-6"></div>
+       <div class="col-md-2">
+       </div>
+       <div class="col-md-2">
+         <div class="input-group">
+           <input type="text" class="form-control" uib-datepicker-popup ng-model="vm.fecha"
+           is-open="vm.open"
+           ng-required="true" close-text="Cerrar" current-text="Hoy" clear-text="Limpiar" required/>
+           <span class="input-group-btn">
+               <button type="button" class="btn btn-success" ng-click="vm.openChange()"><i class="glyphicon glyphicon-calendar"></i></button>
+           </span>
+         </div>
+       </div>
+       <div class="col-md-2">
+         <button ng-click="vm.search()" ng-disabled="vm.isLoading==true"  type="button" uib-tooltip="Buscar" class="btn btn-default">
+             <i class="fa fa-search"></i>
+         </button>
+         <button type="button" ng-if="vm.Buscar==true" ng-click="vm.reload()" uib-tooltip="Ver todos" class="btn btn-primary">
+             <i class="fa fa-refresh"></i>
+         </button>
+       </div>
+     </div>
+     <div class="row"  ng-if="vm.isLoading==true">
+       <div class="col-md-12 text-center" style="font-size:100px; margin-top:170px;">
+         <i class="fa fa-spinner fa-spin"></i>
+       </div>
+     </div>
+     <div class="row"  ng-if="vm.isLoading==false">
+       <div class="col-md-6">
+         <h4>Ingresos: <span style="color:#5cb85c">{{vm.ganancia.monto_total| currency:"Bs "}}</span></h4>
+         <div class="row">
+           <div class="col-md-3"></div>
+           <div class="col-md-6">
+             <div class="down60" ng-if="vm.listaGanancias.length>0">
+               <canvas id="doughnut" class="chart chart-doughnut"
+                  chart-data="vm.ganancia.montos" chart-labels="vm.ganancia.nombres">
+                </canvas>
+             </div>
+             <h4 ng-if="vm.listaGanancias.length==0">No se encontraron resultados</h4>
+           </div>
+           <div class="col-md-3"></div>
+         </div>
+         <div class="row" ng-if="vm.listaGanancias.length>0">
+           <div class="col-md-6">
+             <h5>Efectivo: <span style="color:#5cb85c">{{vm.ganancia.efectivo| currency:"Bs "}}</span></h5>
+           </div>
+           <div class="col-md-6">
+             <h5>Debito: <span style="color:#5cb85c">{{vm.ganancia.debito| currency:"Bs "}}</span></h5>
+           </div>
+         </div>
+         <div class="row" ng-if="vm.listaGanancias.length>0">
+           <div class="col-md-6">
+             <h5>Credito: <span style="color:#5cb85c">{{vm.ganancia.credito| currency:"Bs "}}</span></h5>
+           </div>
+           <div class="col-md-6">
+             <h5>Cheque: <span style="color:#5cb85c">{{vm.ganancia.cheque| currency:"Bs "}}</span></h5>
+           </div>
+         </div>
+
+       </div>
+       <!-- Partde de los egresos o perdidas-->
+       <div class="col-md-6">
+         <h4>Egresos: <span style="color:#c9302c">{{vm.perdida.monto_total| currency:"Bs "}}</span></h4>
+         <div class="row">
+           <div class="col-md-3"></div>
+           <div class="col-md-6">
+             <div class="down60" ng-if="vm.listaPerdidas.length>0">
+               <canvas id="doughnut" class="chart chart-doughnut"
+                  chart-data="vm.perdida.montos" chart-labels="vm.perdida.nombres">
+                </canvas>
+             </div>
+             <h4 ng-if="vm.listaPerdidas.length==0">No se encontraron resultados</h4>
+           </div>
+           <div class="col-md-3"></div>
+         </div>
+         <div class="row" ng-if="vm.listaPerdidas.length>0">
+           <div class="col-md-6">
+             <h5>Efectivo: <span style="color:#c9302c">{{vm.perdida.efectivo| currency:"Bs "}}</span></h5>
+           </div>
+           <div class="col-md-6">
+             <h5>Debito: <span style="color:#c9302c">{{vm.perdida.debito| currency:"Bs "}}</span></h5>
+           </div>
+         </div>
+         <div class="row" ng-if="vm.listaPerdidas.length>0">
+           <div class="col-md-6">
+             <h5>Credito: <span style="color:#c9302c">{{vm.perdida.credito| currency:"Bs "}}</span></h5>
+           </div>
+           <div class="col-md-6">
+             <h5>Cheque: <span style="color:#c9302c">{{vm.perdida.cheque| currency:"Bs "}}</span></h5>
+           </div>
+         </div>
+
+       </div>
+
+     </div>
+
+  </div>
+</div>

@@ -1,12 +1,22 @@
 'use strict';
 
   angular.module('frontEndApp')
+    .factory('Ganancias', Ganancias)
+    .factory('Perdidas', Perdidas)
     .factory('ClientemayoresCompras', ClientemayoresCompras)
     .factory('ClienteVolumenCompras', ClienteVolumenCompras)
     .factory('ProveedormayoresCompras', ProveedormayoresCompras)
     .factory('ProveedorVolumenCompras', ProveedorVolumenCompras)
     .factory('ProductoComprado', ProductoComprado)
     .factory('ProductoVendido', ProductoVendido);
+
+    function Ganancias (cachedResource, ApiUrl) {
+      return cachedResource(ApiUrl+'/Ganancias');
+    }
+
+    function Perdidas (cachedResource, ApiUrl) {
+      return cachedResource(ApiUrl+'/Perdidas');
+    }
 
     function ProductoVendido (cachedResource, ApiUrl) {
       return cachedResource(ApiUrl+'/ProductosMasVendido');
