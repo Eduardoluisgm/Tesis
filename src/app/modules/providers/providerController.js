@@ -108,6 +108,7 @@ angular.module('frontEndApp')
           controller: 'Provider_ProductController', /*nombre del controlador de la modal*/
           controllerAs: 'vm', /*Importante colocar esto*/
           backdrop: false,
+          size: 'lg',
           resolve: {
             origin: function () {
               return {

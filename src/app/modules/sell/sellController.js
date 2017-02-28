@@ -211,6 +211,7 @@ angular.module('frontEndApp')
       function changeClient () {
         vm.client.isLoad = false;
         vm.client.nombre = "";
+        vm.client.apellido = "";
         vm.client.cedula = "";
         console.log("cambiando el cliente");
       }
@@ -230,6 +231,7 @@ angular.module('frontEndApp')
               if (data.status=="1") { /*Esta activo el cliente*/
                 vm.client.isLoad = true;
                 vm.client.nombre = data.name;
+                vm.client.apellido = data.apellido;
                 vm.client.cedula = "";
               } else if (data.status=="0") {
                 toastr.info("El cliente esta inactivo", "Información");

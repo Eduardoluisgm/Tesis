@@ -22,7 +22,7 @@ CONTRIBUYENTE FORMAL </h4>
 <div id="project">
 <?php
 echo '<div><span>FACTURA</span>'.$factura['id'].'</div>
-      <div><span>CLIENTE</span>'.$factura['cliente']['name'].'</div>
+      <div><span>CLIENTE</span>'.$factura['cliente']['name']. " ". $factura['cliente']['apellido'].'</div>
       <div><span>CEDULA</span>'.$factura['cliente']['cedula'].'</div>
       <div><span>DIRECCION</span>'.$factura['cliente']['direccion'].'</div>';
 ?>
