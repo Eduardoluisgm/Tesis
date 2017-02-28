@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\cuentas;
+use App\cuenta_pagos;
 
 class cuentasController extends Controller
 {

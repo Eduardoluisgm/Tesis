@@ -20,8 +20,8 @@ class CreateFactCompPagos extends Migration
           $table->string('status')->default("1");
           $table->integer('factura_id')->unsigned();
           $table->foreign('factura_id')->references('id')->on('fact_comp')->onDelete('cascade')->onUpdate('cascade');
-          $table->integer('bank_id')->unsigned()->nullable();
-          $table->foreign('bank_id')->references('id')->on('bank')->onDelete('cascade')->onUpdate('cascade');
+          $table->integer('cuenta_id')->unsigned()->nullable();
+          $table->foreign('cuenta_id')->references('id')->on('cuentas')->onDelete('cascade')->onUpdate('cascade');
           $table->timestamps();
       });
     }

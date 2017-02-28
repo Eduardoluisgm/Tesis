@@ -71,7 +71,7 @@
                  </div>
                </div>
             </div>
-              <div class="col-md-12">
+              <div class="col-md-12" style="min-height: 340px;max-height: 340px;overflow-y: scroll;overflow-x: hidden;">
                 <table class="table table-striped">
                   <thead>
                     <tr>
@@ -88,8 +88,8 @@
                       <td>{{detalle.codigo}}</td>
                       <td>{{detalle.nombre}}</td>
                       <td><input class="width70" type="number" ng-mouseleave="vm.validarStock(detalle,'leave')" ng-change="vm.validarStock(detalle,'change')" ng-keypress="vm.solonumeros($event)" ng-model="detalle.cantidad" name="quantity" min="1" max="100000"></td>
-                      <td>{{detalle.precio_venta | currency:"Bs "}}</td>
-                      <td>{{detalle.cantidad*detalle.precio_venta | currency:"Bs "}}</td>
+                      <td>{{detalle.precio_costo | currency:"Bs "}}</td>
+                      <td>{{detalle.cantidad*detalle.precio_costo | currency:"Bs "}}</td>
                       <td>
                         <button
                           type="button"
@@ -105,6 +105,9 @@
                           confirm-button-type="danger"
                           cancel-button-type="default">
                             <i class="fa fa-trash-o"></i>
+                        </button>
+                        <button ng-click="vm.openEditProduct(detalle.codigo)"  type="button" uib-tooltip="Editar" class="btn btn-success up5">
+                            <i class="fa fa-pencil"></i>
                         </button>
                       </td>
                     </tr>

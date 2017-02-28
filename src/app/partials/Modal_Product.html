@@ -206,7 +206,8 @@
             <tr>
                <th>Nombre</th>
                <th>Codigo</th>
-               <th>Precio</th>
+               <th ng-if="vm.origin.origin=='sell'">Precio venta</th>
+               <th ng-if="vm.origin.origin=='buy'">Precio compra</th>
                <th>Stock</th>
                <th></th
             </tr>
@@ -215,7 +216,8 @@
             <tr ng-repeat="producto in vm.listaProductos | filter:vm.search">
               <td>{{producto.nombre}}</td>
               <td>{{producto.codigo}}</td>
-              <td>{{producto.precio_venta}}</td>
+              <td ng-if="vm.origin.origin=='sell'">{{producto.precio_venta}}</td>
+              <td ng-if="vm.origin.origin=='buy'">{{producto.precio_costo}}</td>
               <td>{{producto.stock}}</td>
               <td>
                 <button ng-click="vm.AddProduct(producto)" ng-disabled="producto.stock<1"  type="button" uib-tooltip="Agregar" class="btn btn-success">

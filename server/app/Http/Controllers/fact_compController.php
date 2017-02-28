@@ -8,6 +8,8 @@ use App\fact_comp_detalles;
 use App\fact_comp_pagos;
 use App\Product;
 use App\provider_product;
+use App\cuenta_pagos;
+use App\cuentas;
 use PDF;
 
 class fact_compController extends Controller
@@ -49,7 +51,7 @@ class fact_compController extends Controller
             $factura_detalle->precio_compra = $detalle->precio_costo;
             $factura_detalle->precio_venta = $detalle->precio_venta;
             $factura_detalle->cant = $detalle->cantidad;
-            $factura_detalle->monto_total = $detalle->cantidad*$detalle->precio_venta;
+            $factura_detalle->monto_total = $detalle->cantidad*$detalle->precio_costo;
             $factura_detalle->save();
 
             /*Sumando el stock*/
@@ -74,8 +76,9 @@ class fact_compController extends Controller
             $factura_pago->factura_id = $factura_compra->id;
             $factura_pago->tipo = $pago->tipo;
             $factura_pago->monto = $pago->monto;
-            if (isset($pago->banco_id)) {
-              $factura_pago->bank_id = $pago->banco_id;
+            if (isset($pago->cuenta_id)) {
+              $factura_pago->cuenta_id = $pago->cuenta_id;
+              $this->GuardarEgreso($factura_compra->id, $pago->cuenta_id, $pago->monto, $pago->tipo, $factura_compra->created_at);
             }
             $factura_pago->save();
           }
@@ -83,6 +86,43 @@ class fact_compController extends Controller
       }
       return $factura_compra;
     }
+
+    function GuardarEgreso ($factura_id, $cuenta_id, $monto, $tipo, $fecha) {
+      $new = new cuenta_pagos;
+      $new->tipo ="Egreso";
+      $new->cuenta_id = $cuenta_id;
+      $new->factura_id = $factura_id;
+      $new->monto = $monto;
+      $new->fecha_pago = $fecha;
+      if ($tipo=="Cheque") {
+        $new->referencia = "Cheque";
+      } else if ($tipo=="Debito") {
+        $new->referencia = "Nota debito";
+      } else if ($tipo=="Credito") {
+        $new->referencia = "Nota credito";
+      }
+      $new->save();
+      $this->actualizar_saldo($cuenta_id);
+      return $new;
+    }
+
+    function actualizar_saldo ($id) {
+     $cuenta = cuentas::find($id);
+     $cuenta->load('movimientos');
+     $saldo = 0;
+
+     foreach ($cuenta->movimientos as $movimiento) {
+       if ($movimiento->tipo=="Ingreso") {
+         $saldo = $saldo+$movimiento->monto;
+       } else {
+         $saldo = $saldo-$movimiento->monto;
+       }
+     }
+
+     $cuenta->saldo = $saldo;
+     $cuenta->save();
+     return $saldo;
+   }
 
     /*Trae todas las cuentas por pagar status = 2*/
     function Cuenta_pagar(Request $request) {
@@ -131,10 +171,13 @@ class fact_compController extends Controller
         $factura_pago->factura_id = $id;
         $factura_pago->tipo = $pago->tipo;
         $factura_pago->monto = $pago->monto;
-        if (isset($pago->banco_id)) {
-          $factura_pago->bank_id = $pago->banco_id;
+        if (isset($pago->cuenta_id)) {
+          $factura_pago->cuenta_id = $pago->cuenta_id;
         }
         $factura_pago->save();
+        if (isset($pago->cuenta_id)) {
+          $this->GuardarEgreso($id, $pago->cuenta_id, $pago->monto, $pago->tipo, $factura_pago->created_at);
+        }
       }
 
       $SumaPago = fact_comp_pagos::where('factura_id','=',$id)->sum("monto"); /*Sumo la cantidad de pagos*/
@@ -151,7 +194,11 @@ class fact_compController extends Controller
     /*eliminar factura de compra*/
     function delete ($id) {
       $factura = fact_comp::findOrFail($id);
+      $cuenta_pagos = cuenta_pagos::where('factura_id', '=', $id)->get();
       $factura->delete();
+      foreach ($cuenta_pagos as $pago) {
+        $this->actualizar_saldo($pago->cuenta_id);
+      }
       return "Eliminado";
     }
 

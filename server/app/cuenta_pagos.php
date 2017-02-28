@@ -14,6 +14,7 @@ class cuenta_pagos extends Model
       'referencia',
       'monto',
       'fecha_pago',
-      'descripcion'
+      'descripcion',
+      'factura_id'
   ];
 }

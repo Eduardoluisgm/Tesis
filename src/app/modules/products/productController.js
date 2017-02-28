@@ -167,6 +167,9 @@ angular.module('frontEndApp')
           resolve: { /*asi se pasa un parametro**/
             product_id: function () {
               return codigo;
+            },
+            origin: function () {
+              return "product";
             }
           }
         });
@@ -209,8 +212,10 @@ angular.module('frontEndApp')
   }
 
   /*Modal editar Usuario*/
-  function ProductEditController ($uibModalInstance,$q, $rootScope, product_id ,productResource, productEdit, toastr) {
+  function ProductEditController ($uibModalInstance,$q, $rootScope, product_id ,productResource, productEdit, toastr, origin) {
     var vm = this;
+    vm.origin = origin;
+    console.log("Origen "+ vm.origin);
     vm.status = "actualizar";
     vm.isloading = false;
     vm.product= [];
@@ -256,7 +261,10 @@ angular.module('frontEndApp')
           function (data) {
             vm.isloading = false;
             toastr.success("Producto actualizado correctamente", "Información");
-            $rootScope.$broadcast('changeProduct');
+            if (vm.origin=='product') {
+              $rootScope.$broadcast('changeProduct');
+            };
+
             $uibModalInstance.dismiss('cancel');
           },
           function (err) {
@@ -397,11 +405,13 @@ angular.module('frontEndApp')
   function ProductSearchController ($uibModalInstance,$q,$rootScope, origin, productActive) {
     var vm = this;
     vm.status= "buscar";
+    vm.origin = origin;
     vm.isloading = true;
     vm.search = "";
     vm.products_number = 0;
     vm.listaProductos = [];
 
+    console.log("origen modal de productos", vm.origin);
     productActive.queryFresh(
       function (data) {
       vm.listaProductos = data;
@@ -416,11 +426,11 @@ angular.module('frontEndApp')
       console.log(origin.origin);
       if (origin.origin =="sell") { /*Factura venta*/
         $rootScope.$broadcast('Sell_add_product', producto);
-        $uibModalInstance.dismiss('cancel');
+        //$uibModalInstance.dismiss('cancel');
       }
       if (origin.origin =="buy") { /*Factura compra*/
         $rootScope.$broadcast('Buy_add_product', producto);
-        $uibModalInstance.dismiss('cancel');
+        //$uibModalInstance.dismiss('cancel');
       }
     }
 

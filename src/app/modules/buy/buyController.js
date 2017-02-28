@@ -11,6 +11,7 @@ angular.module('frontEndApp')
     vm.deleteDetail = deleteDetail;
     vm.openCreate = openCreate;
     vm.open_add_pago = open_add_pago;
+    vm.openEditProduct = openEditProduct;
     vm.backBuy = backBuy;
     vm.pagar = pagar;
     vm.facturar = facturar;
@@ -165,6 +166,7 @@ angular.module('frontEndApp')
         animation: true,
         templateUrl: 'partials/Modal_Pago_Venta.html',
         controller: 'sellAddPayController',
+        size: 'lg',
         controllerAs: 'vm',
         backdrop: false,
         resolve: {
@@ -175,6 +177,25 @@ angular.module('frontEndApp')
               'cancelado': vm.factura.cancelado,
               'listapagos': vm.listapagos
             };
+          }
+        }
+      });
+    }
+
+    function openEditProduct (codigo){
+      console.log("ver informacion ", codigo);
+      var modalInstance = $uibModal.open({
+        animation: true,
+        templateUrl: 'partials/Modal_Product.html', /*Llamo al template donde usare lamodal*/
+        controller: 'ProductEditController', /*nombre del controlador de la modal*/
+        controllerAs: 'vm',
+        backdrop: false,
+        resolve: { /*asi se pasa un parametro**/
+          product_id: function () {
+            return codigo;
+          },
+          origin: function () {
+            return "buy";
           }
         }
       });
@@ -403,7 +424,7 @@ angular.module('frontEndApp')
       vm.factura.total = 0;
       vm.factura.cancelado = 0;
       vm.detalles_factura.forEach(function(detalle){
-         vm.factura.total = vm.factura.total + (detalle.cantidad*detalle.precio_venta);
+         vm.factura.total = vm.factura.total + (detalle.cantidad*detalle.precio_costo);
       })
       vm.listapagos.forEach(function (pago){
         vm.factura.cancelado = vm.factura.cancelado + pago.monto;

@@ -45,8 +45,8 @@
                   <tr ng-repeat="product in vm.listaProductos" ng-class="{'border-red':product.stock<=product.min_stock}">
                   <td> {{product.codigo}}</td>
                   <td> {{product.nombre}}</td>
-                  <td> {{product.precio_costo}}</td>
-                  <td> {{product.precio_venta}}</td>
+                  <td> {{product.precio_costo | currency:"Bs "}}</td>
+                  <td> {{product.precio_venta | currency:"Bs "}}</td>
                   <td> {{product.stock}}</td>
                   <td class="text-center">{{product.max_stock}}</td>
                   <td class="text-center">{{product.min_stock}}</td>

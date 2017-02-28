@@ -88,6 +88,7 @@ angular.module('frontEndApp')
         templateUrl: 'partials/Modal_Cuentas_Pagar.html', /*Llamo al template donde usare lamodal*/
         controller: 'receivablePayController', /*nombre del controlador de la modal*/
         controllerAs: 'vm',
+        size: 'lg',
         backdrop: false,
         resolve: {
           origin: function () {
@@ -129,22 +130,23 @@ angular.module('frontEndApp')
     });
    }
 
-   function receivablePayController ($uibModalInstance,$q,bankActive,$rootScope, origin, toastr, factura_venta_pagos, factura_compra_pagos) {
+   function receivablePayController ($uibModalInstance,$q,bankActive,$rootScope, origin, toastr, factura_venta_pagos,cuentaBanco,factura_compra_pagos) {
      var vm = this;
      vm.isloading = false;
      vm.listaPagos = [];
-     vm.ListType = {
-       'lista': [{'id':"Efectivo", 'name' : 'Efectivo'},{'id':"Debito", 'name' : 'Debito'},{'id':"Credito", 'name' : 'Credito'}],
-       'tipo': "Efectivo"
-     };
      vm.bank = {
        'id':"",
        'list': []
-     }
+     };
+     /*lista de cuentas para cuando estamos comprando*/
+     vm.cuenta = {
+       'id':"",
+       'list':[]
+     };
+     vm.origin = origin;
      vm.pago = 0;
      vm.total = 0;
      vm.cancelado = 0;
-     loadBanks();
 
      function loadBanks() {
        bankActive.queryFresh(
@@ -155,17 +157,38 @@ angular.module('frontEndApp')
        )
      }
 
+     function loadCuentas() {
+       cuentaBanco.queryFresh(
+         function success (data) {
+           vm.cuenta.list = data;
+           console.log("Lista de cuentas ", vm.listaCuentas);
+         }, function error (err) {
+
+         }
+       );
+     }
+
+
      if (origin.origin=="cuentas_cobrar") {
        vm.total = parseFloat(origin.total);
        vm.cancelado = parseFloat(origin.cancelado);
        vm.diferencia = vm.total - vm.cancelado;
+       vm.ListType = {
+         'lista': [{'id':"Efectivo", 'name' : 'Efectivo'},{'id':"Debito", 'name' : 'Debito'},{'id':"Credito", 'name' : 'Credito'}],
+         'tipo': "Efectivo"
+       };
+       loadBanks();
      }
      if (origin.origin=="cuentas_pagar") {
        vm.total = parseFloat(origin.total);
        vm.cancelado = parseFloat(origin.cancelado);
        vm.diferencia = vm.total - vm.cancelado;
+       vm.ListType = {
+         'lista': [{'id':"Efectivo", 'name' : 'Efectivo'},{'id':"Debito", 'name' : 'Debito'},{'id':"Credito", 'name' : 'Credito'},{'id':"Cheque", 'name' : 'Cheque'}],
+         'tipo': "Efectivo"
+       };
+       loadCuentas();
      }
-     console.log(origin);
 
      vm.deletePago = function (pago) {
        console.log("eliminando pago");
@@ -183,30 +206,43 @@ angular.module('frontEndApp')
            toastr.info ('El monto cancelado no debe exceder el monto total');
            return;
          }
-         console.log("tipo de pago "+ vm.ListType.tipo);
          if (vm.ListType.tipo=="Efectivo") {
            vm.listaPagos.push({
              'tipo': vm.ListType.tipo,
              'monto': vm.pago
            })
          } else {
-           if (!vm.bank.id) {
-             toastr.info ('Seleccione un banco');
-             return;
-           }
-           var banco_name = "";
-           vm.bank.list.forEach(function(banco){
-             console.log(banco);
-             if (banco.id==vm.bank.id) {
-               banco_name = banco.nombre;
+           if (vm.origin.origin=="cuentas_cobrar") {
+             if (!vm.bank.id) {
+               toastr.info ('Seleccione un banco');
+               return;
              }
-           });
-           vm.listaPagos.push({
-             'tipo': vm.ListType.tipo,
-             'monto': vm.pago,
-             'banco_id': vm.bank.id,
-             'banco_name': banco_name
-           });
+             var banco_name = "";
+             vm.bank.list.forEach(function(banco){
+               console.log(banco);
+               if (banco.id==vm.bank.id) {
+                 banco_name = banco.nombre;
+               }
+             });
+             vm.listaPagos.push({
+               'tipo': vm.ListType.tipo,
+               'monto': vm.pago,
+               'banco_id': vm.bank.id,
+               'banco_name': banco_name
+             });
+           }
+           if (vm.origin.origin=="cuentas_pagar") {
+             if (!vm.cuenta.id) {
+               toastr.info ('Seleccione una cuenta');
+               return;
+             }
+             vm.listaPagos.push({
+               'tipo': vm.ListType.tipo,
+               'monto': vm.pago,
+               'cuenta_id': vm.cuenta.id
+             });
+           }
+
          }
          console.log("lista de pagos ", vm.listaPagos);
          vm.calcular();

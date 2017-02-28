@@ -43,6 +43,7 @@
                    <th>Monto</th>
                    <th>Fecha</th>
                    <th>Descripción</th>
+                   <th>Factura Compra</th>
                 </tr>
               </thead>
               <tbody>
@@ -56,7 +57,11 @@
                       {{movimiento.descripcion > 35 ? '..' : ''}}
                     </td>
                     <td>
+                      {{movimiento.factura_id}}
+                    </td>
+                    <td>
                       <button
+                        ng-if="movimiento.factura_id==null"
                         type="button"
                         uib-tooltip="Eliminar cuenta"
                         class="btn btn-danger"

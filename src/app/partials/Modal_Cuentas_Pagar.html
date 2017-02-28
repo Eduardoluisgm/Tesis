@@ -6,7 +6,8 @@
   <div class="modal-body" style="min-height:350px;">
     <div class="row">
       <div class="col-md-3">
-        <label>Banco: </label>
+        <label ng-if="vm.origin.origin=='cuentas_cobrar'">Banco: </label>
+        <label ng-if="vm.origin.origin=='cuentas_pagar'">Cuenta: </label>
       </div>
       <div class="col-md-3">
         <label>Método de pago: </label>
@@ -16,10 +17,16 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-3">
+      <div class="col-md-3" ng-if="vm.origin.origin=='cuentas_cobrar'">
         <select ng-disabled="vm.ListType.tipo=='Efectivo'" class="form-control" ng-model="vm.bank.id" ng-options="banco.id as banco.nombre for banco in vm.bank.list" required>
           <option value="">Seleccione</option>
           <option>banco.nombre</option>
+        </select>
+      </div>
+      <div class="col-md-3" ng-if="vm.origin.origin=='cuentas_pagar'">
+        <select ng-disabled="vm.ListType.tipo=='Efectivo'" class="form-control" ng-model="vm.cuenta.id"  ng-options="cuenta.id as cuenta.numero group by cuenta.bank.nombre for cuenta in vm.cuenta.list" required>
+          <option value="">Seleccione la cuenta</option>
+          <option>{{cuenta.numero}}</option>
         </select>
       </div>
       <div class="col-md-3">
@@ -44,14 +51,14 @@
             <tr>
                <th>Tipo</th>
                <th>Monto</th>
-               <th>Banco</th>
+               <th ng-if="vm.origin.origin=='cuentas_cobrar'">Banco</th>
             </tr>
           </thead>
           <tbody>
             <tr ng-repeat="pago in vm.listaPagos">
               <td>{{pago.tipo}}</td>
               <td>{{pago.monto | currency:"Bs "}}</td>
-              <td>{{pago.banco_name}}</td>
+              <td ng-if="vm.origin.origin=='cuentas_cobrar'">{{pago.banco_name}}</td>
               <td>
                 <button
                   type="button"
