@@ -1,0 +1,92 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <i style="color:red;" class="fa fa-bar-chart"></i>
+     Impuesto sobre la renta
+  </div>
+   <div class="panel-body">
+     <form ng-submit="vm.calcularImpuesto()">
+       <div class="row">
+         <div class="col-md-4"></div>
+         <div class="col-md-2">
+          <label>Año</label>
+         </div>
+         <div class="col-md-2">
+           <label>Gastos Operativos</label>
+         </div>
+         <div class="col-md-2">
+           <label>Unidad Tributaria</label>
+         </div>
+         <div class="col-md-2">
+         </div>
+       </div>
+       <div class="row">
+         <div class="col-md-4"></div>
+         <div class="col-md-2">
+           <select class="form-control" ng-model="vm.impuesto.year" ng-options="fecha.id as fecha.year for fecha in vm.impuesto.listYear" required>
+             <option value="">Seleccione</option>
+             <option>{{cuenta.numero}}</option>
+           </select>
+         </div>
+         <div class="col-md-2">
+           <input class="form-control" type="text" ng-change="vm.changePrecio()"
+            maxlength="25" ng-model="vm.impuesto.Gastos_operativos" ng-currency currency-symbol="Bs " ng-keypress="vm.solonumeros($event)" required/>
+         </div>
+         <div class="col-md-2">
+           <input class="form-control" type="text" ng-change="vm.changePrecio()"
+            maxlength="25" ng-model="vm.impuesto.unidad_tributaria" ng-currency currency-symbol="Bs " ng-keypress="vm.solonumeros($event)" required/>
+         </div>
+         <div class="col-md-2">
+           <button ng-disabled="vm.isLoading==true"  type="submit" uib-tooltip="Buscar" class="btn btn-default">
+               <i class="fa fa-search"></i>
+           </button>
+         </div>
+       </div>
+      </form>
+      <!--Parte inferior a la busqueda donde se muestra resultados-->
+      <div>
+        <div class="row">
+          <div class="col-md-4">
+            <h5>Ventas: <span style="color:#5cb85c">{{vm.Ganancia| currency:"Bs "}}</span> </h5>
+          </div>
+          <div class="col-md-4">
+            <h5>Compras: <span style="color:#5cb85c">{{vm.Perdida| currency:"Bs "}}</span> </h5>
+          </div>
+          <div class="col-md-4">
+            <h5>Inventario Inicial: <span style="color:#5cb85c"> {{vm.inventario_inicial.monto | currency:"Bs "}} </span></h5>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <h5>Inventario Final: <span style="color:#5cb85c"> {{vm.inventario_final.monto | currency:"Bs "}} </span></h5>
+          </div>
+          <div class="col-md-4">
+            <h5>Costo de venta: <span style="color:#5cb85c"> {{vm.costo_venta | currency:"Bs "}} </span></h5>
+          </div>
+          <div class="col-md-4">
+            <h5>Utilidad Bruta: <span style="color:#5cb85c"> {{vm.utilidad_bruta | currency:"Bs "}}</span></h5>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+              <h5>Utilidad o perdida del ejercicio: <span style="color:#5cb85c"> {{vm.utilidad_neta| currency:"Bs "}}</span></h5>
+            </div>
+            <div class="col-md-4">
+              <h5>Renta gravable: <span style="color:#5cb85c"> {{vm.renta_gravable| currency:"Bs "}}</span></h5>
+            </div>
+            <div class="col-md-4">
+              <h5>Unidades Tributarias: <span style="color:#5cb85c"> {{vm.unidades_tributarias| currency:"UT "}}</span></h5>
+            </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <h5>Impuesto Sobre la Renta: <span style="color:#5cb85c"> {{vm.impuesto_renta | currency:"Bs "}} </span></h5>
+          </div>
+        </div>
+        <div class="row" ng-if="vm.renta_gravable<0">
+          <div class="col-md-12">
+            <h2 style="text-align: center">Cuando la renta gravable es negativa no se paga impuestos</h2>
+          </div>
+        </div>
+      </div>
+   </div>
+</div>

@@ -44,6 +44,11 @@ Route::group(['middleware' => 'cors'], function (){
     Route::post('cuentas_pagos/{cuenta_id}', 'cuenta_pagosController@Save');
     Route::delete('cuentas_pagos/{id}', 'cuenta_pagosController@delete');
 
+
+    /*Inventario*/
+    Route::get('inventario', 'inventarioController@saveInventario');
+    Route::get('inventario/fecha', 'inventarioController@getbyYear');
+
     /*Facturas de venta*/
     Route::get('factura_venta', 'fact_ventController@AllSale');
     Route::get('factura_venta/{id}/pdf', 'fact_ventController@FacturaPdf');

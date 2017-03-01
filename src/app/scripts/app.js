@@ -152,6 +152,12 @@ angular
         controller: 'ganancias_perdidasController',
         controllerAs: 'vm'
       })
+      .when('/impuestoRenta', {
+        templateUrl: 'modules/reporte-ImpuestoRenta/impuestoRenta.html',
+        controller: 'impuestoRentaController',
+        controllerAs: 'vm'
+      })
+
       .otherwise({
         redirectTo: '/'
       });
@@ -161,7 +167,7 @@ angular
      console.log("run");
      var rutasPrivadas= ['/','/about','/client','/user', '/profile', '/provider', '/product', '/sell', '/buy', '/receivable',
      '/payable', '/facturaVenta', '/facturaCompra', '/masVendido', '/clienteActivo', '/proveedorActivo', '/masComprado', '/bank',
-     '/mensajes','/cuentas', 'gestionCuentasController', 'gananciasPerdidas'];
+     '/mensajes','/cuentas', 'gestionCuentasController', 'gananciasPerdidas','impuestoRenta'];
      /*rutas que solo puede ver admin y super admin*/
      var rutasAdmin = ['/client', '/user', '/provider', '/product', '/facturaVenta', '/facturaCompra', '/masVendido','/clienteActivo',
       '/proveedorActivo', '/masComprado', '/bank', '/mensajes','/cuentas'];
