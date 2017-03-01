@@ -11,7 +11,8 @@
 <h1>FACTURA NO-FISCAL</h1>
 <h4> 
 V-016328118  <br> 
-COMERCIAL CAGÜITA, F.P.  <br> 
+
+"COMERCIAL CAGÜITA", F.P.  <br> 
 OTILIA SALAZAR <br> 
 CALLE: FINAL CALLE EL ROSARIO <br>
 CASA NRO S/N SECTOR EL GUAMACHE  <br>
@@ -75,7 +76,6 @@ echo '<div><span>FACTURA</span>'.$factura['id'].'</div>
       <table>
         <thead>
           <tr>
-            <th class="service">NUMERO</th>
             <th class="desc">TIPO</th>
             <th>MONTO</th>
             <th>FECHA-HORA</th>
@@ -86,7 +86,6 @@ echo '<div><span>FACTURA</span>'.$factura['id'].'</div>
  foreach ($factura->pagos as $factura->pago) {
     echo '<tbody>
           <tr>
-          <td class="service">'.$factura->pago['id'].'</td>
           <td class="desc">'.$factura->pago['tipo'].'</td>
           <td class="unit">'.$factura->pago['monto'].'</td>
           <td class="qty">'.$factura->pago['created_at'].'</td>

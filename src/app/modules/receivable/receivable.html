@@ -27,6 +27,7 @@
                  <th>Identificador</th>
                  <th>Total</th>
                  <th>Cancelado</th>
+                 <th>Diferencia</th>
                  <th>Fecha</th>
               </tr>
             </thead>
@@ -37,6 +38,7 @@
                   <td> {{cuenta.cliente.name}}</td>
                   <td> {{cuenta.cliente.cedula}}</td>
                   <td> {{cuenta.monto_total | currency:"Bs "}}</td>
+                  <td> {{cuenta.monto_total-cuenta.monto_cancelado | currency:"Bs "}}</td>
                   <td> {{cuenta.monto_cancelado | currency:"Bs "}}</td>
                   <td> {{cuenta.created_at}}</td>
                   <td>
