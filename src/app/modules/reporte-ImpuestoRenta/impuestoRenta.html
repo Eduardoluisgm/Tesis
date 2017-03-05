@@ -43,7 +43,12 @@
        </div>
       </form>
       <!--Parte inferior a la busqueda donde se muestra resultados-->
-      <div>
+      <div class="row" ng-if="vm.isLoading==true">
+        <div class="col-md-12 text-center" style="font-size:100px" >
+          <i class="fa fa-spinner fa-spin"></i>
+        </div>
+      </div>
+      <div ng-if="vm.isLoading==false && vm.isLoaded==true">
         <div class="row">
           <div class="col-md-4">
             <h5>Ventas: <span style="color:#5cb85c">{{vm.Ganancia| currency:"Bs "}}</span> </h5>
@@ -68,24 +73,58 @@
         </div>
         <div class="row">
             <div class="col-md-4">
-              <h5>Utilidad o perdida del ejercicio: <span style="color:#5cb85c"> {{vm.utilidad_neta| currency:"Bs "}}</span></h5>
+              <h5>Utilidad o perdida del ejercicio:
+                <span style="color:#5cb85c" ng-if="vm.utilidad_neta>=0"> {{vm.utilidad_neta| currency:"Bs "}}</span>
+                <span style="color:#c9302c" ng-if="vm.utilidad_neta<0"> {{vm.utilidad_neta| currency:"Bs "}}</span>
+              </h5>
             </div>
             <div class="col-md-4">
-              <h5>Renta gravable: <span style="color:#5cb85c"> {{vm.renta_gravable| currency:"Bs "}}</span></h5>
+              <h5>Renta gravable:
+                <span style="color:#5cb85c" ng-if="vm.renta_gravable>=0"> {{vm.renta_gravable| currency:"Bs "}}</span>
+                <span style="color:#c9302c" ng-if="vm.renta_gravable<0"> {{vm.renta_gravable| currency:"Bs "}}</span>
+              </h5>
             </div>
             <div class="col-md-4">
-              <h5>Unidades Tributarias: <span style="color:#5cb85c"> {{vm.unidades_tributarias| currency:"UT "}}</span></h5>
+              <h5>Unidades Tributarias:
+                <span style="color:#5cb85c" ng-if="vm.unidades_tributarias>=0"> {{vm.unidades_tributarias| currency:"UT "}}</span>
+                <span style="color:#c9302c" ng-if="vm.unidades_tributarias<0"> {{vm.unidades_tributarias| currency:"UT "}}</span>
+              </h5>
             </div>
         </div>
         <div class="row">
-          <div class="col-md-4">
-            <h5>Impuesto Sobre la Renta: <span style="color:#5cb85c"> {{vm.impuesto_renta | currency:"Bs "}} </span></h5>
+          <div class="col-md-12">
+            <h3>Impuesto Sobre la Renta:
+              <span style="color:#5cb85c" ng-if="vm.impuesto_renta>=0"> {{vm.impuesto_renta | currency:"Bs "}} </span>
+              <span style="color:#c9302c" ng-if="vm.impuesto_renta<0"> {{vm.impuesto_renta | currency:"Bs "}} </span>
+            </h3>
           </div>
         </div>
         <div class="row" ng-if="vm.renta_gravable<0">
           <div class="col-md-12">
             <h2 style="text-align: center">Cuando la renta gravable es negativa no se paga impuestos</h2>
           </div>
+        </div>
+        <div class="row" ng-if="vm.renta_gravable>=0">
+          <div class="col-md-1"></div>
+          <div class="col-md-10">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                   <th>Impuesto</th>
+                   <th>Porcentaje</th>
+                   <th>Sustraendo en UT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="impuesto in vm.listaImpuestos" ng-class="{'border-red':vm.unidades_tributarias>=impuesto.min && vm.unidades_tributarias <=impuesto.max}">
+                  <td>{{impuesto.texto}}</td>
+                  <td>{{impuesto.porcentaje}}%</td>
+                  <td>{{impuesto.sustraendo}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-1"></div>
         </div>
       </div>
    </div>

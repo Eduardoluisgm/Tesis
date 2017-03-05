@@ -1,6 +1,7 @@
 .panel {
   min-height: 600px;
-  margin-left: 16.5%;
+  /*margin-left: 16.5%;*/
+  margin-left: 224px;
   margin-top: 50px;
 }
 

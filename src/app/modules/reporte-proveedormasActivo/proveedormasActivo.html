@@ -19,7 +19,7 @@
          <div class="input-group">
            <input type="text" class="form-control" uib-datepicker-popup ng-model="vm.fechas.inicio"
            is-open="vm.openInicio"
-           ng-required="true" close-text="Cerrar" required/>
+           ng-required="true" close-text="Cerrar" current-text="Hoy" clear-text="Limpiar" required/>
            <span class="input-group-btn">
                <button type="button" class="btn btn-success" ng-click="vm.open_fecha_inicio()"><i class="glyphicon glyphicon-calendar"></i></button>
            </span>
@@ -29,7 +29,7 @@
          <div class="input-group">
            <input type="text" class="form-control" uib-datepicker-popup ng-model="vm.fechas.final"
            is-open="vm.openFinal"
-           ng-required="true" close-text="Cerrar" required/>
+           ng-required="true" close-text="Cerrar" current-text="Hoy" clear-text="Limpiar" required/>
            <span class="input-group-btn">
                <button type="button" class="btn btn-success" ng-click="vm.open_fecha_final()"><i class="glyphicon glyphicon-calendar"></i></button>
            </span>

@@ -265,6 +265,9 @@ angular.module('frontEndApp')
             if (vm.origin=='product') {
               $rootScope.$broadcast('changeProduct');
             };
+            if (vm.origin=='buy') {
+              $rootScope.$broadcast('Buy_edit_product',{'product':data});
+            }
 
             $uibModalInstance.dismiss('cancel');
           },

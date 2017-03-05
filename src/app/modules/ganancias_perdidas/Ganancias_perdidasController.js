@@ -28,15 +28,17 @@ angular.module('frontEndApp')
         'credito': 0
       };
       vm.isLoading = false;
-      vm.fecha = new Date();
+      vm.fecha_final = new Date();
+      vm.fecha_inicio = new Date();
       vm.open = false;
+      vm.open2 = false;
       cargar();
 
 
       function cargar() {
         vm.isLoading = true;
-        var fecha_inicio = moment(vm.fecha).format('YYYY-MM-DD HH:mm');
-        var fecha_final = moment(vm.fecha).format('YYYY-MM-DD HH:mm');
+        var fecha_inicio = moment(vm.fecha_inicio).format('YYYY-MM-DD HH:mm');
+        var fecha_final = moment(vm.fecha_final).format('YYYY-MM-DD HH:mm');
         /*colocando la hora de inicio a las 0 horas*/
         fecha_inicio = moment(fecha_inicio).set('hour', 0);
         fecha_inicio = moment(fecha_inicio).set('minute', 0);
@@ -53,7 +55,7 @@ angular.module('frontEndApp')
           'fecha_final': fecha_final
         })
 
-        vm.showDate = moment(vm.fecha).format('YYYY-MM-DD');
+        vm.showDate = moment(vm.fecha_inicio).format('YYYY-MM-DD') +" - "+ moment(vm.fecha_final).format('YYYY-MM-DD');
 
         $q.all([Gana.$promise, perde.$promise]).then(function (data){
           vm.isLoading = false;
@@ -116,8 +118,11 @@ angular.module('frontEndApp')
       };
 
       function search () {
-        console.log(vm.fecha);
-        if (typeof(vm.fecha)!='undefined') {
+        if (typeof(vm.fecha_inicio)!='undefined' && typeof(vm.fecha_final)!='undefined') {
+          if (vm.fecha_inicio>vm.fecha_final) {
+            toastr.warning("La fecha final debe ser mayor a la inicial");
+            return;
+          }
           vm.ganancia = {
             'monto_total': 0,
             'nombres': ['Cheque', 'Efectivo', 'Credito', 'Debito'],
@@ -142,5 +147,10 @@ angular.module('frontEndApp')
 
       vm.openChange = function() {
         vm.open = !vm.open;
+      };
+
+      vm.openChange2 = function() {
+        console.log(" a" + vm.open2);
+        vm.open2 = !vm.open2;
       };
   }

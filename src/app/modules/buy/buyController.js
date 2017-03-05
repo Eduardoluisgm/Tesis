@@ -455,6 +455,17 @@ angular.module('frontEndApp')
         console.log("proveedor ", vm.provider);
     });
 
+    $rootScope.$on('Buy_edit_product', function (event, data) {
+      vm.detalles_factura.forEach(function(detalle){
+        if (detalle.codigo==data.product.data.codigo) {
+          detalle.precio_costo = data.product.data.precio_costo;
+          detalle.precio_venta = data.product.data.precio_venta;
+        }
+      });
+      countTotal();
+      console.log(data.product.data);
+    });
+
     $rootScope.$on('Buy_add_provider', function (event, data) {
       console.log("Agregando Proveedor ",data);
       vm.provider.isLoad = true;
@@ -480,11 +491,7 @@ angular.module('frontEndApp')
       vm.detalles_factura.forEach(function (detalle){
           if (detalle.codigo==data.codigo) {
             bandera = true;
-            if (detalle.cantidad < detalle.stock) {
-              detalle.cantidad ++;
-            } else {
-              toastr.warning("El stock del producto es de: " +detalle.stock,"Advertencia");
-            }
+            detalle.cantidad ++;
           }
       });
       if (!bandera) {

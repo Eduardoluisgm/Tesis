@@ -26,6 +26,19 @@ angular.module('frontEndApp')
       vm.impuesto_renta = 0;
       vm.Ganancia = 0;
       vm.Perdida = 0;
+      vm.isLoading = false;
+      vm.isLoaded = false;
+
+      vm.listaImpuestos = [
+        {'texto': 'Por la fracción comprendida hasta 1000UT', 'porcentaje': 6, 'sustraendo': 0, 'min':0, 'max':1000},
+        {'texto': 'Por la fracción que exceda de 1000UT hasta 1500UT', 'porcentaje': 9, 'sustraendo': 30 , 'min':1001, 'max':1500},
+        {'texto': 'Por la fracción que exceda de 1501UT hasta 2000UT', 'porcentaje': 12, 'sustraendo': 75 , 'min':1501, 'max':2000},
+        {'texto': 'Por la fracción que exceda de 2001UT hasta 2500UT', 'porcentaje': 16, 'sustraendo': 155 , 'min':2001, 'max':2500},
+        {'texto': 'Por la fracción que exceda de 2501UT hasta 3000UT', 'porcentaje': 20, 'sustraendo': 255 , 'min':2501, 'max':3000},
+        {'texto': 'Por la fracción que exceda de 3001UT hasta 4000UT', 'porcentaje': 24, 'sustraendo': 375 , 'min':3001, 'max':4000},
+        {'texto': 'Por la fracción que exceda de 4001UT hasta 6000UT', 'porcentaje': 29, 'sustraendo': 575 , 'min':4001, 'max':6000},
+        {'texto': 'Por la fracción que exceda de 6001UT', 'porcentaje': 34, 'sustraendo': 875, 'min':6001, 'max':990000000000000}
+      ]
 
       restarFechas();
 
@@ -57,7 +70,7 @@ angular.module('frontEndApp')
           'year':vm.impuesto.year+1
         })
 
-
+        vm.isLoading = true;
 
 
         $q.all([Gana.$promise, perde.$promise, Year_inicio.$promise, Year_final.$promise]).then(function (data){
@@ -70,6 +83,7 @@ angular.module('frontEndApp')
           vm.costo_venta = 0;
           if (typeof(vm.inventario_final.monto)=='undefined') {
             toastr.warning("El inventario del año: " +(vm.impuesto.year+1)+" no se encuentra registrado");
+            vm.isLoading = false;
             return;
           }
 
@@ -118,6 +132,8 @@ angular.module('frontEndApp')
             vm.impuesto_renta = vm.renta_gravable*0.34-((875+10)*vm.impuesto.unidad_tributaria);
           }
 
+          vm.isLoading = false;
+          vm.isLoaded = true;
           console.log("Utilidad Bruta "+ vm.utilidad_bruta);
         });
         console.log(fecha_inicio + " fecha final "+ fecha_final);

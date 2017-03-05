@@ -9,18 +9,26 @@
          <h4>{{vm.showDate}}</h4>
        </div>
        <div class="col-md-2">
+         <label>Fecha inicio:</label>
        </div>
        <div class="col-md-2">
-         <label>Fecha:</label>
+         <label>Fecha final:</label>
        </div>
      </div>
      <div class="row">
        <div class="col-md-6"></div>
        <div class="col-md-2">
+         <div class="input-group">
+           <input type="text" class="form-control" uib-datepicker-popup ng-model="vm.fecha_inicio" is-open="vm.open2"
+           ng-required="true" close-text="Cerrar" current-text="Hoy" clear-text="Limpiar" required/>
+           <span class="input-group-btn">
+               <button type="button" class="btn btn-success" ng-click="vm.openChange2()"><i class="glyphicon glyphicon-calendar"></i></button>
+           </span>
+         </div>
        </div>
        <div class="col-md-2">
          <div class="input-group">
-           <input type="text" class="form-control" uib-datepicker-popup ng-model="vm.fecha"
+           <input type="text" class="form-control" uib-datepicker-popup ng-model="vm.fecha_final"
            is-open="vm.open"
            ng-required="true" close-text="Cerrar" current-text="Hoy" clear-text="Limpiar" required/>
            <span class="input-group-btn">
