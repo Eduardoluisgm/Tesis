@@ -26,7 +26,7 @@
                  <th>Cliente</th>
                  <th>Identificador</th>
                  <th>Total</th>
-                 <th>Cancelado</th>
+                 <th>Cobrado</th>
                  <th>Diferencia</th>
                  <th>Fecha</th>
               </tr>
@@ -38,8 +38,8 @@
                   <td> {{cuenta.cliente.name}}</td>
                   <td> {{cuenta.cliente.cedula}}</td>
                   <td> {{cuenta.monto_total | currency:"Bs "}}</td>
-                  <td> {{cuenta.monto_total-cuenta.monto_cancelado | currency:"Bs "}}</td>
                   <td> {{cuenta.monto_cancelado | currency:"Bs "}}</td>
+                  <td> {{cuenta.monto_total-cuenta.monto_cancelado | currency:"Bs "}}</td>
                   <td> {{cuenta.created_at}}</td>
                   <td>
                     <button ng-click="vm.openCobrar(cuenta)"  type="button" uib-tooltip="Realizar Pagos" class="btn btn-success">
@@ -55,7 +55,10 @@
        </div>
      </div>
      <div class="row">
-       <div class="col-md-12">
+       <div class="col-md-4">
+         <h4>Total a cobrar {{vm.total_cobrar | currency:"Bs "}}</h4>
+       </div>
+       <div class="col-md-8">
          <div class="pull-right">
            <ul uib-pagination total-items="vm.pagination.total" ng-model="vm.pagination.current_page" max-size="5"
            class="pagination-sm" ng-change="vm.changePage(vm.pagination.current_page)" boundary-links="true" force-ellipses="true" items-per-page="vm.pagination.per_page"

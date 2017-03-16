@@ -12,7 +12,8 @@ class fact_comp extends Model
       'monto_cancelado',
       'status',
       'provider_id',
-      'fecha_pago'
+      'fecha_pago',
+      'descripcion'
   ];
 
   public function proveedor() {

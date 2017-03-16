@@ -3,7 +3,7 @@
 angular.module('frontEndApp')
   .controller('productomasVendidoController', productomasVendidoController);
 
-  function productomasVendidoController ($log,profile, $q, authUser,$rootScope,toastr, userUpdate, ProductoVendido) {
+  function productomasVendidoController ($log,profile, $q, authUser,$rootScope,toastr, userUpdate, ProductoVendido, productCategory) {
       var vm = this;
       vm.listProduct = [];
       vm.search = search;
@@ -14,6 +14,8 @@ angular.module('frontEndApp')
         'inicio': new Date(),
         'final': new Date()
       }
+      vm.category_id = "";
+      vm.listCategory = [];
       vm.openInicio = false;
       vm.openFinal = false;
       vm.product = {
@@ -22,6 +24,13 @@ angular.module('frontEndApp')
       }
       vm.cantidades = [];
       cargar();
+
+      productCategory.queryFresh(
+        function success (data){
+          vm.listCategory = data;
+        }, function error(err) {
+      });
+
 
       function cargar() {
         vm.isLoading=true;
@@ -42,6 +51,7 @@ angular.module('frontEndApp')
       function reload() {
         console.log("estoy recargando ");
         vm.Buscar = false;
+        vm.category_id = "";
         cargar();
       }
 
@@ -76,11 +86,22 @@ angular.module('frontEndApp')
         fecha_final = moment(fecha_final).set('hour', 23);
         fecha_final = moment(fecha_final).set('minute', 59);
         fecha_final = moment(fecha_final).format('YYYY-MM-DD HH:mm');
-        var products = ProductoVendido.queryFresh({
-          'search': true,
-          'fecha_inicio': fecha_inicio,
-          'fecha_final': fecha_final
-        });
+        console.log("categoria "+ vm.category_id);
+        if (typeof(vm.category_id)=='undefined') {
+          var products = ProductoVendido.queryFresh({
+            'search': true,
+            'fecha_inicio': fecha_inicio,
+            'fecha_final': fecha_final
+          });
+        } else {
+          var products = ProductoVendido.queryFresh({
+            'search': true,
+            'fecha_inicio': fecha_inicio,
+            'fecha_final': fecha_final,
+            'category_id': vm.category_id
+          });
+        }
+
         $q.all([products.$promise]).then(function (data){
           vm.Buscar = true;
           vm.listProduct = data[0];

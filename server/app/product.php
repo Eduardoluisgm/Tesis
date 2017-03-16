@@ -18,10 +18,15 @@ class Product extends Model
       'descripcion',
       'marca',
       'min_stock',
-      'max_stock'
+      'max_stock',
+      'category_id'
   ];
 
   public function providers() {
     return $this->belongsToMany('App\provider', 'provider_product');
+  }
+
+  public function category () {
+    return $this->belongsTo('App\category_product');
   }
 }

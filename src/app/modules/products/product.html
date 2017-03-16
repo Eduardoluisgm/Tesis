@@ -32,8 +32,8 @@
               <tr>
                  <th>Codigo     </th>
                  <th>Nombre   </th>
-                 <th>Precio costo</th>
-                 <th>Precio venta</th>
+                 <th>Precio costo (Bs)</th>
+                 <th>Precio venta (Bs)</th>
                  <th>stock</th>
                  <th class="text-center">stock Máximo</th>
                  <th class="text-center">stock Mínimo</th>
@@ -42,11 +42,26 @@
             </thead>
             <tbody>
               <!--No te lo mostraba xq escribiste Provider con P mayuscula y lo declaraste en miniscula -->
-                  <tr ng-repeat="product in vm.listaProductos" ng-class="{'border-red':product.stock<=product.min_stock}">
-                  <td> {{product.codigo}}</td>
+                  <tr ng-repeat="product in vm.listaProductos" ng-class="{'border-red':product.stock<product.min_stock}">
+                  <td>
+                    <span ng-if="product.codigo.length==1">00000000000000{{product.codigo}}</span>
+                    <span ng-if="product.codigo.length==2">0000000000000{{product.codigo}}</span>
+                    <span ng-if="product.codigo.length==3">000000000000{{product.codigo}}</span>
+                    <span ng-if="product.codigo.length==4">00000000000{{product.codigo}}</span>
+                    <span ng-if="product.codigo.length==5">0000000000{{product.codigo}}</span>
+                    <span ng-if="product.codigo.length==6">000000000{{product.codigo}}</span>
+                    <span ng-if="product.codigo.length==7">00000000{{product.codigo}}</span>
+                    <span ng-if="product.codigo.length==8">0000000{{product.codigo}}</span>
+                    <span ng-if="product.codigo.length==9">000000{{product.codigo}}</span>
+                    <span ng-if="product.codigo.length==10">00000{{product.codigo}}</span>
+                    <span ng-if="product.codigo.length==11">0000{{product.codigo}}</span>
+                    <span ng-if="product.codigo.length==12">000{{product.codigo}}</span>
+                    <span ng-if="product.codigo.length==13">00{{product.codigo}}</span>
+                    <span ng-if="product.codigo.length==14">0{{product.codigo}}</span>
+                  </td>
                   <td> {{product.nombre}}</td>
-                  <td> {{product.precio_costo | currency:"Bs "}}</td>
-                  <td> {{product.precio_venta | currency:"Bs "}}</td>
+                  <td> {{product.precio_costo | currency:""}}</td>
+                  <td> {{product.precio_venta | currency:""}}</td>
                   <td> {{product.stock}}</td>
                   <td class="text-center">{{product.max_stock}}</td>
                   <td class="text-center">{{product.min_stock}}</td>

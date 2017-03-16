@@ -26,7 +26,7 @@
                  <th>Proveedor</th>
                  <th>Identificador</th>
                  <th>Total</th>
-                 <th>Cancelado</th>
+                 <th>Pagado</th>
                  <th>Diferencia</th>
                  <th>Fecha</th>
               </tr>
@@ -55,7 +55,10 @@
        </div>
      </div>
      <div class="row">
-       <div class="col-md-12">
+       <div class="col-md-4">
+         <h4>Total a pagar {{vm.total_pagar | currency:"Bs "}}</h4>
+       </div>
+       <div class="col-md-8">
          <div class="pull-right">
            <ul uib-pagination total-items="vm.pagination.total" ng-model="vm.pagination.current_page" max-size="5"
            class="pagination-sm" ng-change="vm.changePage(vm.pagination.current_page)" boundary-links="true" force-ellipses="true" items-per-page="vm.pagination.per_page"

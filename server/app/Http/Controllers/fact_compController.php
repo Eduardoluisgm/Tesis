@@ -19,20 +19,35 @@ class fact_compController extends Controller
     function all(Request $request) {
       $page = $request->input('page');
       $search = $request->input('search');
+      $fecha_inicio = $request->input('fecha_inicio');
+      $fecha_final = $request->input('fecha_final');
       if ($page) {
         if ($search) { ///cuando se esta filtrando
           $factura = fact_comp::where('id', 'Like', '%' . $search . '%')
+              ->whereBetween('created_at', array($fecha_inicio, $fecha_final))
               ->orWhere('provider_id', 'Like', '%' . $search . '%')
+              ->whereBetween('created_at', array($fecha_inicio, $fecha_final))
               ->orderBy('created_at','desc')
               ->paginate(8);
         } else {
-          $factura = fact_comp::orderBy('created_at','desc')->paginate(8);
+          $factura = fact_comp::whereBetween('created_at', array($fecha_inicio, $fecha_final))
+          ->orderBy('created_at','desc')->paginate(8);
         }
       } else {
         $factura = fact_comp::all();
       }
       $factura->load('proveedor');
       return $factura;
+    }
+
+    function diferencia () {
+      $facturas = fact_comp::where('status','=',2)->get();
+      $suma = 0;
+      foreach ($facturas as $factura) {
+        $suma = $suma + ($factura->monto_total-$factura->monto_cancelado);
+      }
+      $montos['total']= $suma;
+      return $montos;
     }
 
     /*Guarda las facturas de compra*/

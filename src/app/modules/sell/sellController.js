@@ -272,6 +272,7 @@ angular.module('frontEndApp')
           templateUrl: 'partials/Modal_Product.html',
           controller: 'ProductSearchController',
           controllerAs: 'vm',
+          size: 'lg',
           backdrop: false,
           resolve: {
             origin: function () {

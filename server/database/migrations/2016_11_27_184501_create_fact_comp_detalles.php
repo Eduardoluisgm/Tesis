@@ -24,6 +24,7 @@ class CreateFactCompDetalles extends Migration
           $table->string('producto_id');
           $table->foreign('factura_id')->references('id')->on('fact_comp')->onDelete('cascade')->onUpdate('cascade');
           $table->foreign('producto_id')->references('codigo')->on('product')->onDelete('cascade')->onUpdate('cascade');
+
           $table->timestamps();
       });
     }

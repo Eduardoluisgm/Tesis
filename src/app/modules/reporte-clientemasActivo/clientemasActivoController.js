@@ -115,9 +115,6 @@ angular.module('frontEndApp')
 
           vm.isLoading=false;
         });
-
-
-
       }
       vm.series = ['Vendidos '];
       vm.options = {

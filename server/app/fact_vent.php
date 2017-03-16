@@ -12,7 +12,8 @@ class fact_vent extends Model
       'monto_cancelado',
       'status',
       'client_id',
-      'fecha_pago'
+      'fecha_pago',
+      'descripcion'
   ];
 
 

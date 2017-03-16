@@ -4,7 +4,7 @@ angular.module('frontEndApp')
   .controller('receivableController', receivableController)
   .controller('receivablePayController', receivablePayController);
 
-  function receivableController ($log, authUser,$rootScope, cuenta_cobrar, $q, $uibModal, ApiUrl, $http) {
+  function receivableController ($log, authUser,$rootScope, cuenta_cobrar, $q, $uibModal, ApiUrl, $http, Total_cobrar) {
     var vm = this;
     vm.pagination = [];
     vm.listaCuentas = [];
@@ -14,6 +14,7 @@ angular.module('frontEndApp')
     vm.reload = reload;
     vm.search = search;
     vm.status = "Normal";
+    vm.total_cobrar = 0;
     vm.Buscar = {
       'busqueda':"",
       'actual':"",
@@ -24,13 +25,14 @@ angular.module('frontEndApp')
 
     function cargar () {
       var cuenta = cuenta_cobrar.getFresh({'page':1});
-      $q.all([cuenta.$promise]).then(function(data){
-          console.log(data[0].data);
+      var total = Total_cobrar.getFresh();
+      $q.all([cuenta.$promise, total.$promise]).then(function(data){
           vm.listaCuentas = data[0].data;
           vm.pagination.current_page = data[0].current_page;
           vm.pagination.per_page = data[0].per_page;
           vm.pagination.total = data[0].total;
           vm.pagination.last_page = data[0].last_page;
+          vm.total_cobrar = data[1].total;
           vm.status = "Normal";
       });
     }
@@ -55,8 +57,9 @@ angular.module('frontEndApp')
     function changePage (number) {
       if (vm.status=="Normal") {
         var cuenta = cuenta_cobrar.getFresh({'page':number});
-        $q.all([cuenta.$promise]).then(function(data){
-            console.log(data[0].data);
+        var total = Total_cobrar.getFresh();
+        $q.all([cuenta.$promise, total.$promise]).then(function(data){
+            console.log(data[1].data);
             vm.listaCuentas = data[0].data;
             vm.pagination.current_page = data[0].current_page;
             vm.pagination.per_page = data[0].per_page;
@@ -64,11 +67,13 @@ angular.module('frontEndApp')
             vm.pagination.last_page = data[0].last_page;
             vm.status = "Normal";
             vm.Buscar.buscando=false;
+            vm.total_cobrar = data[1].total;
         });
       }
       if (vm.status=="Busqueda") {
         var cuenta = cuenta_cobrar.getFresh({'page':number, 'search': vm.Buscar.busqueda});
-        $q.all([cuenta.$promise]).then(function(data){
+        var total = Total_cobrar.getFresh();
+        $q.all([cuenta.$promise, total.$promise]).then(function(data){
             vm.listaCuentas = data[0].data;
             vm.pagination.current_page = data[0].current_page;
             vm.pagination.per_page = data[0].per_page;
@@ -76,6 +81,7 @@ angular.module('frontEndApp')
             vm.pagination.last_page = data[0].last_page;
             vm.status = "Busqueda";
             vm.Buscar.buscando=true;
+            vm.total_cobrar = data[1].total;
         });
       }
      }

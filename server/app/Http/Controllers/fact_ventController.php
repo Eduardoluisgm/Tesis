@@ -17,20 +17,36 @@ class fact_ventController extends Controller
   function AllSale (Request $request) {
     $page = $request->input('page');
     $search = $request->input('search');
+    $fecha_inicio = $request->input('fecha_inicio');
+    $fecha_final = $request->input('fecha_final');
     if ($page) {
       if ($search) {
         $sale = fact_vent::where('id', 'Like', '%' . $search . '%')
+            ->whereBetween('created_at', array($fecha_inicio, $fecha_final))
             ->orWhere('client_id', 'Like', '%' . $search . '%')
+            ->whereBetween('created_at', array($fecha_inicio, $fecha_final))
             ->orderBy('created_at','desc')
             ->paginate(8);
       } else {
-        $sale = fact_vent::orderBy('created_at','desc')->paginate(8);
+        $sale = fact_vent::whereBetween('created_at', array($fecha_inicio, $fecha_final))
+          ->orderBy('created_at','desc')->paginate(8);
       }
     } else {
-      $sale = fact_vent::all();
+      $sale = fact_vent::whereBetween('created_at', array($fecha_inicio, $fecha_final))->get();
     }
     $sale->load('cliente');
     return $sale;
+  }
+
+  /*funcion que devuelve la diferencia a pagar*/
+  function diferencia () {
+    $facturas = fact_vent::where('status','=',2)->get();
+    $suma = 0;
+    foreach ($facturas as $factura) {
+      $suma = $suma + ($factura->monto_total-$factura->monto_cancelado);
+    }
+    $montos['total']= $suma;
+    return $montos;
   }
 
 

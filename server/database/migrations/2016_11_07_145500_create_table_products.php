@@ -24,6 +24,8 @@ class CreateTableProducts extends Migration
           $table->integer('stock')->default(0);
           $table->integer('min_stock')->default(0);
           $table->integer('max_stock')->default(0);
+          $table->integer('category_id')->unsigned();
+          $table->foreign('category_id')->references('id')->on('category_product')->onDelete('cascade')->onUpdate('cascade');
           $table->primary('codigo');
           $table->timestamps();
       });

@@ -32,6 +32,9 @@ Route::group(['middleware' => 'cors'], function (){
     Route::patch('client/{oldcedula}', 'clientController@patch');
     Route::post('client', 'clientController@save');
 
+    /*categorias de productos*/
+    Route::get('category', 'category_productController@all');
+
     /*Cuentas de bancos*/
     Route::get('cuentas', 'cuentasController@all');
     Route::get('cuentas/{id}', 'cuentasController@get');
@@ -59,9 +62,11 @@ Route::group(['middleware' => 'cors'], function (){
 
     /*Cuentas por cobrar*/
     Route::get('cuenta_cobrar', 'fact_ventController@Cuenta_cobrar');
+    Route::get('cuenta_cobrar/monto', 'fact_ventController@diferencia');
 
     /*Cuentas por Pagar*/
     Route::get('cuenta_pagar', 'fact_compController@Cuenta_pagar');
+    Route::get('cuenta_pagar/monto', 'fact_compController@diferencia');
 
     /*Facturas de compra*/
     Route::get('factura_compra', 'fact_compController@all');

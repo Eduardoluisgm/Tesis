@@ -42,6 +42,7 @@ class productController extends Controller
 
     function get ($codigo) {
       $product = Product::findOrFail($codigo);
+      $product->load('category');
       return $product;
     }
 

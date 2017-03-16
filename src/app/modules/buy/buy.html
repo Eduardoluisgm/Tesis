@@ -85,7 +85,22 @@
                   </thead>
                   <tbody>
                     <tr ng-repeat="detalle in vm.detalles_factura">
-                      <td>{{detalle.codigo}}</td>
+                      <td style="font-size: 13px;">
+                        <span ng-if="detalle.codigo.length==1">00000000000000{{detalle.codigo}}</span>
+                        <span ng-if="detalle.codigo.length==2">0000000000000{{detalle.codigo}}</span>
+                        <span ng-if="detalle.codigo.length==3">000000000000{{detalle.codigo}}</span>
+                        <span ng-if="detalle.codigo.length==4">00000000000{{detalle.codigo}}</span>
+                        <span ng-if="detalle.codigo.length==5">0000000000{{detalle.codigo}}</span>
+                        <span ng-if="detalle.codigo.length==6">000000000{{detalle.codigo}}</span>
+                        <span ng-if="detalle.codigo.length==7">00000000{{detalle.codigo}}</span>
+                        <span ng-if="detalle.codigo.length==8">0000000{{detalle.codigo}}</span>
+                        <span ng-if="detalle.codigo.length==9">000000{{detalle.codigo}}</span>
+                        <span ng-if="detalle.codigo.length==10">00000{{detalle.codigo}}</span>
+                        <span ng-if="detalle.codigo.length==11">0000{{detalle.codigo}}</span>
+                        <span ng-if="detalle.codigo.length==12">000{{detalle.codigo}}</span>
+                        <span ng-if="detalle.codigo.length==13">00{{detalle.codigo}}</span>
+                        <span ng-if="detalle.codigo.length==14">0{{detalle.codigo}}</span>
+                      </td>
                       <td>{{detalle.nombre}}</td>
                       <td><input class="width70" type="number" ng-mouseleave="vm.validarStock(detalle,'leave')" ng-change="vm.validarStock(detalle,'change')" ng-keypress="vm.solonumeros($event)" ng-model="detalle.cantidad" name="quantity" min="1" max="100000"></td>
                       <td>{{detalle.precio_costo | currency:"Bs "}}</td>

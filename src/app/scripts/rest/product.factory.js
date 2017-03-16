@@ -6,10 +6,15 @@
     .factory('productEdit', productEdit)
     .factory('product', product)
     .factory('productActive', productActive)
+    .factory('productCategory', productCategory)
     .factory('productSearch', productSearch);
 
     function product_Providers (cachedResource, ApiUrl) {
       return cachedResource(ApiUrl+'/product/:codigo/provider' ,{codigo: '@codigo'});
+    }
+
+    function productCategory (cachedResource, ApiUrl) {
+      return cachedResource(ApiUrl+'/category');
     }
 
     function product (cachedResource, ApiUrl) {

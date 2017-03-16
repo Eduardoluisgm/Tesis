@@ -17,27 +17,39 @@ angular.module('frontEndApp')
         'busqueda':"",
         'actual':"",
         'buscando': false
+      };
+      vm.fechas = {
+        'inicio': new Date('2016-01-02'),
+        'final': new Date()
       }
-      cargar();
+      vm.openInicio = false;
+      vm.openFinal = false;
 
-      function cargar () {
-        var factura = factura_venta.getFresh({'page':1});
-        $q.all([factura.$promise]).then(function(data){
-            console.log(data[0].data);
-            vm.listaFacturas = data[0].data;
-            vm.pagination.current_page = data[0].current_page;
-            vm.pagination.per_page = data[0].per_page;
-            vm.pagination.total = data[0].total;
-            vm.pagination.last_page = data[0].last_page;
-            vm.status = "Normal";
-        });
-      }
+      search();
 
       /*funcion para buscar*/
       function search () {
+        if (vm.fechas.final<vm.fechas.inicio) {
+          toastr.warning("La fecha final debe ser menor a la inicial", "Advertencia");
+          return;
+        }
+        vm.fecha_inicio = moment(vm.fechas.inicio).format('YYYY-MM-DD HH:mm');
+        vm.fecha_final = moment(vm.fechas.final).format('YYYY-MM-DD HH:mm');
+        /*colocando la hora de inicio a las 0 horas*/
+        vm.fecha_inicio = moment(vm.fecha_inicio).set('hour', 0);
+        vm.fecha_inicio = moment(vm.fecha_inicio).set('minute', 0);
+        vm.fecha_inicio = moment(vm.fecha_inicio).format('YYYY-MM-DD HH:mm');
+        vm.fecha_final = moment(vm.fecha_final).set('hour', 23);
+        vm.fecha_final = moment(vm.fecha_final).set('minute', 59);
+        vm.fecha_final = moment(vm.fecha_final).format('YYYY-MM-DD HH:mm');
+        console.log("fecha inicio: "+ vm.fecha_inicio);
+        console.log("fecha final: "+ vm.fecha_final);
         if (vm.Buscar.actual) {
           vm.Buscar.busqueda = vm.Buscar.actual;
           vm.status = "Busqueda";
+          changePage(1);
+        } else {
+          vm.status = "Normal";
           changePage(1);
         }
         console.log(vm.Buscar);
@@ -59,12 +71,18 @@ angular.module('frontEndApp')
       function reload () {
         vm.Buscar.busqueda = "";
         vm.status = "Normal";
+        vm.fechas.inicio = new Date('2016-01-02');
+        vm.fechas.final = new Date();
         changePage(1);
       }
 
       function changePage (number) {
         if (vm.status=="Normal") {
-          var factura = factura_venta.getFresh({'page':number});
+          var factura = factura_venta.getFresh({
+            'page':number,
+            'fecha_inicio': vm.fecha_inicio,
+            'fecha_final': vm.fecha_final
+            });
           $q.all([factura.$promise]).then(function(data){
               vm.listaFacturas = data[0].data;
               vm.pagination.current_page = data[0].current_page;
@@ -77,7 +95,12 @@ angular.module('frontEndApp')
         }
         if (vm.status=="Busqueda") {
           console.log("estoy buscando");
-          var factura = factura_venta.getFresh({'page':number, 'search': vm.Buscar.busqueda});
+          var factura = factura_venta.getFresh({
+            'page':number,
+            'search': vm.Buscar.busqueda,
+            'fecha_inicio': vm.fecha_inicio,
+            'fecha_final': vm.fecha_final
+          });
           $q.all([factura.$promise]).then(function(data){
               vm.listaFacturas = data[0].data;
               vm.pagination.current_page = data[0].current_page;
@@ -111,4 +134,12 @@ angular.module('frontEndApp')
           document.body.removeChild(link);
       });
     }
+
+    vm.open_fecha_inicio = function() {
+      vm.openInicio = !vm.openInicio;
+    };
+    /*abrir y cerrar el datepicker final*/
+    vm.open_fecha_final = function() {
+      vm.openFinal = !vm.openFinal;
+    };
   };

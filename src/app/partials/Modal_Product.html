@@ -51,9 +51,19 @@
           <label>Descripción</label>
           <input type="text" class="form-control" minlength="3" maxlength="25" ng-model="vm.product.descripcion"/>
         </div>
+        <div class="col-md-6">
+          <label>Categoria <span class="red">*</span></label>
+          <select class="form-control" ng-model="vm.product.category_id" ng-options="category.id as category.nombre for category in vm.listCategory" required>
+            <option value="">Seleccione</option>
+            <option>category.nombre</option>
+          </select>
+        </div>
       </div>
     </div>
     <div class="modal-footer">
+      <div class="col-md-6">
+        <label> (<span class="red">*</span>) campos obligatorios </label>
+      </div>
       <button ladda="vm.isloading" type="submit" class="btn btn-primary">Guardar</button>
     </div>
   </form>
@@ -72,7 +82,21 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-          <label>Codigo:</label> <label>{{vm.product.codigo}}</label>
+          <label>Codigo:</label>
+          <span ng-if="vm.product.codigo.length==1">00000000000000{{vm.product.codigo}}</span>
+          <span ng-if="vm.product.codigo.length==2">0000000000000{{vm.product.codigo}}</span>
+          <span ng-if="vm.product.codigo.length==3">000000000000{{vm.product.codigo}}</span>
+          <span ng-if="vm.product.codigo.length==4">00000000000{{vm.product.codigo}}</span>
+          <span ng-if="vm.product.codigo.length==5">0000000000{{vm.product.codigo}}</span>
+          <span ng-if="vm.product.codigo.length==6">000000000{{vm.product.codigo}}</span>
+          <span ng-if="vm.product.codigo.length==7">00000000{{vm.product.codigo}}</span>
+          <span ng-if="vm.product.codigo.length==8">0000000{{vm.product.codigo}}</span>
+          <span ng-if="vm.product.codigo.length==9">000000{{vm.product.codigo}}</span>
+          <span ng-if="vm.product.codigo.length==10">00000{{vm.product.codigo}}</span>
+          <span ng-if="vm.product.codigo.length==11">0000{{vm.product.codigo}}</span>
+          <span ng-if="vm.product.codigo.length==12">000{{vm.product.codigo}}</span>
+          <span ng-if="vm.product.codigo.length==13">00{{vm.product.codigo}}</span>
+          <span ng-if="vm.product.codigo.length==14">0{{vm.product.codigo}}</span>
       </div>
     </div>
     <div class="row">
@@ -93,6 +117,11 @@
     <div class="row">
       <div class="col-md-12">
           <label>Stock Máximo:</label> <label>{{vm.product.max_stock}}</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+          <label>Categoria:</label> <label>{{vm.product.category.nombre}}</label>
       </div>
     </div>
     <div class="row">
@@ -179,10 +208,20 @@
             <label>Descripción</label>
             <input type="text" class="form-control" minlength="3" maxlength="25" ng-model="vm.product.descripcion"/>
           </div>
+          <div class="col-md-6">
+            <label>Categoria <span class="red">*</span></label>
+            <select class="form-control" ng-model="vm.product.category_id" ng-options="category.id as category.nombre for category in vm.listCategory" required>
+              <option value="">Seleccione</option>
+              <option>category.nombre</option>
+            </select>
+          </div>
         </div>
       </fieldset>
     </div>
     <div class="modal-footer">
+      <div class="col-md-6">
+        <label> (<span class="red">*</span>) campos obligatorios </label>
+      </div>
       <button ladda="vm.isloading" type="submit" class="btn btn-primary">Guardar</button>
     </div>
   </form>
@@ -219,7 +258,22 @@
           <tbody>
             <tr ng-repeat="producto in vm.listaProductos | filter:vm.search">
               <td>{{producto.nombre}}</td>
-              <td>{{producto.codigo}}</td>
+              <td>
+                <span ng-if="producto.codigo.length==1">00000000000000{{producto.codigo}}</span>
+                <span ng-if="producto.codigo.length==2">0000000000000{{producto.codigo}}</span>
+                <span ng-if="producto.codigo.length==3">000000000000{{producto.codigo}}</span>
+                <span ng-if="producto.codigo.length==4">00000000000{{producto.codigo}}</span>
+                <span ng-if="producto.codigo.length==5">0000000000{{producto.codigo}}</span>
+                <span ng-if="producto.codigo.length==6">000000000{{producto.codigo}}</span>
+                <span ng-if="producto.codigo.length==7">00000000{{producto.codigo}}</span>
+                <span ng-if="producto.codigo.length==8">0000000{{producto.codigo}}</span>
+                <span ng-if="producto.codigo.length==9">000000{{producto.codigo}}</span>
+                <span ng-if="producto.codigo.length==10">00000{{producto.codigo}}</span>
+                <span ng-if="producto.codigo.length==11">0000{{producto.codigo}}</span>
+                <span ng-if="producto.codigo.length==12">000{{producto.codigo}}</span>
+                <span ng-if="producto.codigo.length==13">00{{producto.codigo}}</span>
+                <span ng-if="producto.codigo.length==14">0{{producto.codigo}}</span>
+              </td>
               <td ng-if="vm.origin.origin=='sell'">{{producto.precio_venta}}</td>
               <td ng-if="vm.origin.origin=='buy'">{{producto.precio_costo}}</td>
               <td>{{producto.stock}}</td>

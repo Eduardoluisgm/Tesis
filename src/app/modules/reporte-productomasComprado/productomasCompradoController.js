@@ -3,7 +3,7 @@
 angular.module('frontEndApp')
   .controller('productomasCompradoController', productomasCompradoController);
 
-  function productomasCompradoController ($log,profile, $q,$rootScope,toastr, ProductoComprado) {
+  function productomasCompradoController ($log,profile, $q,$rootScope,toastr, ProductoComprado, productCategory) {
       var vm = this;
       vm.listProduct = [];
       vm.Buscar = false;
@@ -14,12 +14,19 @@ angular.module('frontEndApp')
         'inicio': new Date(),
         'final': new Date()
       }
+      vm.listCategory = [];
       vm.openInicio = false;
       vm.openFinal = false;
       vm.product = {
         'nombres': [],
         'cantidades': []
       }
+
+      productCategory.queryFresh(
+        function success (data){
+          vm.listCategory = data;
+        }, function error(err) {
+      });
 
       cargar();
 
@@ -41,6 +48,7 @@ angular.module('frontEndApp')
       function reload() {
         console.log("estoy recargando ");
         vm.Buscar = false;
+        vm.category_id = "";
         cargar();
       }
 
@@ -66,11 +74,21 @@ angular.module('frontEndApp')
         fecha_final = moment(fecha_final).set('hour', 23);
         fecha_final = moment(fecha_final).set('minute', 59);
         fecha_final = moment(fecha_final).format('YYYY-MM-DD HH:mm');
-        var products = ProductoComprado.queryFresh({
-          'search': true,
-          'fecha_inicio': fecha_inicio,
-          'fecha_final': fecha_final
-        });
+        if (typeof(vm.category_id)=='undefined') {
+          var products = ProductoComprado.queryFresh({
+            'search': true,
+            'fecha_inicio': fecha_inicio,
+            'fecha_final': fecha_final
+          });
+        } else {
+          var products = ProductoComprado.queryFresh({
+            'search': true,
+            'fecha_inicio': fecha_inicio,
+            'fecha_final': fecha_final,
+            'category_id': vm.category_id
+          });
+        }
+
         $q.all([products.$promise]).then(function (data){
           vm.listProduct = data[0];
           vm.Buscar = true;

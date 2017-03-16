@@ -24,7 +24,13 @@
                       <label for="exampleInputEmail1">Mensaje<span class="red">*</span></label>
                       <textarea class="form-control" minlength="10" maxlength="250"  ng-model="vm.message.message" rows="3" required></textarea>
                   </div>
-                  <button ladda="vm.loadingMsj" type="submit" class="btn tf-btn btn-default">Enviar</button>
+                  <div class="col-md-4">
+                  <label> (<span class="red">*</span>) campos obligatorios </label>
+                  </div>
+                  <div class="col-md-4">
+                    <button ladda="vm.loadingMsj" type="submit" class="btn tf-btn btn-default">Enviar</button>
+                  </div>
+
               </form>
 
           </div>

@@ -213,13 +213,22 @@ angular.module('frontEndApp')
   }
 
   /*Modal editar Usuario*/
-  function ProductEditController ($uibModalInstance,$q, $rootScope, product_id ,productResource, productEdit, toastr, origin) {
+  function ProductEditController ($uibModalInstance,$q, $rootScope, product_id ,productResource, productEdit, toastr, origin, productCategory) {
     var vm = this;
     vm.origin = origin;
     console.log("Origen "+ vm.origin);
     vm.status = "actualizar";
     vm.isloading = false;
     vm.product= [];
+    vm.listCategory = [];
+    productCategory.queryFresh(
+      function success (data){
+        vm.listCategory = data;
+        console.log(vm.listCategory);
+      }, function error(err) {
+
+    });
+
     cargar();
     function cargar() {
       var producto = productResource.getFresh({'codigo':product_id});
@@ -258,6 +267,7 @@ angular.module('frontEndApp')
         vm.isloading = false;
         return;
       }
+      vm.product.codigo = parseInt(vm.product.codigo);
         productEdit.patch(vm.product,
           function (data) {
             vm.isloading = false;
@@ -320,10 +330,11 @@ angular.module('frontEndApp')
     }
   }
 
-  function ProductCreateController ($uibModalInstance,$q,product,toastr, $rootScope, origin) {
+  function ProductCreateController ($uibModalInstance,$q,product,toastr, $rootScope, origin, productCategory) {
     var vm = this;
     vm.status="crear";
     vm.isloading = false;
+    vm.listCategory = [];
     vm.product = {
       'codigo':"",
       'name':"",
@@ -333,8 +344,17 @@ angular.module('frontEndApp')
       'min_stock':0,
       'max_stock':0,
       'marca': "",
-      'descripcion': ""
+      'descripcion': "",
+      'category_id': ""
     }
+
+    productCategory.queryFresh(
+      function success (data){
+        vm.listCategory = data;
+        console.log(vm.listCategory);
+      }, function error(err) {
+
+      });
     console.log(origin.origin);
     vm.changePrecio = function () {
       if (vm.product.precio_venta>100000000000) {
@@ -374,8 +394,8 @@ angular.module('frontEndApp')
         return;
       }
 
-      //vm.product.codigo = parseInt(vm.product.codigo);
-      vm.product.codigo = vm.product.codigo.toString();
+      vm.product.codigo = parseInt(vm.product.codigo);
+      //vm.product.codigo = vm.product.codigo.toString();
       product.save(vm.product,
           function (data) {
             toastr.success("Producto registrado exitosamente");

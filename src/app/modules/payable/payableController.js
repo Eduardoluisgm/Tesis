@@ -3,7 +3,7 @@
 angular.module('frontEndApp')
   .controller('payableController', payableController);
 
-  function payableController (client,$q,$uibModal, $rootScope, toastr, cuenta_pagar, $http, ApiUrl) {
+  function payableController (client,$q,$uibModal, $rootScope, toastr, cuenta_pagar, $http, ApiUrl, Total_pagar) {
     var vm = this;
     vm.pagination = [];
     vm.listaCuentas = [];
@@ -13,6 +13,7 @@ angular.module('frontEndApp')
     vm.search = search;
     vm.Facturapdf=Facturapdf;
     vm.status = "Normal";
+    vm.total_pagar = 0;
     vm.Buscar = {
       'busqueda':"",
       'actual':"",
@@ -21,13 +22,15 @@ angular.module('frontEndApp')
     cargar();
     function cargar () {
       var cuenta = cuenta_pagar.getFresh({'page':1});
-      $q.all([cuenta.$promise]).then(function(data){
+      var total = Total_pagar.getFresh();
+      $q.all([cuenta.$promise, total.$promise]).then(function(data){
           console.log(data[0].data);
           vm.listaCuentas = data[0].data;
           vm.pagination.current_page = data[0].current_page;
           vm.pagination.per_page = data[0].per_page;
           vm.pagination.total = data[0].total;
           vm.pagination.last_page = data[0].last_page;
+          vm.total_pagar = data[1].total;
       });
     }
 
@@ -74,7 +77,8 @@ angular.module('frontEndApp')
     function changePage (number) {
       if (vm.status=="Normal") {
         var cuenta = cuenta_pagar.getFresh({'page':number});
-        $q.all([cuenta.$promise]).then(function(data){
+        var total = Total_pagar.getFresh();
+        $q.all([cuenta.$promise, total.$promise]).then(function(data){
             console.log(data[0].data);
             vm.listaCuentas = data[0].data;
             vm.pagination.current_page = data[0].current_page;
@@ -83,11 +87,13 @@ angular.module('frontEndApp')
             vm.pagination.last_page = data[0].last_page;
             vm.status = "Normal";
             vm.Buscar.buscando=false;
+            vm.total_pagar = data[1].total;
         });
       }
       if (vm.status=="Busqueda") {
         var cuenta = cuenta_pagar.getFresh({'page':number, 'search': vm.Buscar.busqueda});
-        $q.all([cuenta.$promise]).then(function(data){
+        var total = Total_pagar.getFresh();
+        $q.all([cuenta.$promise, total.$promise]).then(function(data){
             vm.listaCuentas = data[0].data;
             vm.pagination.current_page = data[0].current_page;
             vm.pagination.per_page = data[0].per_page;
@@ -95,6 +101,7 @@ angular.module('frontEndApp')
             vm.pagination.last_page = data[0].last_page;
             vm.status = "Busqueda";
             vm.Buscar.buscando=true;
+            vm.total_pagar = data[1].total;
         });
       }
     }

@@ -26,7 +26,22 @@
           </thead>
           <tbody>
             <tr ng-repeat="producto in vm.lista | filter:vm.search">
-              <td>{{producto.codigo}}</td>
+              <td>
+                <span ng-if="producto.codigo.length==1">00000000000000{{producto.codigo}}</span>
+                <span ng-if="producto.codigo.length==2">0000000000000{{producto.codigo}}</span>
+                <span ng-if="producto.codigo.length==3">000000000000{{producto.codigo}}</span>
+                <span ng-if="producto.codigo.length==4">00000000000{{producto.codigo}}</span>
+                <span ng-if="producto.codigo.length==5">0000000000{{producto.codigo}}</span>
+                <span ng-if="producto.codigo.length==6">000000000{{producto.codigo}}</span>
+                <span ng-if="producto.codigo.length==7">00000000{{producto.codigo}}</span>
+                <span ng-if="producto.codigo.length==8">0000000{{producto.codigo}}</span>
+                <span ng-if="producto.codigo.length==9">000000{{producto.codigo}}</span>
+                <span ng-if="producto.codigo.length==10">00000{{producto.codigo}}</span>
+                <span ng-if="producto.codigo.length==11">0000{{producto.codigo}}</span>
+                <span ng-if="producto.codigo.length==12">000{{producto.codigo}}</span>
+                <span ng-if="producto.codigo.length==13">00{{producto.codigo}}</span>
+                <span ng-if="producto.codigo.length==14">0{{producto.codigo}}</span>
+              </td>
               <td>{{producto.nombre}}</td>
               <td>{{producto.stock}}</td>
               <td ng-if="vm.tipo=='min_stock'">{{producto.min_stock}}</td>

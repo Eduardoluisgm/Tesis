@@ -45,23 +45,23 @@
                 <span ng-if="vm.miscelaneoOpen==true" style="padding-left: 78px;" class="fa fa-caret-down"></span>
               </a>
               <ul ng-if="vm.miscelaneoOpen==true">
-                <li ng-if="vm.rol=='1'" class="left18">
-                    <a ng-href="#/user"><i class="fa fa-users"></i> Usuarios</a>
-                </li>
                 <li class="left18">
                     <a ng-href="#/bank"><i class="fa fa-university"></i> Bancos</a>
                 </li>
                 <li class="left18">
-                    <a ng-href="#/cuentas"><i class="fa fa-university"></i> Cuentas</a>
+                    <a ng-href="#/client"><i class="fa fa-user" style="font-size: 22px;"></i> Clientes</a>
                 </li>
                 <li class="left18">
-                    <a ng-href="#/client"><i class="fa fa-user"></i> Clientes</a>
+                    <a ng-href="#/cuentas"><i class="fa fa-university" style="font-size: 15px;"></i> Cuentas</a>
+                </li>
+                <li class="left18">
+                    <a ng-href="#/product"><i class="fa fa-cart-plus" style="font-size: 18px;"></i> Productos</a>
                 </li>
                 <li class="left18">
                     <a ng-href="#/provider"><i class="fa fa-handshake-o"></i> Proveedores</a>
                 </li>
-                <li class="left18">
-                    <a ng-href="#/product"><i class="fa fa-cart-plus"></i> Productos</a>
+                <li ng-if="vm.rol=='1'" class="left18">
+                    <a ng-href="#/user"><i class="fa fa-users" style="font-size: 18px;"></i> Usuarios</a>
                 </li>
               </ul>
             </li>
