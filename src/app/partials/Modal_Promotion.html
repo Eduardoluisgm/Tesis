@@ -1,0 +1,52 @@
+<div>
+  <div class="modal-header">
+      <Label>Crear Promoción</label>
+      <button type="button" ng-click="vm.cancel()" class="close"><span aria-hidden="true">&times;</span></button>
+  </div>
+  <form ng-submit="vm.save()">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6">
+            <label>Titulo <span class="red">*</span></label>
+            <input type="text" class="form-control" minlength="3" maxlength="35" ng-model="vm.promocion.titulo" required/>
+          </div>
+          <div class="col-md-6">
+            <label>Subir Imagen <span class="red">*</span></label>
+            <div class="row">
+              <div class="col-md-2"></div>
+              <div class="col-md-10">
+                <button class="btn btn-primary" style="border-radius:50%; " ngf-select ng-model="vm.promocion.file" name="file" ngf-pattern="'image/*'"
+                    ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100"
+                    ngf-resize="{width: 800, height: 800, quality:1.0}">
+                    <i class="fa fa-upload"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+
+          </div>
+          <div class="col-md-4">
+            <img style="max-width: 180px;max-height: 180px;" ngf-thumbnail="vm.promocion.file || '/images/pregunta.jpg'">
+          </div>
+          <div class="col-md-4">
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <label>Descripción: <span class="red">*</span></label>
+            <textarea class="form-control" minlength="10" maxlength="250"  ng-model="vm.promocion.descripcion" rows="4"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="col-md-6">
+          <label> (<span class="red">*</span>) campos obligatorios </label>
+        </div>
+        <button ladda="vm.isloading" type="submit" class="btn btn-primary">Guardar</button>
+      </div>
+    </form>
+</div>

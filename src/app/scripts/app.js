@@ -26,7 +26,8 @@ angular
     'angular-ladda',
     'mwl.confirm',
     'ng-currency',
-    'chart.js'
+    'chart.js',
+    'ngFileUpload'
   ])
   .config(function ($routeProvider,$authProvider,ApiUrl) {
     console.log("url del api ", ApiUrl);
@@ -147,6 +148,11 @@ angular
         controller: 'CuentasController',
         controllerAs: 'vm'
       })
+      .when('/promociones', {
+        templateUrl: 'modules/promociones/promociones.html',
+        controller: 'promocionesController',
+        controllerAs: 'vm'
+      })
       .when('/gananciasPerdidas', {
         templateUrl: 'modules/ganancias_perdidas/Ganancias_perdidas.html',
         controller: 'ganancias_perdidasController',
@@ -172,7 +178,7 @@ angular
      console.log("run");
      var rutasPrivadas= ['/','/about','/client','/user', '/profile', '/provider', '/product', '/sell', '/buy', '/receivable',
      '/payable', '/facturaVenta', '/facturaCompra', '/masVendido', '/clienteActivo', '/proveedorActivo', '/masComprado', '/bank',
-     '/mensajes','/cuentas', 'gestionCuentasController', 'gananciasPerdidas','impuestoRenta', '/pagoAlcaldia'];
+     '/mensajes','/cuentas', 'gestionCuentasController', 'gananciasPerdidas','impuestoRenta', '/pagoAlcaldia', '/promociones'];
      /*rutas que solo puede ver admin y super admin*/
      var rutasAdmin = ['/client', '/user', '/provider', '/product', '/facturaVenta', '/facturaCompra', '/masVendido','/clienteActivo',
       '/proveedorActivo', '/masComprado', '/bank', '/mensajes','/cuentas'];

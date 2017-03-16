@@ -8,7 +8,12 @@
     .factory('ProveedormayoresCompras', ProveedormayoresCompras)
     .factory('ProveedorVolumenCompras', ProveedorVolumenCompras)
     .factory('ProductoComprado', ProductoComprado)
+    .factory('promotion', promotion)
     .factory('ProductoVendido', ProductoVendido);
+
+    function promotion (cachedResource, ApiUrl) {
+      return cachedResource(ApiUrl+'/promotion');
+    }
 
     function Ganancias (cachedResource, ApiUrl) {
       return cachedResource(ApiUrl+'/Ganancias');

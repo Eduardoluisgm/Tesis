@@ -113,6 +113,10 @@ Route::group(['middleware' => 'cors'], function (){
     Route::patch('product/{oldcodigo}', 'productController@patch');
     Route::post('product', 'productController@save');
 
+    /*promotion*/
+    Route::get('promotion', 'promotionController@all');
+    Route::post('promotion', 'promotionController@save');
+
     /*Reportes*/
     Route::get('Ganancias', 'reportController@Ganancia');
     Route::get('Perdidas', 'reportController@Perdida');

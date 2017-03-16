@@ -1,0 +1,33 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <i class="fa fa-university"></i>
+     Promociones
+  </div>
+   <div class="panel-body">
+     <div class="row">
+       <div class ="col-md-5"></div>
+       <div class ="col-md-7">
+         <div class="text-right">
+           <button type="button" uib-tooltip="Crear Banco" ng-click="vm.openCreate()"  class="btn btn-primary">
+             Crear
+           </button>
+         </div>
+       </div>
+     </div>
+     <div class="row" style="min-height: 400px;">
+       <div class="col-md-4" ng-repeat="promocion in vm.listpromotion">
+         <label>{{promocion.titulo}}</label>
+         <img ng-src="{{promocion.dire}}" class="img-responsive">
+       </div>
+     </div>
+     <div class="row">
+       <div class="col-md-12">
+         <div class="pull-right">
+           <ul uib-pagination total-items="vm.pagination.total" ng-model="vm.pagination.current_page" max-size="5"
+           class="pagination-sm" ng-change="vm.changePage(vm.pagination.current_page)" boundary-links="true" force-ellipses="true" items-per-page="vm.pagination.per_page"
+           first-text="<<" last-text=">>" next-text=">" previous-text="<"></ul>
+         </div>
+       </div>
+     </div>
+   </div>
+</div>
