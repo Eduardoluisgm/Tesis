@@ -115,7 +115,9 @@ Route::group(['middleware' => 'cors'], function (){
 
     /*promotion*/
     Route::get('promotion', 'promotionController@all');
+
     Route::post('promotion', 'promotionController@save');
+    Route::delete('promotion/{id}', 'promotionController@delete');
 
     /*Reportes*/
     Route::get('Ganancias', 'reportController@Ganancia');

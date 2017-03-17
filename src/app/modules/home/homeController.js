@@ -3,12 +3,14 @@
 angular.module('frontEndApp')
   .controller('homeController', homeController);
 
-  function homeController ($log, authUser,$rootScope, message, toastr) {
+  function homeController ($log, authUser,$rootScope, message, toastr, promotion, ApiUrl) {
     var vm = this;
     console.log("Home");
     vm.login = login;
     vm.isloading = false;
     vm.loadingMsj = false;
+    vm.ApiUrl=ApiUrl;
+    vm.listpromotion = [];
     vm.option = 1;
     vm.credential = {
       'cedula': "",
@@ -58,12 +60,28 @@ angular.module('frontEndApp')
     /*Agregar Imagenes al carrousel*/
     function addSlides () {
       vm.carousel.slides = [
-        {'id':0, 'text': 'prueba', 'image': 'images/productos/cacique.jpg'},
-        {'id':1, 'text': 'segundo', 'image': 'images/productos/0.jpg'},
-        {'id':2, 'text': 'segundo', 'image': 'images/productos/1.jpg'},
-        {'id':3, 'text': 'segundo', 'image': 'images/productos/3.jpg'},
-        {'id':4, 'text': 'segundo', 'image': 'images/productos/4.jpg'}
-      ]
+        {'id':0, 'titulo': 'Bienvenido', 'image': 'images/productos/cacique.jpg'}
+      ];
+      promotion.queryFresh(
+        function success (data) {
+          vm.listpromotion = data;
+          var count = 1;
+          vm.listpromotion.forEach(function(promocion){
+            promocion.dire = vm.ApiUrl + '/images/'+ promocion.url;
+            console.log(promocion.dire);
+            vm.carousel.slides.push({
+              'id':count,
+              'descripcion':promocion.descripcion,
+              'titulo':promocion.titulo,
+              'image': promocion.dire
+            });
+            count++;
+          });
+
+
+        }, function error (error) {
+        }
+      );
     }
 
 

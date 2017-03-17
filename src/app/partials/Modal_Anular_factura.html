@@ -1,0 +1,22 @@
+<div>
+  <div class="modal-header">
+      <Label>Anular Factura</label>
+      <button type="button" ng-click="vm.cancel()" class="close"><span aria-hidden="true">&times;</span></button>
+  </div>
+  <form ng-submit="vm.save()">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <label>Motivo: <span class="red">*</span></label>
+            <textarea class="form-control" minlength="10" maxlength="250"  ng-model="vm.promocion.descripcion" rows="4"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="col-md-6">
+          <label> (<span class="red">*</span>) campos obligatorios </label>
+        </div>
+        <button ladda="vm.isloading" type="submit" class="btn btn-primary">Guardar</button>
+      </div>
+    </form>
+</div>

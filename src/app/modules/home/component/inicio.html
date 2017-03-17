@@ -15,8 +15,8 @@
   <div uib-slide ng-repeat="slide in vm.carousel.slides" index="slide.id">
     <img ng-src="{{slide.image}}" style="margin:auto; width: 600px; height: 450px;">
     <div class="carousel-caption">
-      <!--<h4>Slide {{slide.id}}</h4>
-      <p>{{slide.text}}</p> -->
+      <h4 style="color:black"><strong>{{slide.titulo}}</strong></h4>
+      <p style="color:black">{{slide.descripcion}}</p>
     </div>
   </div>
 </div>

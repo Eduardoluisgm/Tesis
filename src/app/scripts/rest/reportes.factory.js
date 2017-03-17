@@ -9,7 +9,12 @@
     .factory('ProveedorVolumenCompras', ProveedorVolumenCompras)
     .factory('ProductoComprado', ProductoComprado)
     .factory('promotion', promotion)
+    .factory('promotionResource', promotionResource)
     .factory('ProductoVendido', ProductoVendido);
+
+    function promotionResource (cachedResource, ApiUrl) {
+      return cachedResource(ApiUrl+'/promotion/:id' ,{id: '@id'});
+    }
 
     function promotion (cachedResource, ApiUrl) {
       return cachedResource(ApiUrl+'/promotion');

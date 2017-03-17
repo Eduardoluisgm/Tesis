@@ -19,6 +19,12 @@ class promotionController extends Controller
       return $promocion;
     }
 
+    function delete($id) {
+      $promotion=promotion::findOrFail($id);
+      $promotion->delete();
+      return "Eliminado";
+    }
+
     function save(Request $request) {
       $new = new promotion();
       $new->titulo = $request->input('titulo');

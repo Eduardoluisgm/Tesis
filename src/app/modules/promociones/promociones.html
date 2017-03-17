@@ -14,10 +14,28 @@
          </div>
        </div>
      </div>
-     <div class="row" style="min-height: 400px;">
+     <div class="row" style="min-height: 400px; margin-top:20px;">
        <div class="col-md-4" ng-repeat="promocion in vm.listpromotion">
          <label>{{promocion.titulo}}</label>
-         <img ng-src="{{promocion.dire}}" class="img-responsive">
+         <div class="pull-right">
+           <button
+             type="button"
+             uib-tooltip="Eliminar promoción"
+             class="btn btn-danger"
+             mwl-confirm
+             message="¿Esta seguro que desea eliminar la promoción {{promocion.titulo}}?"
+             confirm-text="Si"
+             cancel-text="No"
+             placement="{{ placement }}"
+             on-confirm="vm.DeletePromocion(promocion.id)"
+             on-cancel=""
+             confirm-button-type="success"
+             cancel-button-type="default">
+               <i class="fa fa-trash"></i>
+           </button>
+         </div>
+         <img style="height:200px !important; witdh:200px!important" ng-src="{{promocion.dire}}" class="img-responsive">
+
        </div>
      </div>
      <div class="row">

@@ -57,15 +57,7 @@ angular.module('frontEndApp')
 
       function DeleteFactura (factura_id) {
         console.log("factura que voy a eliminar "+ factura_id);
-        factura_ventaResource.delete({'id':factura_id},
-          function success(data){
-              toastr.success("Factura eliminada");
-              changePage(vm.pagination.current_page);
-          }, function err(err){
-              toastr.error("Error de servidor");
-          }
-        )
-      }
+      };
 
       /*recarga todo al principio*/
       function reload () {
